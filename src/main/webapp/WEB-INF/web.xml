@@ -4,4 +4,13 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>Bella</servlet-name>
+    <servlet-class>com.systechafrica.Hello</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Bella</servlet-name>
+    <url-pattern>/isabel</url-pattern>
+  </servlet-mapping>
 </web-app>
