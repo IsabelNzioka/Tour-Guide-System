@@ -1,4 +1,4 @@
-package com.systechafrica;
+package com.systechafrica.auth;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,8 +19,14 @@ public class Login extends HttpServlet {
         PrintWriter print = res.getWriter();
 
         if(username.equals("Bella") && password.equals("Nzioka")) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("./app/home.html");
-            dispatcher.include(req, res);
+
+            req.setAttribute("homeInfo", "Welcome to Tatu Tours Home page");
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
+//            dispatcher.include(req, res); //include the home.html in the same route
+            dispatcher.forward(req, res); //
+
+//            res.sendRedirect("./app/home.html");  //changes  url
         }
         else {
             print.write("<html><body>Invalid login details <a href=\".\"> Login again </a></body></html>");
