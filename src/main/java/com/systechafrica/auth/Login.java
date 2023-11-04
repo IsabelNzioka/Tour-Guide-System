@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import com.systechafrica.app.model.entity.User;
+import com.systechafrica.database.Database;
 import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/login")
@@ -29,29 +31,25 @@ public class Login extends HttpServlet {
     }
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        HttpSession httpSession = req.getSession(true);
-        httpSession.setAttribute("loggedInId", new Date().getTime() + "");
 
-        ServletContext ctx = getServletContext();
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        PrintWriter print = res.getWriter();
+        Database database = Database.getDbInstance();  // will  not create a new instance, just check for a global instance and use it.
 
-        if (username.equals(ctx.getInitParameter("username"))
-                && password.equals(ctx.getInitParameter("password"))) {
+        for(User user : database.getUsers()) {
+            if (username.equals(user.getUsername() ) && password.equals(user.getPassword())) {
+                HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
+                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
 
-          httpSession.setAttribute("username", username);
+                httpSession.setAttribute("username", username);
 
-//            RequestDispatcher dispatcher = req.getRequestDispatcher("./home");
-//            dispatcher.forward(req, res);
-            res.sendRedirect("./home");
-
+                res.sendRedirect("./home");
+            }
         }
-        else {
-            print.write("<html><body>Invalid login details <a href=\".\"> Login again!! </a></body></html>");
+            PrintWriter print = res.getWriter();
+            print.write("<html><body>Invalid login details <a href=\".\"> Login again!! </a></body></html>" + database.getUsers());
         }
 
-    }
 }

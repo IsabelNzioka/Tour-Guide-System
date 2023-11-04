@@ -1,6 +1,7 @@
 package com.systechafrica.app.bean;
 
 import com.systechafrica.app.model.entity.Tour;
+import com.systechafrica.database.Database;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,16 +11,17 @@ public class TourBean implements TourBeanI, Serializable {
 //    Business logic only
 
     public String availableTours() {
-        List<Tour> tours = new ArrayList<>();
-        tours.add(new Tour(null, "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 2000));
-        tours.add(new Tour("3023d", "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 9000));
-        tours.add(new Tour(null, "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 10000));
-        tours.add(new Tour("394h", "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 10000));
+//        List<Tour> tours = new ArrayList<>();
 
+//        tours.add(new Tour(null, "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 2000));
+//        tours.add(new Tour("3023d", "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 9000));
+//        tours.add(new Tour(null, "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 10000));
+//        tours.add(new Tour("394h", "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 10000));
+//
 
         StringBuilder tourCardBuilder = new StringBuilder();
 
-        for (Tour tour : tours)
+        for (Tour tour : Database.getDbInstance().getTours())
             tourCardBuilder.append(tour.tourCard());
 
         return tourCardBuilder.toString();

@@ -1,4 +1,4 @@
-package com.systechafrica.home;
+package com.systechafrica.action;
 
 import com.systechafrica.app.bean.TourBean;
 import com.systechafrica.app.bean.TourBeanI;

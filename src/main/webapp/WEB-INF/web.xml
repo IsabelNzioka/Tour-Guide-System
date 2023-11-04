@@ -6,12 +6,9 @@
   <display-name>Tour Booking and Management system</display-name>
 
   <context-param>
-    <param-name>username</param-name>
-    <param-value>Isabel</param-value>
+    <param-name>AppName</param-name>
+    <param-value>Tour Booking And Management System</param-value>
   </context-param>
-  <context-param>
-    <param-name>password</param-name>
-    <param-value>Java123</param-value>
-  </context-param>
+
 
 </web-app>
