@@ -6,6 +6,6 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface Menu  {
-   String menu(List<NavigationItemLInk> links);
+   String menu(int activeLinkIndex);
 
 }

@@ -6,6 +6,12 @@ public class NavigationItemLInk implements Serializable {
     private String url;
     private String label;
 
+    public NavigationItemLInk(String url, String label, NavigationItemLinkStatus status) {
+        this.url = url;
+        this.label = label;
+        this.status = status;
+    }
+
     private NavigationItemLinkStatus status;
 
 
