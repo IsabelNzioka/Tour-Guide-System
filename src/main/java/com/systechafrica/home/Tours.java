@@ -14,17 +14,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/home")
-public class Home  extends HttpServlet {
+@WebServlet("/tours")
+public class Tours extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 
-        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
+        if (StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
 
-            ServletContext ctx = getServletContext();
-
-            TourBeanI accountBean = new TourBean();
 
             PrintWriter print = res.getWriter();
             print.write("<!DOCTYPE html>\n" +
@@ -60,22 +57,19 @@ public class Home  extends HttpServlet {
                     "</style>\n" +
                     "</head>\n" +
                     "<body>\n" +
-                    "<div class='topnav'>\n" +
-                    "<a class=\"active\" href=\"./home\">Home</a>\n" +
-                    "<a href=\"./tours\">Tours</a>\n" +
+                    "<div class=\"topnav\">\n" +
+                    "<a href=\"./home\">Home</a>\n" +
+                    "<a class=\"active\"  href=\"./tours\">Tours</a>\n" +
                     "</div> " +
-                    "Welcome: " + httpSession.getAttribute("username") + "\n" +
-                    "<a href=\"./tours\">View all Tours </a> \n" +
+                    "<a href=\"./home\">Go to Homepage</a>\n" +
                     "<a href=\"./logout\">Logout</a> \n" +
-                    "<h2>Available Tours</h2>\n" +
+                    "<h2>All Tours</h2>\n" +
                     "<div class=\"divs\">" +
-                    accountBean.availableTours() +
                     "</div>\n" +
                     "</body>\n" +
                     "</html>");
 
-        }
-        else {
+        } else {
             res.sendRedirect("./");
         }
     }

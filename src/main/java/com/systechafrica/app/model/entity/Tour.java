@@ -1,4 +1,4 @@
-package com.systechafrica.app.model;
+package com.systechafrica.app.model.entity;
 
 import java.io.Serializable;
 
