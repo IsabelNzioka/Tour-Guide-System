@@ -83,6 +83,19 @@ public class AppCss implements Serializable {
             " font-size: 1.2rem;" +
             " color: #B2533E;" +
             "}" +
+            ".UserPage{" +
+            " margin-top: 6rem;" +
+            " color: #B2533E;" +
+            "}" +
+            ".WelcomeUser {" +
+            "  padding-left: 2.6rem;" +
+            " padding-top: 1.4rem;" +
+            "font-size: 1.4rem;" +
+            " color: #B2533E;" +
+            "}" +
+
+
+
             "</style>";
 
     public String getStyle() {
