@@ -20,15 +20,12 @@ public class UserAccountDetails  extends HttpServlet {
         HttpSession httpSession = req.getSession();
 
         if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
+//        if (httpSession.getAttribute("loggedInId") == null) {
 
-
-            TourBeanI tourBean = new TourBean();
-
-            new AppPage().renderHtml(req, res, 0,
-                    "<h2> My Account Details</h2>" +  tourBean.availableTours());
+            res.sendRedirect("./my-account");
         }
         else {
-            res.sendRedirect("./");
+            res.sendRedirect("./account/login");
         }
     }
 }

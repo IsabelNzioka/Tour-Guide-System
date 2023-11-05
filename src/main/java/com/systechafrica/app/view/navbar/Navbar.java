@@ -1,5 +1,7 @@
 package com.systechafrica.app.view.navbar;
 
+import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.model.entity.UserRole;
 import com.systechafrica.app.model.view.NavigationItemLInk;
 import com.systechafrica.app.model.view.NavigationItemLinkStatus;
 
@@ -11,14 +13,23 @@ public class Navbar  implements  Menu, Serializable {
 
     private final List<NavigationItemLInk> links = new ArrayList<>();
 
+
     {
-        links.add(new NavigationItemLInk("./home", "Home", NavigationItemLinkStatus.ACTIVE));
+        links.add(new NavigationItemLInk("./", "Home", NavigationItemLinkStatus.ACTIVE));
         links.add(new NavigationItemLInk("./tours", "tours", NavigationItemLinkStatus.NOT_ACTIVE));
-        links.add(new NavigationItemLInk("./account", "account", NavigationItemLinkStatus.NOT_ACTIVE));
-        links.add(new NavigationItemLInk("./admin", "admin",NavigationItemLinkStatus.NOT_ACTIVE));
+        links.add(new NavigationItemLInk("./account-login", "account", NavigationItemLinkStatus.NOT_ACTIVE));
+//        links.add(new NavigationItemLInk("./admin", "admin",NavigationItemLinkStatus.NOT_ACTIVE));
     }
     @Override
-    public String menu(int activeLinkIndex) {
+    public String menu(int activeLinkIndex, User user) {
+//        user = new User();
+
+//        Check for the roles of the users to display the links accordingly
+        if (user != null && user.getRole() == UserRole.ADMIN) {
+            links.add(new NavigationItemLInk("./admin", "admin", NavigationItemLinkStatus.NOT_ACTIVE));
+        }
+
+
         this.activateLink(activeLinkIndex);
 
         String navbarLinks =    "<div class='topnav'>" ;

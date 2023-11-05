@@ -19,18 +19,18 @@ public class Tours extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 
-        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
-
-
-            TourBeanI tourBean = new TourBean();
+//        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
+//
+//
+//            TourBeanI tourBean = new TourBean();
 //
 //            PrintWriter print = res.getWriter();
             new AppPage().renderHtml(req, res, 1,
-                    "<h2> All Tours </h2>" +  tourBean.availableTours());
-        }
-        else {
-            res.sendRedirect("./");
-        }
+                    "<h2> All Tours </h2>" );
+//        }
+//        else {
+//            res.sendRedirect("./login");
+//        }
     }
 
 }

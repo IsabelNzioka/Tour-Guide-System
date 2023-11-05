@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+        background-color: #001524;
+        color: #DAFFFB
+        }
+    </style>
+</head>
+<body>
+<h2> Anata Travels</h2>
+
+
+<!--Signup-->
+<h2>Don't have an Account? Register</h2>
+<form action="./register" method="post">
+
+    <div class="container">
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <label for="confirmPassword"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm Password" name="confirmPassword" required>
+
+        <button type="submit">Register</button>
+    </div>
+
+    <div class="container">
+        <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+</form>
+
+<p>Already have an account? ?</p>
+<a href="./login">log in</a>
+
+</body>
+</html>

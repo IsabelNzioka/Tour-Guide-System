@@ -6,6 +6,11 @@ public class User implements Serializable {
     private long id;
     private String username;
     private String password;
+
+
+
+    private UserRole role;
+
 //    email
 //    phone number
 //    roles - Admin, manager, guides, customers - default role - customers/
@@ -19,6 +24,7 @@ public class User implements Serializable {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.role = UserRole.CUSTOMER;
     }
 
 
@@ -45,6 +51,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
 

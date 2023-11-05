@@ -14,6 +14,6 @@ public class Logout  extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         req.getSession().invalidate(); //destroying a session.
-        res.sendRedirect("./");
+        res.sendRedirect("./account-login");
     }
 }

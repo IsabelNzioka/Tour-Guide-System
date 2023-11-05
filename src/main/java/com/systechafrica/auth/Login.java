@@ -15,20 +15,29 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.view.html.AppPage;
+import com.systechafrica.app.view.html.LoginPage;
 import com.systechafrica.database.Database;
 import org.apache.commons.lang3.StringUtils;
 
-@WebServlet("/login")
+@WebServlet("/account-login")
 public class Login extends HttpServlet {
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession httpSession = req.getSession();
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+               HttpSession httpSession = req.getSession();
 
-        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId"))))
-            res.sendRedirect("./home");
-        else
-             res.sendRedirect("./");
+                if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId"))))
+                            res.sendRedirect("./my-account");
+                else {
+                    new LoginPage().renderLogin(req, res, 2,
+                            "<h2> LOGIN</h2>");
+                }
+
+
+
     }
+
+
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 
@@ -44,8 +53,9 @@ public class Login extends HttpServlet {
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
 
                 httpSession.setAttribute("username", username);
+                httpSession.setAttribute("user", user);
 
-                res.sendRedirect("./home");
+                res.sendRedirect("./my-account");
             }
         }
             PrintWriter print = res.getWriter();
