@@ -4,6 +4,7 @@ import com.systechafrica.app.model.entity.User;
 import com.systechafrica.app.view.css.AppCss;
 import com.systechafrica.app.view.css.RegisterLoginCss;
 import com.systechafrica.app.view.navbar.Navbar;
+import com.systechafrica.app.view.navbar.NavbarSingletonPattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +39,8 @@ public class LoginPage implements Serializable {
                 "<body>" +
                 "<div class=\"NavbarContent\"> " +
                 "<span>Nata Travels</span>" +
-                new Navbar().menu(activeMenu, user) +
-//               " <i class=\"fa-regular fa-user\" style=\"color: #ffffff;\"></i>" +
+//                new Navbar().menu(activeMenu, user) +
+                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
                 "</div>" +
 //                "<h3>" + ctx.getInitParameter("AppName") + "<h3>" +
                 "<br/>&nbsp;<br/>" +

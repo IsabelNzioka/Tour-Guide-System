@@ -55,7 +55,7 @@ public class Login extends HttpServlet {
                 httpSession.setAttribute("username", username);
                 httpSession.setAttribute("user", user);
 
-                res.sendRedirect("./my-account");
+                res.sendRedirect("./");
             }
         }
             PrintWriter print = res.getWriter();

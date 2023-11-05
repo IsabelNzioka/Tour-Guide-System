@@ -22,7 +22,7 @@ public class Tours extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         Database database = Database.getDbInstance();
 
-        StringBuilder toursList = new StringBuilder("<div class='TourList'>");
+        StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
         for (Tour tour : database.getTours()) {
             toursList.append("<div class='card'>")
                     .append("<img src='" + tour.getImageUrl() + "' alt='Tour Image' >")

@@ -5,6 +5,7 @@ import com.systechafrica.app.bean.TourBeanI;
 import com.systechafrica.app.model.entity.User;
 import com.systechafrica.app.view.css.AppCss;
 import com.systechafrica.app.view.navbar.Navbar;
+import com.systechafrica.app.view.navbar.NavbarSingletonPattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,8 @@ public class AppPage implements Serializable {
                 "<body>" +
                 "<div class=\"NavbarContent\"> " +
                 "<span>Nata Travels</span>" +
-                   new Navbar().menu(activeMenu, user) +
+                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
+//                   new Navbar().menu(activeMenu, user) +
                 "</div>" +
 
 //                "<h3>" + ctx.getInitParameter("AppName") + "<h3>" +

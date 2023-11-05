@@ -53,7 +53,7 @@ public class AppCss implements Serializable {
                 "  background-size: cover;" +
                 " height: 100vh;" +
                 "}" +
-            ".TourList {" +
+            ".ToursList {" +
                 " margin: 5rem  3rem;" +
                 " display: grid;" +
                 "grid-template-columns: repeat(3, 1fr); " +
@@ -72,27 +72,27 @@ public class AppCss implements Serializable {
             "  border-radius: 5px;" +
             "}" +
             ".card h3{" +
-            " font-size: 1.1rem;" +
-            " padding: 5px;" +
-            "}" +
+                " font-size: 1.1rem;" +
+                " padding: 5px;" +
+                "}" +
             ".card p{" +
-            " font-size: 1rem;" +
-            " padding: 5px;" +
-            "}" +
+                " font-size: 1rem;" +
+                " padding: 5px;" +
+                "}" +
             ".Price{" +
-            " font-size: 1.2rem;" +
-            " color: #B2533E;" +
-            "}" +
+                " font-size: 1.2rem;" +
+                " color: #B2533E;" +
+                "}" +
             ".UserPage{" +
-            " margin-top: 6rem;" +
-            " color: #B2533E;" +
-            "}" +
+                " margin-top: 6rem;" +
+                " color: #B2533E;" +
+                "}" +
             ".WelcomeUser {" +
-            "  padding-left: 2.6rem;" +
-            " padding-top: 1.4rem;" +
-            "font-size: 1.4rem;" +
-            " color: #B2533E;" +
-            "}" +
+                "  padding-left: 2.6rem;" +
+                " padding-top: 1.4rem;" +
+                "font-size: 1.4rem;" +
+                " color: #B2533E;" +
+                "}" +
 
 
 
