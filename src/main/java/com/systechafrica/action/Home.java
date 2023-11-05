@@ -20,7 +20,11 @@ public class Home  extends HttpServlet {
         HttpSession httpSession = req.getSession();
 
             new AppPage().renderHtml(req, res, 0,
-                    "<h2> Welcome to Nata Travels</h2>" );
+                    "<div class='HomePage'>" +
+
+                              "" +
+                            "" +
+                            "</div>" );
 
     }
 

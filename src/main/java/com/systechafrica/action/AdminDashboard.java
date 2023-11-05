@@ -21,36 +21,44 @@ public class AdminDashboard extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
+        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
 
-        String requestUrl = req.getRequestURI();
 
-        if (requestUrl.equals("/add-tour")) {
-            new AddTourAction().doGet(req, res);
+            String requestUrl = req.getRequestURI();
 
-        }   else if (requestUrl.equals("/admin-tours")) {
-            new ViewTours().doGet(req, res);
+            if (requestUrl.equals("/add-tour")) {
+                new AddTourAction().doGet(req, res);
+
+            }   else if (requestUrl.equals("/admin-tours")) {
+                new ViewTours().doGet(req, res);
 //            new AdminPage().renderAdmin(req, res, 1,
 //                    "<h2> View and Manage Tours</h2>"
 //            );
 
-        }
+            }
 
-        else if (requestUrl.equals("/admin-users")) {
-            new AdminPage().renderAdmin(req, res, 2,
-                    "<h2> View and Manage Users</h2>"
-            );
+            else if (requestUrl.equals("/admin-users")) {
+                new AdminPage().renderAdmin(req, res, 2,
+                        "<h2> View and Manage Users</h2>"
+                );
 
-        } else if (requestUrl.equals("/admin-bookings")) {
-            new AdminPage().renderAdmin(req, res, 3,
-                    "<h2> View and Manage Users</h2>"
-            );
+            } else if (requestUrl.equals("/admin-bookings")) {
+                new AdminPage().renderAdmin(req, res, 3,
+                        "<h2> View and Manage Users</h2>"
+                );
 
-        } else {
-            new AdminPage().renderAdmin(req, res, 4,
-                    "<h2> Default page</h2>"
-            );
+            } else {
+                new AdminPage().renderAdmin(req, res, 4,
+                        "<h2> Default page</h2>"
+                );
 //            default page - display statistics data - Happy customers, tours done this year, bookings done, etc
 
+            }
+        }  else {
+            res.sendRedirect("./account-login");
         }
+
+
+
     }
 }

@@ -8,7 +8,18 @@ public class Tour  implements Serializable {
     private String summary;
     private int durationInDays;
     private int price;
+    private String imageUrl;
 
+    public Tour(String code, String name, String summary, int durationInDays, int price, String imageUrl) {
+        this.code = code;
+        this.name = name;
+        this.summary = summary;
+        this.durationInDays = durationInDays;
+        this.price = price;
+        this.imageUrl = imageUrl;
+    }
+
+//  Todo - database details
 //    ratings
 //    cancellation - free?
 //    image - love button?
@@ -80,7 +91,13 @@ public class Tour  implements Serializable {
         price = price;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public  String tourCard(){
         StringBuilder cardBuilder = new StringBuilder();

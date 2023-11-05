@@ -13,19 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/account")
+@WebServlet("/my-account")
 public class UserAccountDetails  extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 
+        String requestUrl = req.getRequestURI();
+
         if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
 //        if (httpSession.getAttribute("loggedInId") == null) {
 
-            res.sendRedirect("./my-account");
+            res.sendRedirect("./");
         }
         else {
-            res.sendRedirect("./account/login");
+            res.sendRedirect("./account-login");
         }
     }
 }

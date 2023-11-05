@@ -46,6 +46,43 @@ public class AppCss implements Serializable {
             "  margin-bottom: 20px;" +
             "}" +
 
+            ".HomePage {" +
+                "    background-image: url('https://images.unsplash.com/photo-1553697388-94e804e2f0f6?auto=format&fit=crop&q=80&w=1530&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); " +
+                "    background-position:  50% 30%;" +
+                " background-repeat: no-repeat;" +
+                "  background-size: cover;" +
+                " height: 100vh;" +
+                "}" +
+            ".TourList {" +
+                " margin: 5rem  3rem;" +
+                " display: grid;" +
+                "grid-template-columns: repeat(3, 1fr); " +
+                " grid-gap: 2rem;" +
+            "}" +
+            ".card {" +
+            "padding-bottom: 1rem;"+
+                " border: 1px solid #ccc;" +
+                "  text-align: center;" +
+            "box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;" +
+            "  border-radius: 5px;" +
+                "}" +
+            ".card img{" +
+                " width: 100%;" +
+                "height: 400px; " +
+            "  border-radius: 5px;" +
+            "}" +
+            ".card h3{" +
+            " font-size: 1.1rem;" +
+            " padding: 5px;" +
+            "}" +
+            ".card p{" +
+            " font-size: 1rem;" +
+            " padding: 5px;" +
+            "}" +
+            ".Price{" +
+            " font-size: 1.2rem;" +
+            " color: #B2533E;" +
+            "}" +
             "</style>";
 
     public String getStyle() {
