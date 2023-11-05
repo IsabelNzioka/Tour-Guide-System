@@ -59,7 +59,11 @@ public class Login extends HttpServlet {
             }
         }
             PrintWriter print = res.getWriter();
-            print.write("<html><body>Invalid login details <a href=\".\"> Login again!! </a></body></html>" + database.getUsers());
-        }
+             print.write("<html><head><style>" +
+                "body { display: flex; justify-content: center; align-items: center; height: 100vh; }" +
+                ".card { padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); max-width: 400px; margin: auto; text-align: center; }" +
+                "</style></head><body><div class='card'><p>Invalid login details <a href='./account-login'> Login again!! </a></p></div></body></html>");
+
+    }
 
 }
