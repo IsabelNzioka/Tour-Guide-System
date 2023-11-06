@@ -26,12 +26,8 @@ public class Login extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
                HttpSession httpSession = req.getSession();
 
-                if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId"))))
-                            res.sendRedirect("./my-account");
-                else {
                     new LoginPage().renderLogin(req, res, 2,
                             "<h2> LOGIN</h2>");
-                }
 
 
 
@@ -39,7 +35,6 @@ public class Login extends HttpServlet {
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
 
 
         String username = req.getParameter("username");
@@ -55,7 +50,7 @@ public class Login extends HttpServlet {
                 httpSession.setAttribute("username", username);
                 httpSession.setAttribute("user", user);
 
-                res.sendRedirect("./");
+                res.sendRedirect("./my-account");
             }
         }
             PrintWriter print = res.getWriter();

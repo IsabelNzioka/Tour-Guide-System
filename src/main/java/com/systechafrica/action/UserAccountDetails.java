@@ -22,7 +22,7 @@ public class UserAccountDetails  extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
-        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
+//        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
 
 
             String requestUrl = req.getRequestURI();
@@ -44,9 +44,9 @@ public class UserAccountDetails  extends HttpServlet {
                         "<h2> Account Details - change/update </h2>"
                 );
             }
-        }  else {
-            res.sendRedirect("./account-login");
-        }
+//        }  else {
+//            res.sendRedirect("./account-login");
+//        }
 
 
 
