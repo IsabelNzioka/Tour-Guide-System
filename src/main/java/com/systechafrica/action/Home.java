@@ -15,6 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/")
 public class Home  extends HttpServlet {
+//    TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();

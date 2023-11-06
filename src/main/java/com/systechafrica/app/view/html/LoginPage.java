@@ -39,8 +39,8 @@ public class LoginPage implements Serializable {
                 "<body>" +
                 "<div class=\"NavbarContent\"> " +
                 "<span>Nata Travels</span>" +
-//                new Navbar().menu(activeMenu, user) +
-                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
+                new Navbar().menu(activeMenu, user) +
+//                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
                 "</div>" +
 //                "<h3>" + ctx.getInitParameter("AppName") + "<h3>" +
                 "<br/>&nbsp;<br/>" +

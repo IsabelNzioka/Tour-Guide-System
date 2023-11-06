@@ -11,25 +11,30 @@ public class TourBean implements TourBeanI, Serializable {
 //    Business logic only
 
     public String availableTours() {
-//        List<Tour> tours = new ArrayList<>();
+        Database database = Database.getDbInstance();
 
-//        tours.add(new Tour(null, "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 2000));
-//        tours.add(new Tour("3023d", "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 9000));
-//        tours.add(new Tour(null, "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 10000));
-//        tours.add(new Tour("394h", "Bali White water rafting", "Choose between a morning or afternoon...in Bali...more", 10000));
-//
+        StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
+        for (Tour tour : database.getTours()) {
+            toursList.append("<div class='card'>")
+                    .append("<img src='" + tour.getImageUrl() + "' alt='Tour Image' >")
+                    .append("<h3>").append(tour.getName()).append("</h3>")
+                    .append("<p class='Price'>").append("$").append(tour.getPrice()).append("</p>")
+                    .append("<p>").append("Duration in Days: ").append(tour.getDurationInDays()).append("</p>")
+                    .append("<p>").append("Slots left: ").append(tour.getDurationInDays()).append("</p>")
+                    .append("</div>");
+        }
+        toursList.append("</div>");
 
-        StringBuilder tourCardBuilder = new StringBuilder();
-
-        for (Tour tour : Database.getDbInstance().getTours())
-            tourCardBuilder.append(tour.tourCard());
-
-        return tourCardBuilder.toString();
+        return toursList.toString();
     }
 
-    public Tour addOrUpdateTour(Tour tour) throws Exception {
-        return null;
+    public Tour addOrUpdateTour(Tour tour) {
+         Database database = Database.getDbInstance();
+         database.getTours().add(tour);
+
+        return tour;
     }
+
     public void deleteAccount(Tour tour) {
 
     }

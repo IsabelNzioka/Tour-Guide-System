@@ -39,8 +39,8 @@ public class AppPage implements Serializable {
                 "<body>" +
                 "<div class=\"NavbarContent\"> " +
                 "<span>Nata Travels</span>" +
-                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
-//                   new Navbar().menu(activeMenu, user) +
+//                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
+                   new Navbar().menu(activeMenu, user) +
                 "</div>" +
 
 //                "<h3>" + ctx.getInitParameter("AppName") + "<h3>" +

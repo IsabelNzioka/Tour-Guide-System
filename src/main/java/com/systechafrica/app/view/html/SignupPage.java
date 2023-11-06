@@ -39,8 +39,8 @@ public class SignupPage implements Serializable {
                 "<body>" +
                 "<div class=\"NavbarContent\"> " +
                 "<span>Nata Travels</span>" +
-//                new Navbar().menu(activeMenu, user) +
-                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
+                new Navbar().menu(activeMenu, user) +
+//                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
                 "</div>" +
                 "<br/>&nbsp;<br/>" +
                 "<div class=\"formContainer\">" +

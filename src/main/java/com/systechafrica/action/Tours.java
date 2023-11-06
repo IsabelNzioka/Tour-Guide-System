@@ -18,23 +18,24 @@ import java.io.IOException;
 
 @WebServlet("/tours")
 public class Tours extends HttpServlet {
+    TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        Database database = Database.getDbInstance();
+//        Database database = Database.getDbInstance();
+//
+//        StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
+//        for (Tour tour : database.getTours()) {
+//            toursList.append("<div class='card'>")
+//                    .append("<img src='" + tour.getImageUrl() + "' alt='Tour Image' >")
+//                    .append("<h3>").append(tour.getName()).append("</h3>")
+//                    .append("<p class='Price'>").append("$").append(tour.getPrice()).append("</p>")
+//                    .append("<p>").append("Duration in Days: ").append(tour.getDurationInDays()).append("</p>")
+//                    .append("<p>").append("Slots left: ").append(tour.getDurationInDays()).append("</p>")
+//                    .append("</div>");
+//        }
+//        toursList.append("</div>");
 
-        StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
-        for (Tour tour : database.getTours()) {
-            toursList.append("<div class='card'>")
-                    .append("<img src='" + tour.getImageUrl() + "' alt='Tour Image' >")
-                    .append("<h3>").append(tour.getName()).append("</h3>")
-                    .append("<p class='Price'>").append("$").append(tour.getPrice()).append("</p>")
-                    .append("<p>").append("Duration in Days: ").append(tour.getDurationInDays()).append("</p>")
-                    .append("<p>").append("Slots left: ").append(tour.getDurationInDays()).append("</p>")
-                    .append("</div>");
-        }
-        toursList.append("</div>");
-
-        new AppPage().renderHtml(req, res, 1, toursList.toString());
+        new AppPage().renderHtml(req, res, 1, tourBean.availableTours());
     }
 
 
