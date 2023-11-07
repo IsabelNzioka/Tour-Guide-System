@@ -1,10 +1,7 @@
 package com.systechafrica.action;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +11,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import com.systechafrica.app.bean.AuthBean;
+import com.systechafrica.app.bean.AuthBeanI;
 import com.systechafrica.app.model.entity.User;
-import com.systechafrica.app.view.html.AppPage;
 import com.systechafrica.app.view.html.LoginPage;
 import com.systechafrica.database.Database;
-import org.apache.commons.lang3.StringUtils;
 
 @WebServlet("/account-login")
-public class Login extends HttpServlet {
+public class LoginAction extends BaseAction {
+    AuthBeanI authBean = new AuthBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
                HttpSession httpSession = req.getSession();
@@ -33,23 +31,19 @@ public class Login extends HttpServlet {
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        User user = new User();
+        serializeForm(user, req.getParameterMap());
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        User userDetails = authBean.authenticate(user);
 
-        Database database = Database.getDbInstance();  // will  not create a new instance, just check for a global instance and use it.
-
-        for(User user : database.getUsers()) {
-            if (username.equals(user.getUsername() ) && password.equals(user.getPassword())) {
+            if (userDetails != null) {
                 HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
-                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
 
-                httpSession.setAttribute("username", username);
-                httpSession.setAttribute("user", user);
+                httpSession.setAttribute("loggedInId", new Date().getTime() + "");
+                httpSession.setAttribute("user", userDetails); //used to check user roles to display to navbar links accordingly
 
                 res.sendRedirect("./my-account");
             }
-        }
             PrintWriter print = res.getWriter();
              print.write("<html><head><style>" +
                 "body { display: flex; justify-content: center; align-items: center; height: 100vh; }" +

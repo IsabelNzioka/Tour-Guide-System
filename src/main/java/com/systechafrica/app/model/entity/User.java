@@ -8,7 +8,7 @@ public class User implements Serializable {
     private String password;
 
 
-
+    private String confirmPassword;
     private UserRole role;
 
 //    email
@@ -18,6 +18,14 @@ public class User implements Serializable {
 
     public  User() {
 
+    }
+
+    public User(long id, String username, String password, String confirmPassword, UserRole role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.role = role;
     }
 
     public User(long id, String username, String password) {
@@ -61,5 +69,11 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 }

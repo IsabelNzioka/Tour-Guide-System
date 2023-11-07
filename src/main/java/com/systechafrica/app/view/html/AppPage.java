@@ -23,7 +23,7 @@ public class AppPage implements Serializable {
         HttpSession httpSession = req.getSession();
         User user = (User) httpSession.getAttribute("user");
 
-//        TourBeanI accountBean = new TourBean();
+
 
         PrintWriter print = res.getWriter();
         print.write("<!DOCTYPE html>" +
@@ -39,11 +39,8 @@ public class AppPage implements Serializable {
                 "<body>" +
                 "<div class=\"NavbarContent\"> " +
                 "<span>Nata Travels</span>" +
-//                NavbarSingletonPattern.getInstance().menu(activeMenu, user) +
                    new Navbar().menu(activeMenu, user) +
                 "</div>" +
-
-//                "<h3>" + ctx.getInitParameter("AppName") + "<h3>" +
                 "<div class=\"Content\">"  );
                     print.write(content);
                     print.write( "</div>\n" +
