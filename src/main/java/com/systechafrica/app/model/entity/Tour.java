@@ -6,18 +6,12 @@ public class Tour  implements Serializable {
     private String code;
     private String name;
     private String summary;
-    private int durationInDays;
     private int price;
-    private String imageUrl;
+    private int durationindays;
 
-    public Tour(String code, String name, String summary, int durationInDays, int price, String imageUrl) {
-        this.code = code;
-        this.name = name;
-        this.summary = summary;
-        this.durationInDays = durationInDays;
-        this.price = price;
-        this.imageUrl = imageUrl;
-    }
+    private String imageurl;
+
+
 
 //  Todo - database details
 //    ratings
@@ -33,22 +27,14 @@ public class Tour  implements Serializable {
 
     }
 
-    public Tour(String code, String name, String summary, int durationInDays, int price) {
+    public Tour(String code, String name, String summary, int durationindays, int price, String imageurl) {
         this.code = code;
         this.name = name;
         this.summary = summary;
-        this.durationInDays = durationInDays;
+        this.durationindays = durationindays;
         this.price = price;
+        this.imageurl = imageurl;
     }
-
-    public Tour(String code, String name, String summary, int price) {
-        this.code = code;
-        this.name = name;
-        this.summary = summary;
-
-        this.price = price;
-    }
-
 
 
     public String getCode() {
@@ -75,28 +61,28 @@ public class Tour  implements Serializable {
         this.summary = summary;
     }
 
-    public int getDurationInDays() {
-        return durationInDays;
-    }
-
-    public void setDurationInDays(int durationInDays) {
-        this.durationInDays = durationInDays;
-    }
-
     public int getPrice() {
         return price;
     }
 
     public void setPrice(int price) {
-        price = price;
+        this.price = price;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getDurationindays() {
+        return durationindays;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setDurationindays(int durationindays) {
+        this.durationindays = durationindays;
+    }
+
+    public String getImageurl() {
+        return imageurl;
+    }
+
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
     }
 
     public  String tourCard(){

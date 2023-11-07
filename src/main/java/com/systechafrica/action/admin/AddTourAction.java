@@ -1,11 +1,13 @@
 package com.systechafrica.action.admin;
 
+import com.systechafrica.action.BaseAction;
 import com.systechafrica.app.bean.TourBean;
 import com.systechafrica.app.bean.TourBeanI;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.view.html.AdminPage;
 import com.systechafrica.database.Database;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 @WebServlet("/add-tour")
-public class AddTourAction  extends HttpServlet {
+public class AddTourAction  extends BaseAction {
+    private Tour tour = new Tour();
     private TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -26,13 +30,16 @@ public class AddTourAction  extends HttpServlet {
                         "  <label for=\"code\">Account Code:</label><br>" +
                         "  <input type=\"text\" id=\"code\" name=\"code\" ><br>" +
                         "  <label for=\"name\">Tour name:</label><br>" +
-                        "  <input type=\"text\" id=\"name\" name=\"name\" ><br><br>" +
+                        "  <input type=\"text\" id=\"name\" name=\"name\" ><br>" +
                         "  <label for=\"summary\">Tour summary:</label><br>" +
-                        "  <input type=\"text\" id=\"summary\" name=\"summary\" ><br><br>" +
+                        "  <input type=\"text\" id=\"summary\" name=\"summary\" ><br>" +
                         "  <label for=\"price\">Tour Price:</label><br>" +
-                        "  <input type=\"number\" id=\"price\" name=\"price\" ><br><br>" +
+                        "  <input type=\"number\" id=\"price\" name=\"price\" ><br>" +
+                        "  <label for=\"durationindays\">Duration In Days:</label><br>" +
+                        "  <input type=\"text\" id=\"durationindays\" name=\"durationindays\" ><br>" +
+                        "  <label for=\"imageurl\">Image URL:</label><br>" +
+                        "  <input type=\"text\" id=\"imageurl\" name=\"imageurl\" ><br>" +
                         "  <button type=\"submit\" class=\"SubmitButton\">Submit</button>" +
-
                         "</form><br/>" +
                         "</div>");
     }
@@ -41,20 +48,10 @@ public class AddTourAction  extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
 
-        if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
+        serializeForm(tour, req.getParameterMap());
+        System.out.println(tour);
+        tourBean.addOrUpdateTour(tour);
 
-
-            int tourPrice = Integer.parseInt(req.getParameter("price"));
-            String tourName = req.getParameter("name");
-            String tourSummary = req.getParameter("summary");
-            String tourCode = req.getParameter("code");
-
-            tourBean.addOrUpdateTour(new Tour(tourCode, tourName, tourSummary, tourPrice));
-
-            res.sendRedirect("./admin");
-        }
-        else {
-            res.sendRedirect("./");
-        }
+        res.sendRedirect("./admin");
     }
 }

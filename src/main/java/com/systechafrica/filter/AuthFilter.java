@@ -38,12 +38,12 @@ public class AuthFilter implements Filter {
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
         } else {
-            if(httpSession.isNew()) {
+            if( servletPath.equals("/")  || servletPath.equals("/tours")) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else if(httpSession.isNew()) {
                 httpSession.invalidate();
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/account-login");
-            } else if( servletPath.equals("/")  || servletPath.equals("/tours")) {
-                    filterChain.doFilter(servletRequest, servletResponse);
-                } else if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
+            }else if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
                 else {
@@ -52,6 +52,13 @@ public class AuthFilter implements Filter {
 
         }
     }
+
+
+
+
+
+
+
 
     @Override
     public void destroy() {

@@ -20,11 +20,8 @@ import java.util.Date;
 public class UserAction  extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-
         new SignupPage().renderSignup(req, res, 2,
                 "<h2> LOGIN</h2>");
-
     }
 
 
@@ -40,7 +37,9 @@ public void doPost(HttpServletRequest req, HttpServletResponse res) throws Servl
     if (password.equals(confirmPassword)) {
         User user = new User(100L, username, password); // create a new User object
         database.getUsers().add(user); // add the user to the database
+
         httpSession.setAttribute("loggedInId", new Date().getTime() + "");
+
         httpSession.setAttribute("user", user);
         res.sendRedirect("./my-account");
     } else {

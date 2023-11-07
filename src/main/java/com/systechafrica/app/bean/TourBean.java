@@ -16,11 +16,11 @@ public class TourBean implements TourBeanI, Serializable {
         StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
         for (Tour tour : database.getTours()) {
             toursList.append("<div class='card'>")
-                    .append("<img src='" + tour.getImageUrl() + "' alt='Tour Image' >")
+                    .append("<img src='" + tour.getImageurl() + "' alt='Tour Image' >")
                     .append("<h3>").append(tour.getName()).append("</h3>")
                     .append("<p class='Price'>").append("$").append(tour.getPrice()).append("</p>")
-                    .append("<p>").append("Duration in Days: ").append(tour.getDurationInDays()).append("</p>")
-                    .append("<p>").append("Slots left: ").append(tour.getDurationInDays()).append("</p>")
+                    .append("<p>").append("Duration in Days: ").append(tour.getDurationindays()).append("</p>")
+                    .append("<p>").append("Slots left: 100").append("</p>")
                     .append("</div>");
         }
         toursList.append("</div>");

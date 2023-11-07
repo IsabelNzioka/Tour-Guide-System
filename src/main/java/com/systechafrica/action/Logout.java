@@ -1,4 +1,4 @@
-package com.systechafrica.auth;
+package com.systechafrica.action;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +12,8 @@ import java.io.IOException;
 public class Logout  extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
         req.getSession().invalidate(); //destroying a session.
         res.sendRedirect("./account-login");
+
     }
 }

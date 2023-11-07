@@ -1,4 +1,4 @@
-package com.systechafrica.auth;
+package com.systechafrica.action;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -29,13 +29,10 @@ public class Login extends HttpServlet {
                     new LoginPage().renderLogin(req, res, 2,
                             "<h2> LOGIN</h2>");
 
-
-
     }
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");

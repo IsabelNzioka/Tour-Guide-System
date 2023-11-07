@@ -24,7 +24,7 @@ public class ViewTours extends HttpServlet  {
             toursList.append("<tr>")
                     .append("<td>").append(tour.getName()).append("</td>")
                     .append("<td>").append(tour.getPrice()).append("</td>")
-                    .append("<td>").append(tour.getDurationInDays()).append("</td>")
+                    .append("<td>").append(tour.getDurationindays()).append("</td>")
                     .append("<td> 100 Slots</td>")
                     .append("</tr>");
         }
