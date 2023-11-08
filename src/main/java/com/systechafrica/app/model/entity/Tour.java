@@ -8,9 +8,11 @@ public class Tour  implements Serializable {
 
     private int price;
     private int durationindays;
-    private TourCategories tourCategories;
+    private TourCategory tourCategories;
     private String summary;
     private String imageurl;
+
+    private int ratings;
 
 
 
@@ -30,23 +32,18 @@ public class Tour  implements Serializable {
 
     }
 
-//    public Tour(String code, String name, String summary, int durationindays, int price, String imageurl) {
-//        this.code = code;
-//        this.name = name;
-//        this.summary = summary;
-//        this.durationindays = durationindays;
-//        this.price = price;
-//        this.imageurl = imageurl;
-//    }
 
-    public Tour(String code, String name, String summary, int price, int durationindays, String imageurl, TourCategories tourCategories) {
+
+
+    public Tour(String code, String name, int price, int durationindays, TourCategory tourCategories, String summary, String imageurl, int ratings) {
         this.code = code;
         this.name = name;
-        this.summary = summary;
         this.price = price;
         this.durationindays = durationindays;
-        this.imageurl = imageurl;
         this.tourCategories = tourCategories;
+        this.summary = summary;
+        this.imageurl = imageurl;
+        this.ratings = ratings;
     }
 
     public String getCode() {
@@ -98,24 +95,32 @@ public class Tour  implements Serializable {
     }
 
 
-    public TourCategories getTourCategories() {
+    public TourCategory getTourCategories() {
         return tourCategories;
     }
 
-    public void setTourCategories(TourCategories tourCategories) {
+    public void setTourCategories(TourCategory tourCategories) {
         this.tourCategories = tourCategories;
     }
 
-    public  String tourCard(){
-        StringBuilder cardBuilder = new StringBuilder();
-        cardBuilder.append("<div class='Divs'>");
-        cardBuilder.append("<p>").append(getName().trim()).append("</p>");
-        cardBuilder.append("<p>").append(getPrice() == 0 ? "..." : getPrice()).append("</p>");
-        cardBuilder.append("<p>").append(getSummary().trim()).append("</p>");
-        cardBuilder.append("</div>");
-
-        return cardBuilder.toString();
+    public int getRatings() {
+        return ratings;
     }
+
+    public void setRatings(int ratings) {
+        this.ratings = ratings;
+    }
+
+//    public  String tourCard(){
+//        StringBuilder cardBuilder = new StringBuilder();
+//        cardBuilder.append("<div class='Divs'>");
+//        cardBuilder.append("<p>").append(getName().trim()).append("</p>");
+//        cardBuilder.append("<p>").append(getPrice() == 0 ? "..." : getPrice()).append("</p>");
+//        cardBuilder.append("<p>").append(getSummary().trim()).append("</p>");
+//        cardBuilder.append("</div>");
+//
+//        return cardBuilder.toString();
+//    }
 
 
 }
