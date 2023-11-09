@@ -1,6 +1,8 @@
 package com.systechafrica.app.bean;
 
 import com.systechafrica.app.model.entity.Tour;
+import com.systechafrica.app.view.html.AdminPage;
+import com.systechafrica.app.view.html.HtmlComponent;
 import com.systechafrica.database.Database;
 
 import java.io.Serializable;
@@ -11,21 +13,7 @@ public class TourBean implements TourBeanI, Serializable {
 //    Business logic only
 
     public String availableTours() {
-        Database database = Database.getDbInstance();
-
-        StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
-        for (Tour tour : database.getTours()) {
-            toursList.append("<div class='card'>")
-                    .append("<img src='" + tour.getImageurl() + "' alt='Tour Image' >")
-                    .append("<h3>").append(tour.getName()).append("</h3>")
-                    .append("<p class='Price'>").append("$").append(tour.getPrice()).append("</p>")
-                    .append("<p>").append("Duration in Days: ").append(tour.getDurationindays()).append("</p>")
-                    .append("<p>").append("Slots left: 100").append("</p>")
-                    .append("</div>");
-        }
-        toursList.append("</div>");
-
-        return toursList.toString();
+        return HtmlComponent.table(Database.getDbInstance().getTours());
     }
 
     public Tour addOrUpdateTour(Tour tour) {

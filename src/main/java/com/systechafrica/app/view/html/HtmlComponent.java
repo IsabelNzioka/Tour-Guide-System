@@ -16,13 +16,19 @@ public class HtmlComponent implements Serializable {
 
         StringBuilder toursList = new StringBuilder("<h2></h2><table class='TourList'><tr>");
 
-        for (Field  field : fields)
-            toursList.append("<th>" + field.getName() + "</th>");
+        for (Field  field : fields) {
+            if (!field.isAnnotationPresent(TableColHeader.class))
+                continue;
+
+            toursList.append("<th>" + field.getAnnotation(TableColHeader.class).headerLabel() + "</th>");
+        }
         toursList.append("</tr>");
 
         for(Object model : models) {
             toursList.append("<tr>");
                     for(Field field : fields) {
+                        if (!field.isAnnotationPresent(TableColHeader.class))
+                            continue;
                         try {
                             field.setAccessible(true); //if the fields are private
                             toursList.append("<td>").append(field.get(model)).append("</td>");
@@ -38,28 +44,44 @@ public class HtmlComponent implements Serializable {
     }
 
     public static String form(Class<?> model) {
-                String formHtml = "<div class='AddToursPage'>" +
-                "<form action=\"./add-tour\" method=\"post\">" ;
+
+        HtmlForm htmlForm = null;
+        if(model.isAnnotationPresent((HtmlForm.class)))
+           htmlForm = model.getAnnotation((HtmlForm.class));
+
+        if(htmlForm == null)
+            return StringUtils.EMPTY;
+
+
+        String formHtml = "<div class='AddToursPage'>" + "<h2>" + htmlForm.label() + "</h2>" +
+                "<form action=\""+ htmlForm.url() + "\" method=\""+ htmlForm.httpMethod() +"\">" ;
 
         Field [] fields = model.getDeclaredFields();
-        for(Field field : fields) {
 
+
+        for(Field field : fields) {
+            if(!field.isAnnotationPresent(HtmlFormField.class))
+                continue;
+
+            HtmlFormField formField = field.getAnnotation(HtmlFormField.class);
             String fieldName = field.getName();
             String fieldType = String.valueOf(field.getType());
-
             boolean isEnum = field.getType().isEnum();
-            field.getType().getEnumConstants();
+//          getEnumConstants() - Returns the elements of this enum class or null if this Class object does not represent an enum type
 
             if(isEnum) {
-                formHtml += "<select name=\""+ fieldName + "\" id=\""+ fieldName +"\">";
+                formHtml += "<select name=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor())  + "\" id=\""+ fieldName +"\">";
 
                 for (Object category : field.getType().getEnumConstants()) {
                     formHtml += "<option value=\"" + category + "\">" + category+ "</option>";
                 }
                 formHtml += "</select><br>";
             } else {
-                formHtml +=  "<label for=\""+ fieldName + "\">"+ fieldName + ":</label><br>";
-                formHtml +=  "<input type=\""+ fieldType + "\" id=\""+ fieldName +"\" name=\""+ fieldName + "\"><br>" ;
+                formHtml +=  "<label for=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor()) + "\">"+
+                                             (StringUtils.isBlank(formField.label()) ? fieldName : formField.label())  + ":</label><br>";
+                formHtml +=  "<input type=\""+ (StringUtils.isBlank(formField.type()) ? fieldName : formField.type()) + "\" id=\""+     //text, number, ...
+                                             (StringUtils.isBlank(formField.id()) ? fieldName : formField.id()) +"\" name=\""+
+                                              (StringUtils.isBlank(formField.name()) ? fieldName : formField.name())  + "\"><br>" ;
             }
 
 

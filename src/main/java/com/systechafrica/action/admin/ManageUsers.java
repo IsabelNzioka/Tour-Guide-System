@@ -16,6 +16,6 @@ public class ManageUsers extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        new AdminPage().renderAdmin(req, res, 1, HtmlComponent.table(Database.getDbInstance().getUsers()));
+        new AdminPage().renderAdmin(req, res, 2, HtmlComponent.table(Database.getDbInstance().getUsers()));
     }
 }

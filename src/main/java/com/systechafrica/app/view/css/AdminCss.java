@@ -21,7 +21,7 @@ public class AdminCss implements Serializable {
             "}" +
             ".ContentLinks {" +
             "  padding: 2rem;" +
-            "  flex: 0 0 25%;" +
+            "  flex: 0 0 20%;" +
              "height: 100vh;" +
             "   display: flex;" +
             "   flex-direction: column;" +

@@ -1,14 +1,18 @@
 package com.systechafrica.app.model.entity;
 
+import com.systechafrica.app.view.html.TableColHeader;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
+    @TableColHeader(headerLabel = "User ID")
     private long id;
+    @TableColHeader(headerLabel = "User Name")
     private String username;
     private String password;
 
-
     private String confirmPassword;
+    @TableColHeader(headerLabel = "User Role")
     private UserRole role;
 
 //    email

@@ -18,7 +18,6 @@ import java.io.IOException;
 public class AddTourAction  extends BaseAction {
     private Tour tour = new Tour();
     private TourBeanI tourBean = new TourBean();
-
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         new AdminPage().renderAdmin(req, res, 0, HtmlComponent.form(Tour.class));
     }

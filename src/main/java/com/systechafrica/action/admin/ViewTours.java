@@ -1,5 +1,7 @@
 package com.systechafrica.action.admin;
 
+import com.systechafrica.app.bean.TourBean;
+import com.systechafrica.app.bean.TourBeanI;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.view.html.AdminPage;
 import com.systechafrica.app.view.html.HtmlComponent;
@@ -19,8 +21,8 @@ public class ViewTours extends HttpServlet  {
 
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-        new AdminPage().renderAdmin(req, res, 1, HtmlComponent.table(Database.getDbInstance().getTours()));
+        TourBeanI tourBean = new TourBean();
+        new AdminPage().renderAdmin(req, res, 1, tourBean.availableTours());
     }
 
 }
