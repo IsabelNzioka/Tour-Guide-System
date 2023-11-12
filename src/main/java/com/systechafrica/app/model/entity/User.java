@@ -1,8 +1,8 @@
 package com.systechafrica.app.model.entity;
 
-import com.systechafrica.app.view.html.TableColHeader;
-
 import java.io.Serializable;
+
+import com.systechafrica.app.view.helper.TableColHeader;
 
 public class User implements Serializable {
     @TableColHeader(headerLabel = "User ID")
@@ -29,7 +29,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.confirmPassword = confirmPassword;
-        this.role = role;
+         this.role = UserRole.CUSTOMER;
     }
 
     public User(long id, String username, String password) {

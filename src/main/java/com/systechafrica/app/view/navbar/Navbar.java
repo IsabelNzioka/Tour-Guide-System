@@ -15,7 +15,7 @@ public class Navbar  implements  Menu, Serializable {
 
 
     {
-        links.add(new NavigationItemLInk("./", "Home", NavigationItemLinkStatus.ACTIVE));
+        links.add(new NavigationItemLInk("./home", "Home", NavigationItemLinkStatus.ACTIVE));
         links.add(new NavigationItemLInk("./tours", "tours", NavigationItemLinkStatus.NOT_ACTIVE));
         links.add(new NavigationItemLInk("./account-login", "account", NavigationItemLinkStatus.NOT_ACTIVE));
 //        links.add(new NavigationItemLInk("./admin", "admin",NavigationItemLinkStatus.NOT_ACTIVE));

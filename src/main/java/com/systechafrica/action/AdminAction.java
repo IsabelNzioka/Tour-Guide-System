@@ -2,7 +2,7 @@ package com.systechafrica.action;
 
 import com.systechafrica.action.admin.AddTourAction;
 import com.systechafrica.action.admin.ViewTours;
-import com.systechafrica.app.view.html.AdminPage;
+import com.systechafrica.app.view.helper.AdminPage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

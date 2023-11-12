@@ -3,7 +3,7 @@ package com.systechafrica.action;
 import com.systechafrica.app.bean.UserBean;
 import com.systechafrica.app.bean.UserBeanI;
 import com.systechafrica.app.model.entity.User;
-import com.systechafrica.app.view.html.SignupPage;
+import com.systechafrica.app.view.helper.SignupPage;
 import com.systechafrica.database.Database;
 
 import javax.servlet.ServletException;

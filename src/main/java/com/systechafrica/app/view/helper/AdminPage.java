@@ -1,8 +1,9 @@
-package com.systechafrica.app.view.html;
+package com.systechafrica.app.view.helper;
 
 import com.systechafrica.app.model.entity.User;
 import com.systechafrica.app.view.css.AdminCss;
 import com.systechafrica.app.view.css.AppCss;
+import com.systechafrica.app.view.navbar.Navbar;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +13,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
-public class AccountDetailsPage implements Serializable {
+public class AdminPage implements Serializable {
 
-    public void renderAccountDetails(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws IOException {
+    public void renderAdmin(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws IOException {
 
         ServletContext ctx = req.getServletContext();
         HttpSession httpSession = req.getSession();
-        User user = (User) httpSession.getAttribute("user");
+//        User user = (User) httpSession.getAttribute("user");
 
 //        TourBeanI accountBean = new TourBean();
 
@@ -39,26 +40,24 @@ public class AccountDetailsPage implements Serializable {
                 "<div class=\"Content\">" +
                 "<div class=\"ContentLinks\">" +
                 "<span>Nata Travels</span>" +
-                "<h3 class=\"WelcomeUser\">Hi, " +
-                user.getUsername() +
-                "</h3>" +
-                "<a " + (activeMenu == 0 ? "class=\"active\"" : "") + " href=\"./my-bookings\">Bookings</a> \n" +
-                "<a " + (activeMenu == 1 ? "class=\"active\"" : "") + " href=\"./my-favourites\">Favourites</a> \n" +
-                "<a " + (activeMenu == 2 ? "class=\"active\"" : "") + " href=\"./help\">Help</a> \n" +
+
+                "<a " + (activeMenu == 0 ? "class=\"active\"" : "") + " href=\"./add-tour\">Add Tour</a> \n" +
+                "<a " + (activeMenu == 1 ? "class=\"active\"" : "") + " href=\"./admin-tours\">Tours</a> \n" +
+                "<a " + (activeMenu == 2 ? "class=\"active\"" : "") + " href=\"./admin-users\">Users</a> \n" +
+                "<a " + (activeMenu == 3 ? "class=\"active\"" : "") + " href=\"./admin-bookings\">Bookings</a> \n" +
                 "<a href=\"./\">Site</a> \n" +
                 "<a href=\"./logout\">Logout</a> \n" +
-                "</div>" +
+                        "</div>" +
                 "<div class=\"ContentLinkContent\">");
-        print.write(content);
+                print.write(content);
 
-        print.write( "</div>" +
-                "</div>\n" +
+                   print.write( "</div>" +
+                           "</div>\n" +
 
                 "</body>\n" +
                 "</html>");
 
 
     }
-
 
 }

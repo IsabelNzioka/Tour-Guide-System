@@ -1,10 +1,10 @@
 package com.systechafrica.app.model.entity;
 
-import com.systechafrica.app.view.html.HtmlForm;
-import com.systechafrica.app.view.html.HtmlFormField;
-import com.systechafrica.app.view.html.TableColHeader;
-
 import java.io.Serializable;
+
+import com.systechafrica.app.view.helper.HtmlForm;
+import com.systechafrica.app.view.helper.HtmlFormField;
+import com.systechafrica.app.view.helper.TableColHeader;
 
 @HtmlForm(label = "Tour", url = "./add-tour")
 public class Tour  implements Serializable {
@@ -18,12 +18,15 @@ public class Tour  implements Serializable {
     @TableColHeader(headerLabel = "Tour Price")
     @HtmlFormField(label = "Tour price", type = "number")
     private int price;
+    
     private int durationindays;
 
     @TableColHeader(headerLabel = "Tour Category")
     @HtmlFormField(label = "Tour Category")
     private TourCategory tourCategories;
+
     private String summary;
+
     private String imageurl;
 
     private int ratings;

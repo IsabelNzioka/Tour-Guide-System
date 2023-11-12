@@ -1,11 +1,11 @@
-package com.systechafrica.app.view.html;
+package com.systechafrica.app.view.helper;
 
 import com.systechafrica.app.bean.TourBean;
 import com.systechafrica.app.bean.TourBeanI;
 import com.systechafrica.app.model.entity.User;
 import com.systechafrica.app.view.css.AppCss;
 import com.systechafrica.app.view.navbar.Navbar;
-import com.systechafrica.app.view.navbar.NavbarSingletonPattern;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

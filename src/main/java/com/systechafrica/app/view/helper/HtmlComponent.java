@@ -1,6 +1,9 @@
-package com.systechafrica.app.view.html;
+package com.systechafrica.app.view.helper;
 
+import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.model.entity.TourCategory;
+import com.systechafrica.database.Database;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -64,6 +67,7 @@ public class HtmlComponent implements Serializable {
                 continue;
 
             HtmlFormField formField = field.getAnnotation(HtmlFormField.class);
+
             String fieldName = field.getName();
             String fieldType = String.valueOf(field.getType());
             boolean isEnum = field.getType().isEnum();
@@ -92,4 +96,10 @@ public class HtmlComponent implements Serializable {
 
         return formHtml;
     }
+
+
+
+
+
+
 }

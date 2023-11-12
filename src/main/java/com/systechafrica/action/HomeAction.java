@@ -1,25 +1,24 @@
 package com.systechafrica.action;
 
-import com.systechafrica.app.view.html.AppPage;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.systechafrica.app.view.helper.AppPage;
+
 import java.io.IOException;
 
-@WebServlet("/")
-public class HomeAction extends HttpServlet {
+@WebServlet("/home")
+public class HomeAction extends BaseAction{
 //    TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession httpSession = req.getSession();
 
-            new AppPage().renderHtml(req, res, 0,
-                    "<div class='HomePage'>" +
-                            "</div>" );
+        renderPage(req, res, 0, "<div class='HomePage'> Home content, to be removed </div>");
 
     }
 

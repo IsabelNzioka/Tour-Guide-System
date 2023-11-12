@@ -4,8 +4,8 @@ import com.systechafrica.action.BaseAction;
 import com.systechafrica.app.bean.TourBean;
 import com.systechafrica.app.bean.TourBeanI;
 import com.systechafrica.app.model.entity.Tour;
-import com.systechafrica.app.view.html.AdminPage;
-import com.systechafrica.app.view.html.HtmlComponent;
+import com.systechafrica.app.view.helper.AdminPage;
+import com.systechafrica.app.view.helper.HtmlComponent;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

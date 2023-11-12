@@ -14,7 +14,7 @@ import java.util.Date;
 import com.systechafrica.app.bean.AuthBean;
 import com.systechafrica.app.bean.AuthBeanI;
 import com.systechafrica.app.model.entity.User;
-import com.systechafrica.app.view.html.LoginPage;
+import com.systechafrica.app.view.helper.LoginPage;
 import com.systechafrica.database.Database;
 
 @WebServlet("/account-login")
@@ -31,13 +31,17 @@ public class LoginAction extends BaseAction {
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+          HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
+          httpSession.setAttribute("user", null);
+
         User user = new User();
         serializeForm(user, req.getParameterMap());
 
         User userDetails = authBean.authenticate(user);
+       
 
             if (userDetails != null) {
-                HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
+               
 
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
                 httpSession.setAttribute("user", userDetails); //used to check user roles to display to navbar links accordingly
