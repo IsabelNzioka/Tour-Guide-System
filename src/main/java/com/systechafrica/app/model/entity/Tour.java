@@ -2,6 +2,7 @@ package com.systechafrica.app.model.entity;
 
 import java.io.Serializable;
 
+import com.systechafrica.app.view.helper.HtmlCard;
 import com.systechafrica.app.view.helper.HtmlForm;
 import com.systechafrica.app.view.helper.HtmlFormField;
 import com.systechafrica.app.view.helper.TableColHeader;
@@ -11,14 +12,18 @@ public class Tour  implements Serializable {
     @TableColHeader(headerLabel = "Tour code")
     @HtmlFormField(label = "Tour Code") //override default name
     private String code;
+
+    @HtmlCard(name = "", className = "TourTitle")
     @TableColHeader(headerLabel = "Tour Name")
     @HtmlFormField(label = "Tour Name")
     private String name;
 
+    @HtmlCard(name = "$", className = "Price")
     @TableColHeader(headerLabel = "Tour Price")
     @HtmlFormField(label = "Tour price", type = "number")
     private int price;
-    
+
+    @HtmlCard(name = "Days: ", className = "TourDetails")
     private int durationindays;
 
     @TableColHeader(headerLabel = "Tour Category")
@@ -27,6 +32,7 @@ public class Tour  implements Serializable {
 
     private String summary;
 
+    @HtmlCard(name = "Tour Image", className = "TourImage")
     private String imageurl;
 
     private int ratings;

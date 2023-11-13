@@ -16,6 +16,9 @@ public class TourBean implements TourBeanI, Serializable {
         return HtmlComponent.table(Database.getDbInstance().getTours());
     }
 
+    public String availableToursCard() {
+        return HtmlComponent.card(Database.getDbInstance().getTours());
+    }
     public Tour addOrUpdateTour(Tour tour) {
          Database database = Database.getDbInstance();
          database.getTours().add(tour);

@@ -2,6 +2,7 @@ package com.systechafrica.action;
 
 import com.systechafrica.app.bean.TourBean;
 import com.systechafrica.app.bean.TourBeanI;
+import com.systechafrica.app.view.helper.AdminPage;
 import com.systechafrica.app.view.helper.AppPage;
 
 import javax.servlet.RequestDispatcher;
@@ -25,7 +26,8 @@ public class ToursAction extends BaseAction {
         // dispatcher.forward(req, res);
 
 
-        renderPage(req, res, 1, tourBean.availableTours());
+        renderPage(req, res, 1, tourBean.availableToursCard());
+          
        
 
         // new AppPage().renderHtml(req, res, 1, tourBean.availableTours());

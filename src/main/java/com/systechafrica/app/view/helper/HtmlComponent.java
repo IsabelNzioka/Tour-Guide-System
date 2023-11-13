@@ -67,7 +67,7 @@ public class HtmlComponent implements Serializable {
                 continue;
 
             HtmlFormField formField = field.getAnnotation(HtmlFormField.class);
-
+            
             String fieldName = field.getName();
             String fieldType = String.valueOf(field.getType());
             boolean isEnum = field.getType().isEnum();
@@ -99,7 +99,37 @@ public class HtmlComponent implements Serializable {
 
 
 
-
-
+    public static String card(List<?> models) {
+        if (models == null || models.isEmpty())
+            return StringUtils.EMPTY;
+    
+        Field[] fields = models.get(0).getClass().getDeclaredFields();
+    
+        StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
+    
+        for (Object model : models) {
+            toursList.append("<div class='card'>");
+    
+            for (Field field : fields) {
+                HtmlCard formField = field.getAnnotation(HtmlCard.class);
+                 if (!field.isAnnotationPresent(HtmlCard.class))
+                            continue;
+                try {
+                     field.setAccessible(true); //if the fields are private
+                    if(formField.name().equals("Tour Image")){
+                        toursList.append("<img src='" + field.get(model) + "' alt='Tour Image' >");
+                           } else {
+                    toursList.append("<p class=' "+formField.className() + "'>").append(formField.name()).append(field.get(model)).append("</p>");}
+                } catch (IllegalAccessException e ) {
+                    throw  new RuntimeException(e);
+                }
+            }
+    
+            toursList.append("</div>");
+        }
+     toursList.append("</div>");
+        return toursList.toString();
+    }
+    
 
 }

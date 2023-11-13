@@ -23,6 +23,7 @@ public class ViewTours extends HttpServlet  {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         TourBeanI tourBean = new TourBean();
         new AdminPage().renderAdmin(req, res, 1, tourBean.availableTours());
+        // new AdminPage().renderAdmin(req, res, 1, tourBean.availableTours());
     }
 
 }
