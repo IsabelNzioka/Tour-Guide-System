@@ -53,6 +53,24 @@ public class BaseAction extends HttpServlet {
 
      }
 
+    //  new AdminPage().renderAdmin(req, res, 0, HtmlComponent.form(Tour.class));
+      public void renderAdminPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws ServletException, IOException {
+        req.setAttribute("activeMenu", activeMenu);
+        req.setAttribute("content", content);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./app/adminPage.jsp");
+        dispatcher.forward(req, res);
+
+     }
+
+       public void renderUserAccountPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws ServletException, IOException {
+        req.setAttribute("activeMenu", activeMenu);
+        req.setAttribute("content", content);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./app/userAccount.jsp");
+        dispatcher.forward(req, res);
+
+     }
 
 
 }

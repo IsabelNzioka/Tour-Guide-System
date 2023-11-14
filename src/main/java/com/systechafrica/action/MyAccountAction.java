@@ -2,7 +2,8 @@ package com.systechafrica.action;
 
 import com.systechafrica.action.user.BookingAction;
 import com.systechafrica.action.user.FavouriteAction;
-import com.systechafrica.app.view.helper.AccountDetailsPage;
+import com.systechafrica.action.user.HelpAction;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/my-account")
-public class MyAccountAction extends HttpServlet {
+public class MyAccountAction extends BaseAction {
 
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -28,14 +29,14 @@ public class MyAccountAction extends HttpServlet {
                 new FavouriteAction().doGet(req, res);
 
             } else if (requestUri.equals("/help")) {
-                new AccountDetailsPage().renderAccountDetails(req, res, 2,
-                        "<h2> Help</h2>"
-                );
+                 new HelpAction().doGet(req, res);
 
             } else {
-                new AccountDetailsPage().renderAccountDetails(req, res, 4,
-                        "<h2> Account Details - change/update </h2>"
-                );
+               renderUserAccountPage(req, res, 0,  "<div class='UserPage'>" +
+                     "<h2> My account</h2>" +
+                    "</div>");
+            
+                
             }
 
 

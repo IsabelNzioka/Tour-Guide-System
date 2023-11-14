@@ -3,9 +3,10 @@ package com.systechafrica.action;
 import com.systechafrica.app.bean.UserBean;
 import com.systechafrica.app.bean.UserBeanI;
 import com.systechafrica.app.model.entity.User;
-import com.systechafrica.app.view.helper.SignupPage;
+
 import com.systechafrica.database.Database;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,10 @@ public class UserAction extends BaseAction {
     UserBeanI userBean = new UserBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        new SignupPage().renderSignup(req, res, 2,
-                "<h2> LOGIN</h2>");
+    
+        req.setAttribute("activeMenu", 2);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./app/signupPage.jsp");
+        dispatcher.forward(req, res);
     }
 
 

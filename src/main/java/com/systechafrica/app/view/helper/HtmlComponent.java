@@ -46,8 +46,10 @@ public class HtmlComponent implements Serializable {
         return toursList.toString();
     }
 
-    public static String form(Class<?> model) {
 
+
+    
+    public static String form(Class<?> model) {
         HtmlForm htmlForm = null;
         if(model.isAnnotationPresent((HtmlForm.class)))
            htmlForm = model.getAnnotation((HtmlForm.class));
@@ -55,12 +57,10 @@ public class HtmlComponent implements Serializable {
         if(htmlForm == null)
             return StringUtils.EMPTY;
 
-
-        String formHtml = "<div class='AddToursPage'>" + "<h2>" + htmlForm.label() + "</h2>" +
+        String formHtml = "<div class='AddToursPage'>" +
                 "<form action=\""+ htmlForm.url() + "\" method=\""+ htmlForm.httpMethod() +"\">" ;
 
         Field [] fields = model.getDeclaredFields();
-
 
         for(Field field : fields) {
             if(!field.isAnnotationPresent(HtmlFormField.class))
@@ -88,7 +88,6 @@ public class HtmlComponent implements Serializable {
                                               (StringUtils.isBlank(formField.name()) ? fieldName : formField.name())  + "\"><br>" ;
             }
 
-
         }
         formHtml += "<button type=\"submit\" class=\"SubmitButton\">Submit</button>";
         formHtml +=  "</form><br/>";
@@ -96,6 +95,8 @@ public class HtmlComponent implements Serializable {
 
         return formHtml;
     }
+
+
 
 
 

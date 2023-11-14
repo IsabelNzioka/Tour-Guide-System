@@ -10,6 +10,7 @@
     display: flex;
     justify-content: space-between;
     background-color: #363062;
+    <%-- background-color: #331D2C; --%>
     align-items: center;
     color: #F1EAFF;
   }
@@ -60,7 +61,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2rem;
-    transition: transform 0.3s;
+    transition: transform 0.5s;
   }
 
   .card {
@@ -68,12 +69,12 @@
     padding-top: 0.8rem;
     border: 1px solid #ccc;
     text-align: center;
-    <%-- box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; --%>
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 5px;
+      transition: transform 0.3s;
   }
   .card:hover {
-     transform: scale(1.02);
+     transform: scaleY(1.02);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 

@@ -12,13 +12,13 @@ public class UserBean implements  UserBeanI, Serializable {
     @Override
     public User register(User user) {
 
-        User registredUser  = null;
+        User registeredUser  = null;
 
         if (user.getPassword().equals(user.getConfirmPassword())) {
             database.getUsers().add(new User(100L, user.getUsername(), user.getPassword())); // add the user to the database
-            registredUser = user;
+            registeredUser = user;
         }
-        return registredUser;
+        return registeredUser;
 
         }
 

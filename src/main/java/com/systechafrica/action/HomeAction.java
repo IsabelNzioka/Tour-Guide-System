@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.systechafrica.app.view.helper.AppPage;
+
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class HomeAction extends BaseAction{
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        renderPage(req, res, 0, "<div class='HomePage'> Home content, to be removed </div>");
+        renderPage(req, res, 0, "<div class='HomePage'> </div>");
 
     }
 

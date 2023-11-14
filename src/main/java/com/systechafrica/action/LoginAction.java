@@ -1,9 +1,10 @@
 package com.systechafrica.action;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,18 +15,16 @@ import java.util.Date;
 import com.systechafrica.app.bean.AuthBean;
 import com.systechafrica.app.bean.AuthBeanI;
 import com.systechafrica.app.model.entity.User;
-import com.systechafrica.app.view.helper.LoginPage;
-import com.systechafrica.database.Database;
+
 
 @WebServlet("/account-login")
 public class LoginAction extends BaseAction {
     AuthBeanI authBean = new AuthBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-               HttpSession httpSession = req.getSession();
-
-                    new LoginPage().renderLogin(req, res, 2,
-                            "<h2> LOGIN</h2>");
+        req.setAttribute("activeMenu", 2);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./app/loginPage.jsp");
+        dispatcher.forward(req, res);
 
     }
 
@@ -42,7 +41,6 @@ public class LoginAction extends BaseAction {
 
             if (userDetails != null) {
                
-
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
                 httpSession.setAttribute("user", userDetails); //used to check user roles to display to navbar links accordingly
 
