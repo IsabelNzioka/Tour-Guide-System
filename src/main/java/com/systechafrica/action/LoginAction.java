@@ -22,6 +22,7 @@ public class LoginAction extends BaseAction {
     AuthBeanI authBean = new AuthBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        
         req.setAttribute("activeMenu", 2);
         RequestDispatcher dispatcher = req.getRequestDispatcher("./app/loginPage.jsp");
         dispatcher.forward(req, res);
@@ -31,19 +32,19 @@ public class LoginAction extends BaseAction {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
           HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
-          httpSession.setAttribute("user", null);
+        //   httpSession.setAttribute("userRole", null);
 
         User user = new User();
         serializeForm(user, req.getParameterMap());
 
         User userDetails = authBean.authenticate(user);
+
        
 
             if (userDetails != null) {
-               
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-                httpSession.setAttribute("user", userDetails); //used to check user roles to display to navbar links accordingly
-
+                httpSession.setAttribute("userRole", userDetails.getRole()); 
+                httpSession.setAttribute("userName", userDetails.getUsername());
                 res.sendRedirect("./my-account");
             }
             PrintWriter print = res.getWriter();

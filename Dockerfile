@@ -5,7 +5,7 @@ FROM jboss/wildfly:latest
 COPY target/Tours-system.war /opt/jboss/wildfly/standalone/deployments/
 
 # Expose the ports your WildFly instance will run on (HTTP and management ports) - 9990?
-EXPOSE 8080 8443 9990
+EXPOSE 8080 8443
 
 # Start WildFly
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]

@@ -31,14 +31,18 @@ public class UserAction extends BaseAction {
 //    check if user exists
 public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession httpSession = req.getSession();
+        httpSession.setAttribute("userRole", null);
+
         User registerUser = new User();
         serializeForm(registerUser, req.getParameterMap());
 
         User userDetails = userBean.register(registerUser);
-
         if(userDetails != null ) {
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-            httpSession.setAttribute("user", userDetails);
+            // httpSession.setAttribute("user", userDetails);
+
+            httpSession.setAttribute("userRole", userDetails.getRole()); 
+            httpSession.setAttribute("userName", userDetails.getUsername()); 
             res.sendRedirect("./my-account");
         }
            PrintWriter print = res.getWriter();

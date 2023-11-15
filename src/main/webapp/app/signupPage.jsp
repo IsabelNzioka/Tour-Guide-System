@@ -1,6 +1,6 @@
+<%@ page isELIgnored="false" %>
+
 <jsp:useBean id="navbar" class="com.systechafrica.app.view.navbar.Navbar" scope="request" />
-<jsp:useBean id="user" class="com.systechafrica.app.model.entity.User" scope="session" />
-<jsp:useBean id="activeMenuBean" class="com.systechafrica.app.useBean.ActiveMenuBean" scope="request" />
 
 
 <!DOCTYPE html>
@@ -14,16 +14,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/1211563ad5.js" crossorigin="anonymous"></script>
 
-    <%@  include file="../style/appStyle.jsp" %>
-    <%@  include file="../style/registerLoginStyle.jsp" %>
+    <jsp:include page="../style/appStyle.jsp" />
+    <jsp:include page="../style/registerLoginStyle.jsp" />
+    
 
 </head>
 <body>
     <div class="NavbarContent">
         <span>Nata Travels</span>
 
-        <jsp:setProperty name="activeMenuBean" property="activeMenu" value='<%= request.getAttribute("activeMenu") %>' />
-        <%= navbar.menu(activeMenuBean.getActiveMenu(),  user )%> 
+        <jsp:setProperty name="navbar" property="activeLink" value='${requestScope.activeMenu}'/>
+        <jsp:setProperty name="navbar" property="userRole" value='${sessionScope.userRole}'/>
+        <jsp:getProperty name="navbar" property="menu" />
 
     </div>
     <div class="formContainerRegister">
