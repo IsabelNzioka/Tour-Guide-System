@@ -28,12 +28,6 @@
     </div>
     <div class="formContainerLogin">
 
-    <h1>${requestScope.activeMenu}</h1>
-    <h1>'${requestScope.activeMenu}'</h1>
-    <h2> h1${requestScope.activeMenu} </h2>
-
-
-
         <form action="./account-login" method="post">
             <div class="container">
                 <label for="username"><b>Username</b></label>

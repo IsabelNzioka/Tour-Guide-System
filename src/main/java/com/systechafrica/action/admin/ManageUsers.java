@@ -17,6 +17,6 @@ public class ManageUsers extends BaseAction{
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        renderAdminPage(req, res, 2, HtmlComponent.table(Database.getDbInstance().getUsers()));
+        renderAdminPage(req, res, 2, HtmlComponent.statCard() + HtmlComponent.table(Database.getDbInstance().getUsers()));
     }
 }

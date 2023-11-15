@@ -10,15 +10,16 @@
 
     .Content span {
         font-family: 'Fjalla One', sans-serif;
-        padding-left: 2rem;
+        padding-left: 1rem;
+        margin-top: 1rem;
         margin-bottom: 3rem;
-        font-size: 2.6rem;
+        font-size: 2.4rem;
         color: #F3FBF1;
     }
 
     .ContentLinks {
-        padding: 2rem;
-        flex: 0 0 20%;
+        padding: 2rem 1rem;
+        flex: 0 0 17%;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -28,7 +29,7 @@
 
     .ContentLinks a {
         font-size: 1.2rem;
-        padding-left: 2.6rem;
+        padding-left: 2.4rem;
         padding-top: 1rem;
         text-decoration: none;
         color: #F3FBF1;
@@ -46,7 +47,7 @@
 
     .TourList {
         list-style-type: none;
-        margin-top: 3rem;
+        margin-top: 0.9rem;
         padding: .1rem;
     }
 
@@ -67,7 +68,10 @@
     th, td {
         border: 1px solid #D1E4D1;
         text-align: left;
-        padding: 1.2rem;
+        padding: 1rem;
+    }
+    td i {
+    padding-right: 0.5rem;
     }
 
     th {
@@ -82,7 +86,8 @@
         width: 100%;
     }
 
-    .AddToursPage input {
+    .AddToursPage input ,
+    .AddToursPage select{
         box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
         color: #1F1717;
         padding: 0.5rem 1rem;
@@ -92,6 +97,7 @@
         background-color: white;
         box-sizing: border-box;
         display: block;
+        outline:none;
     }
 
     .AddToursPage input:focus {
@@ -114,4 +120,44 @@
         color: aliceblue;
         transition: all 2s;
     }
+      .StatCard {
+       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+        padding: 1rem;
+      }
+
+      .TotalStat,
+       .MembersStat,
+       .ActiveStat{
+        width: 20%;
+        padding: 1rem;
+      }
+
+      .StatCard h1 {
+      color: #363062;
+      font-size: 1.4rem;
+      padding-top: 0.6rem;
+      }
+
+     .TableData {
+      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+       margin-top: 3rem;
+       padding: 1rem;
+      }
+      .TableActions {
+      width: 100%;
+       display: flex;
+       justify-content: space-between;
+       padding: 1rem 0rem;
+      }
+
+      .TableActions .linkBtn {
+      color: black;
+      width: 20%;
+      text-decoration: underline solid #363062;
+      font-weight: 700;
+      padding: 1rem;
+      }
 </style>

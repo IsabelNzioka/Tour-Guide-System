@@ -22,11 +22,11 @@ public class AppInit implements ServletContextListener {
         Database database = Database.getDbInstance();
 
      //        Add ADMIN
-        User admin = new User(4l, "IsabelN", "123");
+        User admin = new User(4l, "IsabelN",0742454034, "isabelnzioka@gmail.com", "123");
         admin.setRole(UserRole.ADMIN);
 
         database.getUsers().add(admin);
-        database.getUsers().add(new User(0L, "LenaB", "bett"));
+        database.getUsers().add(new User(0L, "LenaB", 0742454034, "isabelnzioka@gmail.com", "bett"));
         database.getUsers().add(new User(1L, "JohnD", "doe"));
         database.getUsers().add(new User(2L, "annL", "liza"));
         database.getUsers().add(new User(3L, "brianM", "musili"));

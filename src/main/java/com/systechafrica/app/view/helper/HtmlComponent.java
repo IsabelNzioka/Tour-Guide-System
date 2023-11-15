@@ -17,14 +17,23 @@ public class HtmlComponent implements Serializable {
 
         Field [] fields = models.get(0).getClass().getDeclaredFields();
 
-        StringBuilder toursList = new StringBuilder("<h2></h2><table class='TourList'><tr>");
+        StringBuilder toursList = new StringBuilder();
+             toursList.append("<div class='TableData'>" );
+             toursList.append("<div class='TableActions'>");
+
+//            TODO - append actions  --- Add for tours only
+              toursList.append("<a class=\"linkBtn\" href=\"").append("\">Add</a><br/>");
+              toursList.append("<a class=\"linkBtn\" href=\"").append("\">Search ....</a><br/>");
+              toursList.append("<a class=\"linkBtn\" href=\"").append("\">Filter by ....</a><br/>");
+
+              toursList.append("</div><table class='TourList'><tr>");
 
         for (Field  field : fields) {
             if (!field.isAnnotationPresent(TableColHeader.class))
                 continue;
-
             toursList.append("<th>" + field.getAnnotation(TableColHeader.class).headerLabel() + "</th>");
         }
+        toursList.append("<th>Actions</th>");
         toursList.append("</tr>");
 
         for(Object model : models) {
@@ -35,14 +44,16 @@ public class HtmlComponent implements Serializable {
                         try {
                             field.setAccessible(true); //if the fields are private
                             toursList.append("<td>").append(field.get(model)).append("</td>");
+
                         } catch (IllegalAccessException e ) {
                             throw  new RuntimeException(e);
                         }
 
                     }
+                    toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i> <i class=\"fa-solid fa-trash-can\"></i></td>");
                     toursList.append("</tr>");
         }
-            toursList.append("</table>");
+            toursList.append("</table></div>");
         return toursList.toString();
     }
 
@@ -74,10 +85,13 @@ public class HtmlComponent implements Serializable {
 //          getEnumConstants() - Returns the elements of this enum class or null if this Class object does not represent an enum type
 
             if(isEnum) {
-                formHtml += "<select name=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor())  + "\" id=\""+ fieldName +"\">";
+                formHtml +=  "<label for=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor()) + "\">"+
+                        (StringUtils.isBlank(formField.label()) ? fieldName : formField.label())  + ":</label><br>";
+                formHtml += "<select name=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor())  + "\" id=\""+
+                        fieldName +"\">";
 
                 for (Object category : field.getType().getEnumConstants()) {
-                    formHtml += "<option value=\"" + category + "\">" + category+ "</option>";
+                    formHtml += "<option value=\"" + category + "\">" + category.toString().toLowerCase()+ "</option>";
                 }
                 formHtml += "</select><br>";
             } else {
@@ -131,6 +145,23 @@ public class HtmlComponent implements Serializable {
      toursList.append("</div>");
         return toursList.toString();
     }
-    
 
+    public static String statCard() {
+        StringBuilder statDetails = new StringBuilder("<div class='StatCard'>");
+        statDetails.append("<div class='TotalStat'> <p>Total Customers </p> <h1>9,789</h1> </div>");
+        statDetails.append("<div class='MembersStat'> <p>Members </p> <h1>1,789</h1> </div>");
+        statDetails.append("<div class='ActiveStat'> <p>Active Now</p> <h1>789</h1> </div>");
+                    statDetails.append("</div>");
+        return statDetails.toString();
+    }
+
+    public static String tourStatCard() {
+        StringBuilder statDetails = new StringBuilder("<div class='StatCard'>");
+        statDetails.append("<div class='TotalStat'> <p>Total Tours </p> <h1>1,789</h1> </div>");
+        statDetails.append("<div class='MembersStat'> <p>Upcoming Tours</p> <h1>989</h1> </div>");
+        statDetails.append("<div class='ActiveStat'> <p>Pending Tours</p> <h1>189</h1> </div>");
+        statDetails.append("</div>");
+        return statDetails.toString();
+    }
 }
+

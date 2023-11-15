@@ -38,8 +38,8 @@ public class AdminAction extends BaseAction {
               new BookingAction().doGet(req, res);
 
             } else {
-                renderAdminPage(req, res, 1, "<h1>Admin Default page <h1>");
-
+//                TODO - Stat page
+                new ViewTours().doGet(req, res);
             }
 
 
