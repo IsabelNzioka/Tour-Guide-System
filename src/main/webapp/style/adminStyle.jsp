@@ -5,6 +5,7 @@
         align-items: flex-start;
         width: 100%;
         min-height: 100vh;
+
      
     }
 
@@ -19,12 +20,25 @@
 
     .ContentLinks {
         padding: 2rem 1rem;
-        flex: 0 0 17%;
+        flex: 0 0 18%;
         height: 100vh;
         display: flex;
         flex-direction: column;
         background-color: #363062;
         color: #FAAB78;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 300;
+
+
+    }
+
+  .ContentLinkContent {
+      margin-left: 18%;
+        padding: 2rem;
+        min-height: 100vh;
+        flex: 1;
     }
 
     .ContentLinks a {
@@ -39,11 +53,7 @@
         text-decoration: underline #7F669D;
     }
 
-    .ContentLinkContent {
-        padding: 2rem;
-        height: 100vh;
-        flex: 1;
-    }
+
 
     .TourList {
         list-style-type: none;
@@ -72,14 +82,18 @@
     }
     td i {
     padding-right: 0.5rem;
+    color: #363062;
     }
 
     th {
-        background-color: #f2f2f2;
+        background-color: #EBE3D5;
     }
 
     .AddToursPage {
-        margin: 4rem;
+      
+      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+       margin-top: 3rem;
+       padding: 1rem;
     }
 
     .AddToursPage form {
@@ -160,4 +174,22 @@
       font-weight: 700;
       padding: 1rem;
       }
+
+          @media screen and (min-width: 1800px) {
+           .ContentLinks {
+                 box-sizing: border-box;
+                 width: 18%;
+                  padding: 4rem 3rem;
+             }
+
+           .ContentLinkContent {
+               margin-left: 20%;
+             }
+
+               .Content span {
+                     margin-top: 2rem;
+                     font-size: 2.6rem;
+
+                 }
+          }
 </style>

@@ -2,6 +2,7 @@ package com.systechafrica.app.view.helper;
 
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.model.entity.TourCategory;
+import com.systechafrica.app.model.entity.User;
 import com.systechafrica.database.Database;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,18 +12,24 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class HtmlComponent implements Serializable {
-    public static  String table(List<?> models) {
-        if(models == null || models.isEmpty())
+    public static  String table(List<?> dataList, Class<?> dataClass) {
+        if (!dataClass.isAnnotationPresent(HtmlTable.class))
             return StringUtils.EMPTY;
 
-        Field [] fields = models.get(0).getClass().getDeclaredFields();
+        HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
+
+//        if(models == null || models.isEmpty())
+//            return StringUtils.EMPTY;
+
+//        Field [] fields = models.get(0).getClass().getDeclaredFields();
+        Field[] fields = dataClass.getDeclaredFields();
 
         StringBuilder toursList = new StringBuilder();
              toursList.append("<div class='TableData'>" );
              toursList.append("<div class='TableActions'>");
 
 //            TODO - append actions  --- Add for tours only
-              toursList.append("<a class=\"linkBtn\" href=\"").append("\">Add</a><br/>");
+              toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.addUrl()).append("\">Add</a><br/>");
               toursList.append("<a class=\"linkBtn\" href=\"").append("\">Search ....</a><br/>");
               toursList.append("<a class=\"linkBtn\" href=\"").append("\">Filter by ....</a><br/>");
 
@@ -36,23 +43,43 @@ public class HtmlComponent implements Serializable {
         toursList.append("<th>Actions</th>");
         toursList.append("</tr>");
 
-        for(Object model : models) {
-            toursList.append("<tr>");
-                    for(Field field : fields) {
-                        if (!field.isAnnotationPresent(TableColHeader.class))
-                            continue;
-                        try {
-                            field.setAccessible(true); //if the fields are private
-                            toursList.append("<td>").append(field.get(model)).append("</td>");
+        if(dataList != null && !dataList.isEmpty()) {
+            for(Object data : dataList) {
+                toursList.append("<tr>");
+                for(Field field : fields) {
+                    if (!field.isAnnotationPresent(TableColHeader.class))
+                        continue;
+                    try {
+                        field.setAccessible(true); //if the fields are private
+                        toursList.append("<td>").append(field.get(data)).append("</td>");
 
-                        } catch (IllegalAccessException e ) {
-                            throw  new RuntimeException(e);
-                        }
-
+                    } catch (IllegalAccessException e ) {
+                        throw  new RuntimeException(e);
                     }
-                    toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i> <i class=\"fa-solid fa-trash-can\"></i></td>");
-                    toursList.append("</tr>");
+
+                }
+                toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i> <i class=\"fa-solid fa-trash-can\"></i></td>");
+                toursList.append("</tr>");
+            }
         }
+
+//        for(Object model : dataList) {
+//            toursList.append("<tr>");
+//                    for(Field field : fields) {
+//                        if (!field.isAnnotationPresent(TableColHeader.class))
+//                            continue;
+//                        try {
+//                            field.setAccessible(true); //if the fields are private
+//                            toursList.append("<td>").append(field.get(model)).append("</td>");
+//
+//                        } catch (IllegalAccessException e ) {
+//                            throw  new RuntimeException(e);
+//                        }
+//
+//                    }
+//                    toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i> <i class=\"fa-solid fa-trash-can\"></i></td>");
+//                    toursList.append("</tr>");
+//        }
             toursList.append("</table></div>");
         return toursList.toString();
     }

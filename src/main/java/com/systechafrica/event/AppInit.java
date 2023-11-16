@@ -26,10 +26,19 @@ public class AppInit implements ServletContextListener {
         admin.setRole(UserRole.ADMIN);
 
         database.getUsers().add(admin);
-        database.getUsers().add(new User(0L, "LenaB", 0742454034, "isabelnzioka@gmail.com", "bett"));
-        database.getUsers().add(new User(1L, "JohnD", "doe"));
-        database.getUsers().add(new User(2L, "annL", "liza"));
-        database.getUsers().add(new User(3L, "brianM", "musili"));
+        database.getUsers().add(new User(0L, "LenaB", 0742454034, "lena@gmail.com", "bett"));
+        database.getUsers().add(new User(1L, "JohnD", 0742454034, "john@gmail.com","doe"));
+        database.getUsers().add(new User(2L, "AnnL", 0742454034, "annliza@gmail.com","liza"));
+        database.getUsers().add(new User(3L, "BrianM", 0742454034, "musili@gmail.com","musili"));
+
+        database.getUsers().add(new User(0L, "LenaB", 0742454034, "lena@gmail.com", "bett"));
+        database.getUsers().add(new User(1L, "JohnD", 0742454034, "john@gmail.com","doe"));
+        database.getUsers().add(new User(2L, "AnnL", 0742454034, "annliza@gmail.com","liza"));
+        database.getUsers().add(new User(3L, "BrianM", 0742454034, "musili@gmail.com","musili"));
+        database.getUsers().add(new User(0L, "LenaB", 0742454034, "lena@gmail.com", "bett"));
+        database.getUsers().add(new User(1L, "JohnD", 0742454034, "john@gmail.com","doe"));
+        database.getUsers().add(new User(2L, "AnnL", 0742454034, "annliza@gmail.com","liza"));
+        database.getUsers().add(new User(3L, "BrianM", 0742454034, "musili@gmail.com","musili"));
 
 
 

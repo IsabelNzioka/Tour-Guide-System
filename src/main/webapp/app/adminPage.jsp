@@ -23,8 +23,10 @@
         <span>Nata Travels</span>
 
     <jsp:setProperty name="activeMenuBean" property="activeMenu" value='<%= request.getAttribute("activeMenu") %>' />
+
      
-     <a class="${ (activeMenuBean.getActiveMenu() == 0) ? "active" : "" }" href="./add-tour">Add Tour</a>
+     <%-- <a class="${ (activeMenuBean.getActiveMenu() == 0) ? "active" : "" }" href="./add-tour">Add Tour</a> --%>
+    
      <a class="${ (activeMenuBean.getActiveMenu() == 1) ? "active" : "" }" href="./admin-tours">Tours</a>
      <a class="${ (activeMenuBean.getActiveMenu() == 2) ? "active" : "" }" href="./admin-users">Users</a>
      <a class="${ (activeMenuBean.getActiveMenu() == 3) ? "active" : "" }" href="./admin-bookings">Bookings</a>
@@ -33,6 +35,11 @@
 
     </div>
     <div class="ContentLinkContent">
+    <%--
+     <jsp:setProperty name="contentBean" property="content" value='<%= request.getAttribute("statContent") %>' />
+     <jsp:getProperty name="contentBean" property="content" />
+     --%>
+       ${requestScope.statContent}
 
     <jsp:setProperty name="contentBean" property="content" value='<%= request.getAttribute("content") %>' />
     <jsp:getProperty name="contentBean" property="content" />

@@ -2,8 +2,10 @@ package com.systechafrica.app.model.entity;
 
 import java.io.Serializable;
 
+import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.app.view.helper.TableColHeader;
 
+@HtmlTable(addUrl = "./admin-users?action=add")
 public class User implements Serializable {
     @TableColHeader(headerLabel = "Member ID")
     private long id;

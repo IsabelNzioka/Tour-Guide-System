@@ -29,6 +29,7 @@
     </div>
     <div class="Content">
 
+
     <jsp:setProperty name="contentBean" property="content" value='<%= request.getAttribute("content") %>' />
     <jsp:getProperty name="contentBean" property="content" />
     </div>

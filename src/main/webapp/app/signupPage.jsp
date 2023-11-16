@@ -37,6 +37,8 @@
                 <input type="password" placeholder="Enter Password" name="password" required>
                 <label for="confirmPassword"><b>Confirm Password</b></label>
                 <input type="password" placeholder="Confirm Password" name="confirmPassword" required>
+                 <label for="phonenumber"><b>Phone Number</b></label>
+                 <input type="number" placeholder="Enter Phone Number" name="phonenumber" required>
                 <label for="email"><b>Email</b></label>
                 <input type="email" placeholder="Enter Email" name="email" required>
                 <button type="submit" class="ButtonSubmit">Register</button>

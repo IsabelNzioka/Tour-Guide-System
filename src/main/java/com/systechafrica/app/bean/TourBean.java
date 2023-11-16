@@ -6,13 +6,17 @@ import com.systechafrica.app.view.helper.HtmlComponent;
 import com.systechafrica.database.Database;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class TourBean implements TourBeanI, Serializable {
 //    Business logic only
 
-    public String availableTours() {
-        return HtmlComponent.table(Database.getDbInstance().getTours());
+//    public String availableTours() {
+//        return HtmlComponent.table(Database.getDbInstance().getTours());
+//    }
+    public List<Tour> list(){
+        return Database.getDbInstance().getTours();
     }
 
     public String availableToursCard() {
@@ -26,7 +30,7 @@ public class TourBean implements TourBeanI, Serializable {
         return tour;
     }
 
-    public void deleteAccount(Tour tour) {
+    public void deleteTour(Tour tour) {
 
     }
 
