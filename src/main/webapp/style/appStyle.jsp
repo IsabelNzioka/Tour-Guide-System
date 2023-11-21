@@ -20,7 +20,6 @@
     padding-left: 2.6rem;
     font-size: 2.6rem;
   }
-
   .topnav {
     display: flex;
     padding: 2.6rem;
@@ -110,10 +109,6 @@
     font-size: 1.4rem;
     color: #B2533E;
   }
-
-
-
-
 
 
 </style>

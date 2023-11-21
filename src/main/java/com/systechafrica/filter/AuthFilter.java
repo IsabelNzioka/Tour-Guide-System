@@ -45,18 +45,13 @@ public class AuthFilter implements Filter {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/account-login");
             }else if(StringUtils.isNotBlank((String) httpSession.getAttribute(("loggedInId")))) {
                     filterChain.doFilter(servletRequest, servletResponse);
-                }
+            }
                 else {
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/account-login");
                 }
 
         }
     }
-
-
-
-
-
 
 
 

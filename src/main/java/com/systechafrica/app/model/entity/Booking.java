@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.systechafrica.app.view.helper.HtmlForm;
 import com.systechafrica.app.view.helper.HtmlFormField;
+import com.systechafrica.app.view.helper.HtmlFormFieldType;
 import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.app.view.helper.TableColHeader;
 
@@ -24,16 +25,16 @@ public class Booking {
     @HtmlFormField(label = "Tour Name")
     private String tourName;
 
-    @TableColHeader(headerLabel = "CreatedAt")
-    // @HtmlFormField(label = "CreatedAt")
+    @TableColHeader(headerLabel = "CreatedAt" , dateFormat = "dd-MM-yyyy")
+    @HtmlFormField(label = "CreatedAt", type = HtmlFormFieldType.DATE)
     private Date createdAt;
 
     @TableColHeader(headerLabel = "Status")
     @HtmlFormField(label = "Status")
     private String status;
 
-    @TableColHeader(headerLabel = "Full Payment")
-    @HtmlFormField(label = "Full Payment")
+    @TableColHeader(headerLabel = "Payment Status")
+    @HtmlFormField(label = "Payment Status")
     private String fullPayment;
     
 
@@ -57,7 +58,7 @@ public class Booking {
         this.status = status;
         this.fullPayment = fullPayment;
     }
-    
+
     public String getCode() {
         return code;
     }

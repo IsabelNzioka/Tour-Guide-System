@@ -9,7 +9,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class HtmlComponent implements Serializable {
     public static  String table(List<?> dataList, Class<?> dataClass) {
@@ -17,11 +22,6 @@ public class HtmlComponent implements Serializable {
             return StringUtils.EMPTY;
 
         HtmlTable htmlTable = dataClass.getAnnotation(HtmlTable.class);
-
-//        if(models == null || models.isEmpty())
-//            return StringUtils.EMPTY;
-
-//        Field [] fields = models.get(0).getClass().getDeclaredFields();
         Field[] fields = dataClass.getDeclaredFields();
 
         StringBuilder toursList = new StringBuilder();
@@ -51,7 +51,24 @@ public class HtmlComponent implements Serializable {
                         continue;
                     try {
                         field.setAccessible(true); //if the fields are private
-                        toursList.append("<td>").append(field.get(data)).append("</td>");
+                        TableColHeader colHeader = field.getAnnotation(TableColHeader.class);
+                        Object colData;
+                         if (StringUtils.isNotBlank(colHeader.dateFormat())){
+                                Date dateValue = (Date) field.get(data);
+                                colData = (dateValue != null) ? new SimpleDateFormat(colHeader.dateFormat()).format(dateValue) : "";
+                            //  TODO - USE REQUIRED FIELD
+                            // colData = new SimpleDateFormat(colHeader.dateFormat()).format((Date) field.get(data));
+                       } else if (StringUtils.isNotBlank(colHeader.numberFormat()))
+                            colData = new DecimalFormat(colHeader.numberFormat())
+                                .format(Optional.ofNullable(field.get(data)).orElse(BigDecimal.ZERO));
+                        else
+                            colData = field.get(data);
+
+
+                        // toursList.append("<td>").append(field.get(data)).append("</td>");
+                        toursList.append("<td>")
+                        .append(Optional.ofNullable(colData).orElse(""))
+                        .append("</td>");
 
                     } catch (IllegalAccessException e ) {
                         throw  new RuntimeException(e);
@@ -62,24 +79,6 @@ public class HtmlComponent implements Serializable {
                 toursList.append("</tr>");
             }
         }
-
-//        for(Object model : dataList) {
-//            toursList.append("<tr>");
-//                    for(Field field : fields) {
-//                        if (!field.isAnnotationPresent(TableColHeader.class))
-//                            continue;
-//                        try {
-//                            field.setAccessible(true); //if the fields are private
-//                            toursList.append("<td>").append(field.get(model)).append("</td>");
-//
-//                        } catch (IllegalAccessException e ) {
-//                            throw  new RuntimeException(e);
-//                        }
-//
-//                    }
-//                    toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i> <i class=\"fa-solid fa-trash-can\"></i></td>");
-//                    toursList.append("</tr>");
-//        }
             toursList.append("</table></div>");
         return toursList.toString();
     }
@@ -124,7 +123,8 @@ public class HtmlComponent implements Serializable {
             } else {
                 formHtml +=  "<label for=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor()) + "\">"+
                                              (StringUtils.isBlank(formField.label()) ? fieldName : formField.label())  + ":</label><br>";
-                formHtml +=  "<input type=\""+ (StringUtils.isBlank(formField.type()) ? fieldName : formField.type()) + "\" id=\""+     //text, number, ...
+
+                formHtml +=  "<input type=\""+ formField.type() + "\" id=\""+     //text, number, ...
                                              (StringUtils.isBlank(formField.id()) ? fieldName : formField.id()) +"\" name=\""+
                                               (StringUtils.isBlank(formField.name()) ? fieldName : formField.name())  + "\"><br>" ;
             }
@@ -189,6 +189,14 @@ public class HtmlComponent implements Serializable {
         statDetails.append("<div class='ActiveStat'> <p>Pending Tours</p> <h1>189</h1> </div>");
         statDetails.append("</div>");
         return statDetails.toString();
+    }
+
+
+
+
+    // ///////////////////
+    private static String ifBlank(String target, String alternative){
+        return StringUtils.isBlank(target)? alternative : StringUtils.trimToEmpty(target);
     }
 }
 

@@ -7,33 +7,33 @@ import com.systechafrica.database.Database;
 import java.io.Serializable;
 import java.util.List;
 
-public class UserBean implements  UserBeanI, Serializable {
-    Database database = Database.getDbInstance();
+public class UserBean extends GenericBean<User> implements UserBeanI {
+    // Database database = Database.getDbInstance();
 
 
-    @Override
-    public User register(User user) {
+    // @Override
+    // public User register(User user) {
 
-        User registeredUser  = null;
+    //     User registeredUser  = null;
 
-        if (user.getPassword().equals(user.getConfirmPassword())) {
-            database.getUsers().add(new User(100L, user.getUsername(), user.getPhonenumber(),user.getEmail(), user.getPassword() )); // add the user to the database
-            registeredUser = user;
-        }
-        return registeredUser;
+    //     if (user.getPassword().equals(user.getConfirmPassword())) {
+    //         database.getUsers().add(new User(100L, user.getUsername(), user.getPhonenumber(),user.getEmail(), user.getPassword() )); // add the user to the database
+    //         registeredUser = user;
+    //     }
+    //     return registeredUser;
 
-        }
+    //     }
 
-    @Override
-    public List<User> list() {
-        return Database.getDbInstance().getUsers();
-    }
+    // @Override
+    // public List<User> list() {
+    //     return Database.getDbInstance().getUsers();
+    // }
 
 
-    @Override
-    public boolean unregister(User user) {
-            return true;
-        }
+    // @Override
+    // public boolean unregister(User user) {
+    //         return true;
+    //     }
 
     }
 

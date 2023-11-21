@@ -32,15 +32,12 @@ public class LoginAction extends BaseAction {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
           HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
-        //   httpSession.setAttribute("userRole", null);
+      
+        User loginUser  = serializeForm(User.class, req.getParameterMap());
 
-        User user = new User();
-        serializeForm(user, req.getParameterMap());
+        User userDetails = authBean.authenticate(loginUser);
 
-        User userDetails = authBean.authenticate(user);
-
-       
-
+    
             if (userDetails != null) {
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
                 httpSession.setAttribute("userRole", userDetails.getRole()); 

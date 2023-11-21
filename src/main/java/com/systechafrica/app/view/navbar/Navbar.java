@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Navbar  implements  Menu, Serializable {
     private String menu;
+
     private int activeLink;
     private UserRole userRole;
 
@@ -48,6 +49,7 @@ public class Navbar  implements  Menu, Serializable {
         if (getUserRole() != null && (getUserRole() ==   UserRole.ADMIN)) {
             links.add(new NavigationItemLInk("./admin", "admin", NavigationItemLinkStatus.NOT_ACTIVE));
         }
+        
         this.activateLink(getActiveLink());
         String navbarLinks =    "<div class='topnav'>" ;
 

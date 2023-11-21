@@ -18,7 +18,6 @@ public class BookingAction extends BaseAction {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        // renderAdminPage(req, res, 0, HtmlComponent.form(Tour.class));
         renderUserAccountPage(req, res, 0,  "<div class='UserPage'>" +
                         "<h2> My Bookings</h2>" +
                         "</div>");

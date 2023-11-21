@@ -1,5 +1,6 @@
 package com.systechafrica.event;
 
+import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.model.entity.TourCategory;
 import com.systechafrica.app.model.entity.User;
@@ -47,6 +48,9 @@ public class AppInit implements ServletContextListener {
         database.getTours().add(new Tour("3739", "Mayan Heritage History Tour", 7000, 100, TourCategory.SAILING, "Discover Mexico’s rich Maya past with this 5-day heritage tour...more", "https://images.unsplash.com/photo-1554357475-accb8a88a330?auto=format&fit=crop&q=80&w=1528&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 4));
         database.getTours().add(new Tour("394h", "Open Water Diver course PADI in Cancun", 70, 10, TourCategory.CULTURAL, "While vacationing in Cancun, learn to scuba dive with ...more", "https://images.unsplash.com/photo-1682686581264-c47e25e61d95?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 6 ));
 
+    
+        database.getBookings().add(new Booking("4537", "Isabel Nzioka", "Bali White Water Rafting", "pending", "pending"));
+    
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

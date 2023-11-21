@@ -9,4 +9,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TableColHeader {
     String headerLabel();
+
+    String dateFormat() default "";
+
+    String numberFormat() default "";
 }

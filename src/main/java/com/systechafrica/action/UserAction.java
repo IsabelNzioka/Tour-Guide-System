@@ -1,5 +1,7 @@
 package com.systechafrica.action;
 
+import com.systechafrica.app.bean.AuthBean;
+import com.systechafrica.app.bean.AuthBeanI;
 import com.systechafrica.app.bean.UserBean;
 import com.systechafrica.app.bean.UserBeanI;
 import com.systechafrica.app.model.entity.User;
@@ -30,13 +32,14 @@ public class UserAction extends BaseAction {
 
 //    check if user exists
 public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+     AuthBeanI authBean = new AuthBean();
         HttpSession httpSession = req.getSession();
         httpSession.setAttribute("userRole", null);
 
-        User registerUser = new User();
-        serializeForm(registerUser, req.getParameterMap());
+        User registerUser  = serializeForm(User.class, req.getParameterMap());
 
-        User userDetails = userBean.register(registerUser);
+    
+        User userDetails = authBean.register(registerUser);
         if(userDetails != null ) {
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
             // httpSession.setAttribute("user", userDetails);

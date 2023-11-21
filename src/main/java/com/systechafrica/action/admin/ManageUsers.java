@@ -23,8 +23,7 @@ public class ManageUsers extends BaseAction{
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         UserBeanI userBean = new UserBean();
 
-//        renderAdminPage(req, res, 2, HtmlComponent.statCard() + HtmlComponent.table(Database.getDbInstance().getUsers()));
-        req.setAttribute("statContent", HtmlComponent.statCard());
+       req.setAttribute("statContent", HtmlComponent.statCard());
         renderAdminPage(req, res, 2, User.class, userBean.list());
     }
 }

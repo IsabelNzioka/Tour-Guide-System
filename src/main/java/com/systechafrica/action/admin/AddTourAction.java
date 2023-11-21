@@ -28,8 +28,8 @@ public class AddTourAction  extends BaseAction {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
       
-        serializeForm(tour, req.getParameterMap());
-        tourBean.addOrUpdateTour(tour);
-        res.sendRedirect("./admin");
+        // serializeForm(tour, req.getParameterMap());
+        // tourBean.addOrUpdateTour(tour);
+        // res.sendRedirect("./admin");
     }
 }

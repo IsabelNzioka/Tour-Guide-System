@@ -22,4 +22,18 @@ public class AuthBean  implements AuthBeanI, Serializable {
         return userDetails;
 
     }
+
+     @Override
+    public User register(User user) {
+
+        User registeredUser  = null;
+
+        if (user.getPassword().equals(user.getConfirmPassword())) {
+            database.getUsers().add(new User(100L, user.getUsername(), user.getPhonenumber(),user.getEmail(), user.getPassword() )); // add the user to the database
+            registeredUser = user;
+        }
+        return registeredUser;
+
+        }
+
 }

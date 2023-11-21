@@ -6,12 +6,12 @@ import com.systechafrica.app.model.entity.Booking;
 
 
 
-public interface BookingBeanI {
+public interface BookingBeanI extends GenericBeanI<Booking>{
 
-    List<Booking> list();
+    // List<Booking> list();
   
-    public Booking addOrUpdateBooking(Booking booking);
+    // public Booking addOrUpdateBooking(Booking booking);
 
-    public void deleteBooking(Booking booking);
+    // public void deleteBooking(Booking booking);
     
 }

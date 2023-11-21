@@ -3,6 +3,7 @@ package com.systechafrica.action.admin;
 import com.systechafrica.action.BaseAction;
 import com.systechafrica.app.bean.TourBean;
 import com.systechafrica.app.bean.TourBeanI;
+import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.view.helper.HtmlComponent;
 
@@ -23,7 +24,6 @@ public class ViewTours extends BaseAction  {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         TourBeanI tourBean = new TourBean();
-//        renderAdminPage(req, res, 1,  HtmlComponent.tourStatCard() + tourBean.availableTours());
 
         req.setAttribute("statContent", HtmlComponent.tourStatCard());
         renderAdminPage(req, res, 1, Tour.class, tourBean.list());
@@ -31,8 +31,8 @@ public class ViewTours extends BaseAction  {
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        serializeForm(tour, req.getParameterMap());
-        tourBean.addOrUpdateTour(tour);
+   
+        tourBean.addOrUpdateEntity(serializeForm(Tour.class, req.getParameterMap()));
         res.sendRedirect("./admin-tours");
     }
 

@@ -18,9 +18,7 @@ import java.io.IOException;
 public class AdminAction extends BaseAction {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession httpSession = req.getSession();
-
-
+    
             String requestUri = req.getRequestURI();
 
             if (requestUri.equals("/add-tour")) {
