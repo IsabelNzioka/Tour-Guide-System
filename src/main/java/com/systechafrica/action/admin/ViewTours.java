@@ -26,7 +26,7 @@ public class ViewTours extends BaseAction  {
         TourBeanI tourBean = new TourBean();
 
         req.setAttribute("statContent", HtmlComponent.tourStatCard());
-        renderAdminPage(req, res, 1, Tour.class, tourBean.list());
+        renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class));
     }
 
 

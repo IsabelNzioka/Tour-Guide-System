@@ -7,16 +7,21 @@ import com.systechafrica.app.view.helper.HtmlFormField;
 import com.systechafrica.app.view.helper.HtmlFormFieldType;
 import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.app.view.helper.TableColHeader;
+import com.systechafrica.database.helper.DbTable;
+import com.systechafrica.database.helper.DbTableColumn;
 
 
+@DbTable(name = "bookings")
 @HtmlTable(addUrl = "./admin-bookings?action=add")
 @HtmlForm(label = "Tour", url = "./admin-bookings")
-public class Booking {
+public class Booking  extends BaseEntity {
 
-    @TableColHeader(headerLabel = "Booking Code")
-    @HtmlFormField(label = "Booking Code")
-    private String code;
+//    @DbTableColumn(name = "Booking_code")
+//    @TableColHeader(headerLabel = "Booking Code")
+//    @HtmlFormField(label = "Booking Code")
+//    private String code;
 
+    @DbTableColumn(name = "Customer_name")
     @TableColHeader(headerLabel = "Customer Name")
     @HtmlFormField(label = "Customer Name")
     private String customerName;
@@ -42,29 +47,6 @@ public class Booking {
         
     }
 
-    public Booking(String code, String customerName, String tourName) {
-        this.code = code;
-        this.customerName = customerName;
-        this.tourName = tourName;
-      
-    }
-
-    public Booking(String code, String customerName, String tourName, String status,
-            String fullPayment) {
-        this.code = code;
-        this.customerName = customerName;
-        this.tourName = tourName;
-        this.createdAt =  new Date();
-        this.status = status;
-        this.fullPayment = fullPayment;
-    }
-
-    public String getCode() {
-        return code;
-    }
-    public void setCode(String code) {
-        this.code = code;
-    }
     public String getCustomerName() {
         return customerName;
     }

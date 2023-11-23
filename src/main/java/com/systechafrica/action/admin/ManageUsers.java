@@ -24,6 +24,6 @@ public class ManageUsers extends BaseAction{
         UserBeanI userBean = new UserBean();
 
        req.setAttribute("statContent", HtmlComponent.statCard());
-        renderAdminPage(req, res, 2, User.class, userBean.list());
+        renderAdminPage(req, res, 2, User.class, userBean.list(User.class));
     }
 }

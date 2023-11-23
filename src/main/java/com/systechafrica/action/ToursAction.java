@@ -18,7 +18,8 @@ public class ToursAction extends BaseAction {
     TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        renderPage(req, res, 1, HtmlComponent.card(Database.getDbInstance().getTours()));
+//        TODO
+//        renderPage(req, res, 1, HtmlComponent.card(Database.getDbInstance().getTours()));
  
     }
 

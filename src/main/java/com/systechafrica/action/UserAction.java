@@ -33,13 +33,18 @@ public class UserAction extends BaseAction {
 //    check if user exists
 public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
      AuthBeanI authBean = new AuthBean();
+
+
+        // HttpSession httpSession = req.getSession();
+        // httpSession.setAttribute("userRole", null);
+        // User registerUser  = serializeForm(User.class, req.getParameterMap());
+
+        try {
+             User registerUser  = serializeForm(User.class, req.getParameterMap());
+            // authBean.register(serializeForm(User.class, req.getParameterMap()));
         HttpSession httpSession = req.getSession();
-        httpSession.setAttribute("userRole", null);
-
-        User registerUser  = serializeForm(User.class, req.getParameterMap());
-
-    
         User userDetails = authBean.register(registerUser);
+
         if(userDetails != null ) {
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
             // httpSession.setAttribute("user", userDetails);
@@ -47,13 +52,15 @@ public void doPost(HttpServletRequest req, HttpServletResponse res) throws Servl
             httpSession.setAttribute("userRole", userDetails.getRole()); 
             httpSession.setAttribute("userName", userDetails.getUsername()); 
             res.sendRedirect("./my-account");
-        }
+        } else {
            PrintWriter print = res.getWriter();
            print.write("<html><head><style>" +
                 "body { display: flex; justify-content: center; align-items: center; height: 100vh; }" +
             ".card { padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); max-width: 400px; margin: auto; text-align: center; }" +
             "</style></head><body><div class='card'><p>Passwords don't match <a href='./account-register'> Register again!! </a></p></div></body></html>");
-
+       } } catch (Exception ex){
+            ex.printStackTrace();
+        }
 
 }
 

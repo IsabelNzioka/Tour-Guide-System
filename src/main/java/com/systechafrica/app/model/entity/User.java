@@ -4,72 +4,43 @@ import java.io.Serializable;
 
 import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.app.view.helper.TableColHeader;
+import com.systechafrica.database.helper.DbTable;
+import com.systechafrica.database.helper.DbTableColumn;
 
+@DbTable(name = "users")
 @HtmlTable(addUrl = "./admin-users?action=add")
-public class User implements Serializable {
-    @TableColHeader(headerLabel = "Member ID")
-    private long id;
+public class User extends  BaseEntity {
 
+
+    @DbTableColumn(name = "username")
     @TableColHeader(headerLabel = "Member Name")
     private String username;
 
+    
     @TableColHeader(headerLabel = "Mobile")
-    private int phonenumber;
+    @DbTableColumn(name = "Mobile")
+    private String phonenumber;
 
     @TableColHeader(headerLabel = "Email")
+    @DbTableColumn(name = "Email")
     private String email;
 
+    @DbTableColumn(name = "password")
     private String password;
 
     private String confirmPassword;
 
+    @DbTableColumn(name = "userRole")
     @TableColHeader(headerLabel = "User Role")
     private UserRole role;
 
     
-
-//    email
-//    phone number
-//    roles - Admin, manager, guides, customers - default role - customers/
-//    picture - optional ?
-
     public  User() {
-
-    }
-
-//    public User(long id, String username, String password, String confirmPassword, UserRole role) {
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//        this.confirmPassword = confirmPassword;
-//         this.role = UserRole.CUSTOMER;
-//    }
-
-    public User(long id, String username, int phonenumber, String email, String password) {
-        this.id = id;
-        this.username = username;
-        this.phonenumber = phonenumber;
-        this.email = email;
-        this.password = password;
         this.role = UserRole.CUSTOMER;
-    }
-
-    public User(long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.role = UserRole.CUSTOMER;
+        this.role = UserRole.ADMIN;
     }
 
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -103,11 +74,11 @@ public class User implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
-    public int getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(int phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 
@@ -117,5 +88,8 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setRole(String string) {
     }
 }

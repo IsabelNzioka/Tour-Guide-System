@@ -21,7 +21,7 @@ public class AddTourAction  extends BaseAction {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 //        renderAdminPage(req, res, 0, HtmlComponent.form(Tour.class));
-        renderAdminPage(req, res, 0, Tour.class, new ArrayList<Tour>());
+//        renderAdminPage(req, res, 0, Tour.class, new ArrayList<Tour>());
 
     }
 
