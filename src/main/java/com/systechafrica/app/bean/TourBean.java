@@ -7,17 +7,21 @@ import com.systechafrica.database.Database;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 
 
+
+@Stateless
 public class TourBean extends GenericBean<Tour> implements TourBeanI{
 
 
 
-    @Override
-    public void addOrUpdateEntity(Tour tour) {
-        getDao().addOrUpdateEntity(tour);
-
-    }
+//    @Override
+//    public void addOrUpdateEntity(Tour tour) {
+//        getDao().addOrUpdateEntity(tour);
+//
+//    }
 
 
 }

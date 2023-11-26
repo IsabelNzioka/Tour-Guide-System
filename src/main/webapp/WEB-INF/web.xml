@@ -11,15 +11,15 @@
   </context-param>
 
 
-  <servlet>
-    <servlet-name>HomeAction</servlet-name>
-    <servlet-class>com.systechafrica.action.HomeAction</servlet-class>
-  </servlet>
+<!--  <servlet>-->
+<!--    <servlet-name>HomeAction</servlet-name>-->
+<!--    <servlet-class>com.systechafrica.action.HomeAction</servlet-class>-->
+<!--  </servlet>-->
 
-    <servlet-mapping>
-    <servlet-name>HomeAction</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+<!--    <servlet-mapping>-->
+<!--    <servlet-name>HomeAction</servlet-name>-->
+<!--    <url-pattern>/</url-pattern>-->
+<!--  </servlet-mapping>-->
 
 
 </web-app>

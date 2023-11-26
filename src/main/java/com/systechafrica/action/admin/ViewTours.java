@@ -7,6 +7,7 @@ import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.view.helper.HtmlComponent;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -18,20 +19,19 @@ import java.util.ArrayList;
 
 @WebServlet("/admin-tours")
 public class ViewTours extends BaseAction  {
-    private Tour tour = new Tour();
-    private final TourBeanI tourBean = new TourBean();
 
+//    private final TourBeanI tourBean = new TourBean();
+    @EJB
+    TourBeanI tourBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        TourBeanI tourBean = new TourBean();
-
         req.setAttribute("statContent", HtmlComponent.tourStatCard());
         renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class));
+
     }
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-   
         tourBean.addOrUpdateEntity(serializeForm(Tour.class, req.getParameterMap()));
         res.sendRedirect("./admin-tours");
     }

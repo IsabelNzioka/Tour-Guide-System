@@ -1,5 +1,6 @@
 package com.systechafrica.action;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
@@ -19,10 +20,14 @@ import com.systechafrica.app.model.entity.User;
 
 @WebServlet("/account-login")
 public class LoginAction extends BaseAction {
-    AuthBeanI authBean = new AuthBean();
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        
+
+    //    AuthBeanI authBean = new AuthBean();
+    @EJB
+    AuthBeanI authBean;
+
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
         req.setAttribute("activeMenu", 2);
         RequestDispatcher dispatcher = req.getRequestDispatcher("./app/loginPage.jsp");
         dispatcher.forward(req, res);
@@ -31,30 +36,30 @@ public class LoginAction extends BaseAction {
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-          HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
-      
-        User loginUser  = serializeForm(User.class, req.getParameterMap());
+        HttpSession httpSession = req.getSession(true); //create a new session whenever we log in.
+
+        User loginUser = serializeForm(User.class, req.getParameterMap());
 
         try {
-              User userDetails = authBean.authenticate(loginUser);
+            User userDetails = authBean.authenticate(loginUser);
 
-    
+
             if (userDetails != null) {
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-                httpSession.setAttribute("userRole", userDetails.getRole()); 
+                httpSession.setAttribute("userRole", userDetails.getRole());
                 httpSession.setAttribute("userName", userDetails.getUsername());
                 res.sendRedirect("./my-account");
             } else {
-            PrintWriter print = res.getWriter();
-             print.write("<html><head><style>" +
-                "body { display: flex; justify-content: center; align-items: center; height: 100vh; }" +
-                ".card { padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); max-width: 400px; margin: auto; text-align: center; }" +
-                "</style></head><body><div class='card'><p>Invalid login details <a href='./account-login'> Login again!! </a></p></div></body></html>");
-}
-        }catch(Exception ex) {
+                PrintWriter print = res.getWriter();
+                print.write("<html><head><style>" +
+                        "body { display: flex; justify-content: center; align-items: center; height: 100vh; }" +
+                        ".card { padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); max-width: 400px; margin: auto; text-align: center; }" +
+                        "</style></head><body><div class='card'><p>Invalid login details <a href='./account-login'> Login again!! </a></p></div></body></html>");
+            }
+        } catch (Exception ex) {
             ex.printStackTrace();
 
-        }   
+        }
 
     }
 

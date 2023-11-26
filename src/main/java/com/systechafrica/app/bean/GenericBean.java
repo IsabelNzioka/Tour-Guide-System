@@ -12,7 +12,7 @@ import com.systechafrica.app.model.entity.User;
 import com.systechafrica.database.Database;
 import com.systechafrica.database.MysqlDatabase;
 
-public class GenericBean<T> implements GenericBeanI<T> {
+public abstract class GenericBean<T> implements GenericBeanI<T> {
     
 
     private final GenericDaoI<T> genericDao = new GenericDao<>();

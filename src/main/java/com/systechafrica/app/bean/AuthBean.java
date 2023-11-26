@@ -4,12 +4,14 @@ import com.systechafrica.app.model.entity.User;
 import com.systechafrica.database.Database;
 import com.systechafrica.database.MysqlDatabase;
 
+import javax.ejb.Stateless;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Stateless
 public class AuthBean  implements AuthBeanI, Serializable {
     Database database = Database.getDbInstance();
 
@@ -29,49 +31,48 @@ public class AuthBean  implements AuthBeanI, Serializable {
             user.setUsername(result.getString("username"));
             // user.setRole(result.getString("role"));
         }
-
         return user;
     }
 
 
     
 
-     @Override
-     public User register(User user)  throws SQLException{
-        User userR = new User();
-
-        System.out.println("Password: " + user.getPassword());
-        System.out.println("Confirm Password: " + user.getConfirmPassword());
-
-
-        if (user.getPassword().equals(user.getConfirmPassword())) {
-
-//  TODO  - check if user exxists - email
-//            hash passwords
-//            initiate events to send email  -- Observer design pattern
+//     @Override
+//     public User register(User user)  throws SQLException{
+//        User userR = new User();
 //
-                MysqlDatabase.saveOrUpdate(user);
-
-
-            // Login User
-            try(PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
-            .prepareStatement("SELECT * FROM users WHERE username = ?")) {
-
-                sqlStmt.setString(1, user.getUsername());
-                ResultSet result = sqlStmt.executeQuery();
-                while (result.next()) {
-                    userR.setUsername(result.getString("username"));
-                    userR.setEmail(result.getString("email"));
-                }
-
-            }
-
-    } else {
-        return null;
-    }
-        return userR;
-
-    }
+//        System.out.println("Password: " + user.getPassword());
+//        System.out.println("Confirm Password: " + user.getConfirmPassword());
+//
+//
+//        if (user.getPassword().equals(user.getConfirmPassword())) {
+//
+////  TODO  - check if user exxists - email
+////            hash passwords
+////            initiate events to send email  -- Observer design pattern
+////
+//                MysqlDatabase.saveOrUpdate(user);
+//
+//
+//            // Login User
+//            try(PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
+//            .prepareStatement("SELECT * FROM users WHERE username = ?")) {
+//
+//                sqlStmt.setString(1, user.getUsername());
+//                ResultSet result = sqlStmt.executeQuery();
+//                while (result.next()) {
+//                    userR.setUsername(result.getString("username"));
+//                    userR.setEmail(result.getString("email"));
+//                }
+//
+//            }
+//
+//    } else {
+//        return null;
+//    }
+//        return userR;
+//
+//    }
 
 
 }

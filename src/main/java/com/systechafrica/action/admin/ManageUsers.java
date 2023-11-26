@@ -9,6 +9,7 @@ import com.systechafrica.app.model.entity.User;
 import com.systechafrica.app.view.helper.HtmlComponent;
 import com.systechafrica.database.Database;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -19,11 +20,12 @@ import java.util.ArrayList;
 
 @WebServlet("/admin-users")
 public class ManageUsers extends BaseAction{
+    @EJB
+    UserBeanI userBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        UserBeanI userBean = new UserBean();
-
-       req.setAttribute("statContent", HtmlComponent.statCard());
+//        UserBeanI userBean = new UserBean();
+        req.setAttribute("statContent", HtmlComponent.statCard());
         renderAdminPage(req, res, 2, User.class, userBean.list(User.class));
     }
 }

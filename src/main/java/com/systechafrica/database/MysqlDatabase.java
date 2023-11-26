@@ -9,10 +9,13 @@ import com.systechafrica.database.helper.DbTableId;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -174,6 +177,72 @@ public class MysqlDatabase implements Serializable {
             e.printStackTrace();
         }
     }
+
+
+
+//    public <T> List<T> fetch(T entity) {
+//    }
+
+//    public static  <T> List<T> select(Class<T> filter) {
+//        try {
+//            Class<?> clazz = filter;
+//            System.out.println();
+//            System.out.println("Clazz>>>>>>>>>>" + clazz.getName());
+//
+//            if (!clazz.isAnnotationPresent(DbTable.class))
+//                return new ArrayList<>();
+//
+//            DbTable dbTable = clazz.getAnnotation(DbTable.class);
+//            String stringBuilder = "SELECT * FROM " +
+//                    dbTable.name() + ";";
+//
+//            Connection connection = MysqlDatabase.getInstance().getConnection();
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder);
+//
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            List<T> result = new ArrayList<>();
+//
+//            while (resultSet.next()) {
+//                T object = (T) clazz.getDeclaredConstructor().newInstance();
+//
+//                List<Field> fields = new ArrayList<>(Arrays.asList(filter.getSuperclass().getDeclaredFields()));
+//                fields.addAll(Arrays.asList(filter.getDeclaredFields()));
+//
+//                for (Field field : fields) {
+//                    DbTableColumn dbColumn = field.getAnnotation(DbTableColumn.class);
+//                    if (dbColumn != null) {
+//                        String columnName = dbColumn.name();
+//
+//                        Object value = resultSet.getObject(columnName);
+//                        /*Check dates and convert to Local date.
+//                         * Specific date classes may need to be handled differently
+//                         * */
+//                        if (value instanceof java.sql.Date && field.getType() == LocalDate.class) {
+//                            value = ((java.sql.Date) value).toLocalDate();
+//                        }
+//                        if (field.getType().isEnum() && value instanceof String) {
+//                            value = Enum.valueOf((Class<Enum>) field.getType(), (String) value);
+//                        }
+//                        if (field.getType() == Long.class) {
+//                            assert value instanceof Integer;
+//                            value = Long.valueOf((Integer) value);
+//                        }
+//
+//                        field.setAccessible(true);
+//                        field.set(object, value);
+//                    }
+//                }
+//
+//                result.add(object);
+//            }
+//            return result;
+//
+//        } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException |
+//                 NoSuchMethodException ex) {
+//            throw new RuntimeException(ex);
+//        }
+//    }
 
     public Connection getConnection() {
         return connection;

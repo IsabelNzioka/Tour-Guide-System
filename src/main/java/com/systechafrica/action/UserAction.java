@@ -8,6 +8,7 @@ import com.systechafrica.app.model.entity.User;
 
 import com.systechafrica.database.Database;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +21,11 @@ import java.util.Date;
 
 @WebServlet("/account-register")
 public class UserAction extends BaseAction {
-    UserBeanI userBean = new UserBean();
+//    UserBeanI userBean = new UserBean();
+    @EJB
+     UserBeanI userBean;
+
+
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     
@@ -33,7 +38,8 @@ public class UserAction extends BaseAction {
 //    check if user exists
 public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-     UserBeanI userBean = new UserBean();
+//     UserBeanI userBean = new UserBean();
+
         try {
              User registerUser  = serializeForm(User.class, req.getParameterMap());
         HttpSession httpSession = req.getSession();

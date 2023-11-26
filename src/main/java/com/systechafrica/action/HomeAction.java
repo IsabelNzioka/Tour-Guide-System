@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/home")
+@WebServlet("/")
 public class HomeAction extends BaseAction{
 //    TourBeanI tourBean = new TourBean();
 

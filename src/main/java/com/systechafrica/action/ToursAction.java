@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/tours")
 public class ToursAction extends BaseAction {
-    TourBeanI tourBean = new TourBean();
+//    TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 //        TODO
