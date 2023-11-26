@@ -12,7 +12,7 @@ COPY . .
 RUN mvn clean compile package
 
 # Stage 2: Deploy the application to WildFly
-FROM jboss/wildfly:latest AS deploy
+FROM quay.io/wildfly/wildfly:26.1.3.Final-jdk11 AS deploy
 
 # Remove the default standalone.xml file from WildFly
 RUN rm /opt/jboss/wildfly/standalone/configuration/standalone.xml

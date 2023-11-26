@@ -149,7 +149,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/tours" pool-name="tours" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://localhost:3306/tours</connection-url>
+                    <connection-url>jdbc:mysql://db:3306/tours</connection-url>
                     <driver>mysql</driver>
                     <pool>
                         <min-pool-size>5</min-pool-size>
@@ -540,8 +540,5 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="Tours-system.war" runtime-name="Tours-system.war">
-            <content sha1="97cb19d0abf3175b1ec1fc98466c43b9fc727174"/>
-        </deployment>
     </deployments>
 </server>

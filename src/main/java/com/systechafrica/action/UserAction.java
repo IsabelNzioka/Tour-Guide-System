@@ -32,23 +32,15 @@ public class UserAction extends BaseAction {
 
 //    check if user exists
 public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-     AuthBeanI authBean = new AuthBean();
 
-
-        // HttpSession httpSession = req.getSession();
-        // httpSession.setAttribute("userRole", null);
-        // User registerUser  = serializeForm(User.class, req.getParameterMap());
-
+     UserBeanI userBean = new UserBean();
         try {
              User registerUser  = serializeForm(User.class, req.getParameterMap());
-            // authBean.register(serializeForm(User.class, req.getParameterMap()));
         HttpSession httpSession = req.getSession();
-        User userDetails = authBean.register(registerUser);
+        User userDetails = userBean.register(registerUser);
 
         if(userDetails != null ) {
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
-            // httpSession.setAttribute("user", userDetails);
-
             httpSession.setAttribute("userRole", userDetails.getRole()); 
             httpSession.setAttribute("userName", userDetails.getUsername()); 
             res.sendRedirect("./my-account");

@@ -45,9 +45,13 @@ public class AuthBean  implements AuthBeanI, Serializable {
 
 
         if (user.getPassword().equals(user.getConfirmPassword())) {
+
+//  TODO  - check if user exxists - email
+//            hash passwords
+//            initiate events to send email  -- Observer design pattern
+//
                 MysqlDatabase.saveOrUpdate(user);
 
-//            TODO = GENERIC
 
             // Login User
             try(PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()

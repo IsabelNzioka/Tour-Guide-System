@@ -22,7 +22,9 @@ public class AppInit implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        System.out.println("Application initialization started.");
         MysqlDatabase.updateSchema();
+        System.out.println("Application initialization completed.");
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
@@ -31,6 +33,7 @@ public class AppInit implements ServletContextListener {
             MysqlDatabase database = MysqlDatabase.getInstance();
 
             if (database.getConnection() != null){
+                System.out.println("Connection closed.");
                 database.getConnection().close();
             }
 

@@ -10,28 +10,14 @@ import java.util.List;
 
 
 public class TourBean extends GenericBean<Tour> implements TourBeanI{
-//    Business logic only
 
-//    public String availableTours() {
-//        return HtmlComponent.table(Database.getDbInstance().getTours());
-//    }
-    // public List<Tour> list(){
-    //     return Database.getDbInstance().getTours();
-    // }
 
-    // public String availableToursCard() {
-    //     return HtmlComponent.card(Database.getDbInstance().getTours());
-    // }
 
-    // public Tour addOrUpdateTour(Tour tour) {
-    //      Database database = Database.getDbInstance();
-    //      database.getTours().add(tour);
+    @Override
+    public void addOrUpdateEntity(Tour tour) {
+        getDao().addOrUpdateEntity(tour);
 
-    //     return tour;
-    // }
+    }
 
-    // public void deleteTour(Tour tour) {
-
-    // }
 
 }

@@ -58,6 +58,8 @@ public class Tour  extends BaseEntity {
 
 
 
+
+
 //  Todo - database details
 //    start date - end date
 //    ratings
