@@ -12,20 +12,26 @@ import com.systechafrica.app.model.entity.User;
 import com.systechafrica.database.Database;
 import com.systechafrica.database.MysqlDatabase;
 
+import javax.ejb.EJB;
+
 public abstract class GenericBean<T> implements GenericBeanI<T> {
-    
+
+    @EJB
+    MysqlDatabase database;
 
     private final GenericDaoI<T> genericDao = new GenericDao<>();
 
 
     @Override
     public List<T> list(Class<?> entity) {
+        genericDao.setDatabase(database);
         return genericDao.list(entity);
 
     }
 
     @Override
     public void addOrUpdateEntity(T entity) {
+        genericDao.setDatabase(database);
         genericDao.addOrUpdateEntity(entity);
 
     }
@@ -36,6 +42,7 @@ public abstract class GenericBean<T> implements GenericBeanI<T> {
     }
 
     public GenericDao<T> getDao() {
+        genericDao.setDatabase(database);
         return  (GenericDao<T>) genericDao;
     }
     

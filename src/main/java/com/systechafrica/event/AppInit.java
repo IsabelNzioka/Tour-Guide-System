@@ -20,25 +20,4 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class AppInit implements ServletContextListener {
 
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("Application initialization started.");
-        MysqlDatabase.updateSchema();
-        System.out.println("Application initialization completed.");
-    }
-
-    public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Application has been destroyed");
-        try {
-            MysqlDatabase database = MysqlDatabase.getInstance();
-
-            if (database.getConnection() != null){
-                System.out.println("Connection closed.");
-                database.getConnection().close();
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-    }
 }

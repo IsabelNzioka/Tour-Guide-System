@@ -5,6 +5,7 @@ import com.systechafrica.app.model.entity.User;
 import com.systechafrica.database.Database;
 import com.systechafrica.database.MysqlDatabase;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @Stateless
 public class UserBean extends GenericBean<User> implements UserBeanI {
+    @EJB
+    MysqlDatabase database;
 
     @Override
     public User register(User user)  throws SQLException {
@@ -29,11 +32,11 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
 //            hash passwords
 //            initiate events to send email  -- Observer design pattern
 //
-            MysqlDatabase.saveOrUpdate(user);
+            getDao().addOrUpdateEntity(user);
 
 
             // Login User
-            try(PreparedStatement sqlStmt = MysqlDatabase.getInstance().getConnection()
+            try(PreparedStatement sqlStmt = database.getConnection()
                     .prepareStatement("SELECT * FROM users WHERE username = ?")) {
                 sqlStmt.setString(1, user.getUsername());
                 ResultSet result = sqlStmt.executeQuery();
