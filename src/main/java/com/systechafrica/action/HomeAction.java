@@ -17,7 +17,6 @@ public class HomeAction extends BaseAction{
 //    TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
         renderPage(req, res, 0, "<div class='HomePage'> </div>");
 
     }

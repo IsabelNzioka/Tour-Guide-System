@@ -12,7 +12,7 @@ import com.systechafrica.database.helper.DbTableColumn;
 
 
 @DbTable(name = "bookings")
-@HtmlTable(addUrl = "./admin-bookings?action=add")
+@HtmlTable(addUrl = "./admin-bookings?action=add",searchUrl = "./admin-bookings?action=searchUrl",deleteUrl = "./admin-bookings?action=delete", url="./admin-bookings")
 @HtmlForm(label = "Tour", url = "./admin-bookings")
 public class Booking  extends BaseEntity {
 

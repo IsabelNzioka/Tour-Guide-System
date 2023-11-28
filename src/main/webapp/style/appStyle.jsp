@@ -71,6 +71,8 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 5px;
       transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
   }
   .card:hover {
      transform: scaleY(1.02);
@@ -81,6 +83,7 @@
     width: 100%;
     height: 400px;
     border-radius: 5px;
+    order: -1;
   }
 
   .card h3 {

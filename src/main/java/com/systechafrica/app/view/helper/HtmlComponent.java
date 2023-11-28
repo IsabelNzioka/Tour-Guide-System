@@ -5,6 +5,7 @@ import com.systechafrica.app.model.entity.TourCategory;
 import com.systechafrica.app.model.entity.User;
 import com.systechafrica.database.Database;
 
+import com.systechafrica.database.helper.DbTableId;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -30,10 +31,17 @@ public class HtmlComponent implements Serializable {
 
 //            TODO - append actions  --- Add for tours only
               toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.addUrl()).append("\">Add</a><br/>");
-              toursList.append("<a class=\"linkBtn\" href=\"").append("\">Search ....</a><br/>");
-              toursList.append("<a class=\"linkBtn\" href=\"").append("\">Filter by ....</a><br/>");
+//              toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.searchUrl()).append("\">Search ....</a><br/>");
 
-              toursList.append("</div><table class='TourList'><tr>");
+        toursList.append("<form id=\"searchForm\" class=\"searchForm\" action=\"\" method=\"GET\">");
+        toursList.append("<input type=\"hidden\" id=\"searchUrl\" value=\"" + htmlTable.searchUrl() + "\">");
+        toursList.append("<input type=\"text\"  class=\"searchInput\" name=\"searchItem\" placeholder=\"Search...\">");
+        toursList.append("<button type=\"submit\" class=\"searchButton\">Search</button>");
+        toursList.append("</form>");
+
+        toursList.append("</form>");
+            toursList.append("<a class=\"linkBtn\" href=\"").append("\">Filter by ....</a><br/>");
+            toursList.append("</div><table class='TourList'><tr>");
 
         for (Field  field : fields) {
             if (!field.isAnnotationPresent(TableColHeader.class))
@@ -75,7 +83,23 @@ public class HtmlComponent implements Serializable {
                     }
 
                 }
-                toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i> <i class=\"fa-solid fa-trash-can\"></i></td>");
+//                toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.addUrl()).append("\">Add</a><br/>");
+               Field idField = findIdField(data.getClass());
+                if(idField != null) {
+                    idField.setAccessible(true);
+                    try {
+                        Object idValue = idField.get(data);
+                        toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i>");
+//                        toursList.append("<a href=\"").append(htmlTable.deleteUrl()).append("?id=").append(idValue).append("\"><i class=\"fa-solid fa-trash-can\"></i></a>")
+                        toursList.append("<a href=\"").append(htmlTable.url()).append("\" onclick=\"deleteEntity(").append(idValue).append(", '").append(htmlTable.deleteUrl()).append("')\"><i class=\"fa-solid fa-trash-can\"></i></a>")
+                           .append("</td>");
+
+                    }catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+
                 toursList.append("</tr>");
             }
         }
@@ -151,11 +175,13 @@ public class HtmlComponent implements Serializable {
     
         for (Object model : models) {
             toursList.append("<div class='card'>");
-    
+
+
             for (Field field : fields) {
                 HtmlCard formField = field.getAnnotation(HtmlCard.class);
                  if (!field.isAnnotationPresent(HtmlCard.class))
                             continue;
+
                 try {
                      field.setAccessible(true); //if the fields are private
                     if(formField.name().equals("Tour Image")){
@@ -194,9 +220,29 @@ public class HtmlComponent implements Serializable {
 
 
 
-    // ///////////////////
+    // /////////////////// HELPER METHODS
     private static String ifBlank(String target, String alternative){
         return StringUtils.isBlank(target)? alternative : StringUtils.trimToEmpty(target);
     }
+
+    private static Field findIdField(Class<?> dataClass) {
+        Field[] fields = dataClass.getDeclaredFields();
+
+        // Look for the @DbTableId annotation in the declared fields
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(DbTableId.class)) {
+                return field;
+            }
+        }
+
+        // If not found, check the superclass
+        Class<?> superClass = dataClass.getSuperclass();
+        if (superClass != null) {
+            return findIdField(superClass);
+        }
+
+        return null;
+    }
+
 }
 

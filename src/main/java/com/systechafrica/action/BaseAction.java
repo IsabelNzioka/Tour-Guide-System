@@ -1,5 +1,6 @@
 package com.systechafrica.action;
 
+import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.view.helper.HtmlComponent;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -81,8 +82,6 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
     //  new AdminPage().renderAdmin(req, res, 0, HtmlComponent.form(Tour.class));
       public void renderAdminPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, Class<?> entity, List<?> entityList) throws ServletException, IOException {
         req.setAttribute("activeMenu", activeMenu);
-//        req.setAttribute("content", content);
-
           if (StringUtils.trimToEmpty(req.getParameter("action")).equals("add"))
               req.setAttribute("content", HtmlComponent.form(entity));
           else
@@ -93,6 +92,8 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
 
      }
 
+
+
        public void renderUserAccountPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws ServletException, IOException {
         req.setAttribute("activeMenu", activeMenu);
         req.setAttribute("content", content);
@@ -101,6 +102,8 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
         dispatcher.forward(req, res);
 
      }
+
+
 
 
 }

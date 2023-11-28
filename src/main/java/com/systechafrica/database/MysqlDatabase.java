@@ -196,19 +196,116 @@ public class MysqlDatabase implements Serializable {
 //    public <T> List<T> fetch(T entity) {
 //    }
 
-    public <T> List<T> select (Class<T> filter) {
+//    public <T> List<T> select (Class<T> filter) {
+//        try {
+//            Class<?> clazz = filter;
+//            System.out.println();
+//
+//            if (!clazz.isAnnotationPresent(DbTable.class))
+//                return new ArrayList<>();
+//
+//            DbTable dbTable = clazz.getAnnotation(DbTable.class);
+//            String stringBuilder = "SELECT * FROM " +
+//                    dbTable.name() + ";";
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder);
+//
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            List<T> result = new ArrayList<>();
+//
+//            while (resultSet.next()) {
+//                T object = (T) clazz.getDeclaredConstructor().newInstance();
+//
+//                List<Field> fields = new ArrayList<>(Arrays.asList(filter.getSuperclass().getDeclaredFields()));
+//                fields.addAll(Arrays.asList(filter.getDeclaredFields()));
+//
+//                for (Field field : fields) {
+//                    DbTableColumn dbColumn = field.getAnnotation(DbTableColumn.class);
+//                    if (dbColumn != null) {
+//                        String columnName = dbColumn.name();
+//
+//                        Object value = resultSet.getObject(columnName);
+//                        if (value instanceof java.sql.Date && field.getType() == LocalDate.class) {
+//                            value = ((java.sql.Date) value).toLocalDate();
+//                        }if(field.getType() == BigDecimal.class) {
+//                            value = new BigDecimal((String) value);
+//                        }
+//
+//                        if (field.getType().isEnum() && value instanceof String) {
+//                            value = Enum.valueOf((Class<Enum>) field.getType(), (String) value);
+//                        }
+//                        if (field.getType() == Long.class) {
+//                            assert value instanceof Integer;
+//                            value = Long.valueOf((Integer) value);
+//                        }
+//
+//                        field.setAccessible(true);
+//                        field.set(object, value);
+//                    }
+//                }
+//
+//                result.add(object);
+//            }
+//            return result;
+//
+//        } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException |
+//                 NoSuchMethodException ex) {
+//            throw new RuntimeException(ex);
+//        }
+//    }
+
+
+
+
+    public <T> List<T> select (Class<T> filter, String searchItem) {
         try {
             Class<?> clazz = filter;
             System.out.println();
-
-            if (!clazz.isAnnotationPresent(DbTable.class))
-                return new ArrayList<>();
-
             DbTable dbTable = clazz.getAnnotation(DbTable.class);
-            String stringBuilder = "SELECT * FROM " +
-                    dbTable.name() + ";";
+            String query = "SELECT * FROM " + dbTable.name();
 
-            PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder);
+            if (searchItem != null && !searchItem.isEmpty()) {
+                query += " WHERE ";
+
+                List<Field> fields = Arrays.asList(filter.getDeclaredFields());
+                for (Field field : fields) {
+                    DbTableColumn dbColumn = field.getAnnotation(DbTableColumn.class);
+                    if (dbColumn != null) {
+                        String columnName = dbColumn.name();
+                        query += columnName + " LIKE ? OR ";
+                    }
+                }
+
+                query = query.substring(0, query.length() - 4);
+//                SELECT * FROM tours WHERE Name LIKE ? OR Price LIKE ? OR Image LIKE ?
+
+            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            // Set parameters for searchItem in the prepared statement
+            if (searchItem != null && !searchItem.isEmpty()) {
+                int parameterIndex = 1;
+                List<Field> fields = Arrays.asList(filter.getDeclaredFields());
+                for (Field field : fields) {
+                    DbTableColumn dbColumn = field.getAnnotation(DbTableColumn.class);
+                    if (dbColumn != null) {
+                        preparedStatement.setString(parameterIndex++, "%" + searchItem + "%");
+
+                    }
+                }
+                System.out.println("searchItem: " + searchItem);
+            }
+
+
+//            if (!clazz.isAnnotationPresent(DbTable.class))
+//                return new ArrayList<>();
+//
+//            DbTable dbTable = clazz.getAnnotation(DbTable.class);
+//            String stringBuilder = "SELECT * FROM " +
+//                    dbTable.name() + ";";
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             List<T> result = new ArrayList<>();
@@ -251,6 +348,25 @@ public class MysqlDatabase implements Serializable {
         } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException |
                  NoSuchMethodException ex) {
             throw new RuntimeException(ex);
+        }
+    }
+
+
+    public void delete(Class<?> clazz, Object id) {
+        if (!clazz.isAnnotationPresent(DbTable.class))
+            return;
+
+        DbTable dbTable = clazz.getAnnotation(DbTable.class);
+
+
+        String sqlStm = "DELETE FROM " + dbTable.name() + " WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlStm)) {
+            if (id instanceof Long)
+                preparedStatement.setLong(1, (Long) id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

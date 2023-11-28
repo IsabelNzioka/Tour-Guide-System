@@ -9,7 +9,7 @@ import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
 
 @DbTable(name = "tours")
-@HtmlTable(addUrl = "./admin-tours?action=add")
+@HtmlTable(addUrl = "./admin-tours?action=add",searchUrl = "./admin-tours?action=searchUrl", deleteUrl = "./admin-tours?action=delete", url ="./admin-tours")
 @HtmlForm(label = "Tour", url = "./admin-tours")
 public class Tour  extends BaseEntity {
 
@@ -48,6 +48,7 @@ public class Tour  extends BaseEntity {
 
     private String summary;
 
+    @DbTableColumn(name = "Image")
     @HtmlCard(name = "Tour Image", className = "TourImage")
     @HtmlFormField(label = "Tour Image")
     private String imageurl;

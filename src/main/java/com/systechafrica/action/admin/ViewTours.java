@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet("/admin-tours")
@@ -24,11 +25,28 @@ public class ViewTours extends BaseAction  {
     @EJB
     TourBeanI tourBean;
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.setAttribute("statContent", HtmlComponent.tourStatCard());
-        renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class));
+//    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//
+//
+//        req.setAttribute("statContent", HtmlComponent.tourStatCard());
+//        renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class));
+//
+//    }
+public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    String searchItem = req.getParameter("searchItem");
 
+    List<Tour> tours;
+
+    if (searchItem != null && !searchItem.isEmpty()) {
+        tours = tourBean.list(Tour.class, searchItem);
+    } else {
+        tours = tourBean.list(Tour.class, null);
     }
+
+    req.setAttribute("statContent", HtmlComponent.tourStatCard());
+    renderAdminPage(req, res, 1, Tour.class, tours);
+}
+
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -36,4 +54,25 @@ public class ViewTours extends BaseAction  {
         res.sendRedirect("./admin-tours");
     }
 
+    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws  IOException{
+
+//        TODO - Use baseAction
+        String action = req.getParameter("action");
+        if ("delete".equals(action)) {
+            String idParam = req.getParameter("id");
+            System.out.println("Deletediiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + idParam);
+
+            if (idParam != null && !idParam.isEmpty()) {
+                Long id = Long.parseLong(idParam);
+                tourBean.deleteEntity(Tour.class, id);
+
+//                res.sendRedirect("./admin-tours");
+                res.setStatus(HttpServletResponse.SC_OK);
+            }
+        }
+
+
+    }
+
 }
+

@@ -8,7 +8,7 @@ import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
 
 @DbTable(name = "users")
-@HtmlTable(addUrl = "./admin-users?action=add")
+@HtmlTable(addUrl = "./admin-users?action=add",searchUrl = "./admin-users?action=searchUrl",deleteUrl = "./admin-users?action=delete", url="./admin-users")
 public class User extends  BaseEntity {
 
 

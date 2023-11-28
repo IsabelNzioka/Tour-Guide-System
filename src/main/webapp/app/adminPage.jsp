@@ -46,5 +46,6 @@
     </div>
 </div>
 
+<jsp:include page="../style/adminScript.jsp" />
 </body>
 </html>

@@ -10,6 +10,7 @@ import com.systechafrica.app.view.helper.HtmlComponent;
 
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -23,29 +24,43 @@ public class AdminAction extends BaseAction {
     @EJB
     TourBeanI tourBean;
 
+    @Inject
+    private AddTourAction addTourAction;
+
+    @Inject
+    private ViewTours viewTours;
+
+    @Inject
+    private ManageUsers manageUsers;
+
+    @Inject
+    private BookingAction bookingAction;
+
+
+
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     
             String requestUri = req.getRequestURI();
 
             if (requestUri.equals("/add-tour")) {
-                new AddTourAction().doGet(req, res);
+                addTourAction.doGet(req, res);
 
             }   else if (requestUri.equals("/admin-tours")) {
-                new ViewTours().doGet(req, res);
+                viewTours.doGet(req, res);
             }
 
             else if (requestUri.equals("/admin-users")) {
-                new ManageUsers().doGet(req, res);
+                manageUsers.doGet(req, res);
 
 
             } else if (requestUri.equals("/admin-bookings")) {
-              new BookingAction().doGet(req, res);
+                 bookingAction.doGet(req, res);
 
             } else {
 //                TODO - Stat page
 //                new ViewTours().doGet(req, res);
                 req.setAttribute("statContent", HtmlComponent.tourStatCard());
-                renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class));
+                renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class, null));
             }
 
 

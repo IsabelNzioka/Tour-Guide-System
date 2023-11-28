@@ -9,10 +9,15 @@ public class GenericDao<T> implements GenericDaoI<T> {
     private MysqlDatabase database;
   
 
-    @SuppressWarnings({"unchecked","rawtypes"})
+//    @SuppressWarnings({"unchecked","rawtypes"})
+//    @Override
+//    public List<T> list(Class<?> entity) {
+//        return (List<T>) database.select(entity);
+//    }
+
     @Override
-    public List<T> list(Class<?> entity) {
-        return (List<T>) database.select(entity);
+    public List<T> list(Class<?> entity, String searchItem) {
+        return (List<T>) database.select(entity, searchItem);
     }
 
     @Override
@@ -24,7 +29,8 @@ public class GenericDao<T> implements GenericDaoI<T> {
     }
 
     @Override
-    public void deleteEntity(T entity) {
+    public void deleteEntity(Class<?> clazz,Long id) {
+        database.delete(clazz,id);
 
     }
     public MysqlDatabase getDatabase() {

@@ -6,7 +6,6 @@
         width: 100%;
         min-height: 100vh;
 
-     
     }
 
     .Content span {
@@ -164,7 +163,26 @@
       width: 100%;
        display: flex;
        justify-content: space-between;
+         align-items: center;
        padding: 1rem 0rem;
+      }
+      .TableActions .searchForm {
+           font-size: 1rem;
+           font-family: inherit;
+
+      }
+      .TableActions .searchInput {
+        padding: 0.5rem 1rem;
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid #435B66;
+
+
+      }
+      .TableActions .searchButton {
+         border-radius: 5px;
+         padding: 0.5rem 1rem;
+         border: 1px solid #435B66;
       }
 
       .TableActions .linkBtn {

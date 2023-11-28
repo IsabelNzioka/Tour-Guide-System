@@ -13,21 +13,32 @@ import com.systechafrica.database.Database;
 import com.systechafrica.database.MysqlDatabase;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
+
 
 public abstract class GenericBean<T> implements GenericBeanI<T> {
 
     @EJB
     MysqlDatabase database;
 
-    private final GenericDaoI<T> genericDao = new GenericDao<>();
+//    private final GenericDaoI<T> genericDao = new GenericDao<>();
 
+    @Inject
+    private GenericDaoI<T> genericDao;
 
-    @Override
-    public List<T> list(Class<?> entity) {
-        genericDao.setDatabase(database);
-        return genericDao.list(entity);
+//
+//    @Override
+//    public List<T> list(Class<?> entity) {
+//        genericDao.setDatabase(database);
+//        return genericDao.list(entity);
+//
+//    }
+@Override
+public List<T> list(Class<?> entity, String searchItem) {
+    genericDao.setDatabase(database);
+        return genericDao.list(entity, searchItem);
+}
 
-    }
 
     @Override
     public void addOrUpdateEntity(T entity) {
@@ -37,7 +48,9 @@ public abstract class GenericBean<T> implements GenericBeanI<T> {
     }
 
     @Override
-    public void deleteEntity(T entity) {
+    public void deleteEntity(Class<?> clazz, Long id) {
+        genericDao.setDatabase(database);
+        genericDao.deleteEntity(clazz, id);
 
     }
 

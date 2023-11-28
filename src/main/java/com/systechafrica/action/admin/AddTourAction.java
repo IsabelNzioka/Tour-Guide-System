@@ -20,16 +20,10 @@ public class AddTourAction  extends BaseAction {
     private TourBeanI tourBean = new TourBean();
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-//        renderAdminPage(req, res, 0, HtmlComponent.form(Tour.class));
-//        renderAdminPage(req, res, 0, Tour.class, new ArrayList<Tour>());
-
     }
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-      
-        // serializeForm(tour, req.getParameterMap());
-        // tourBean.addOrUpdateTour(tour);
-        // res.sendRedirect("./admin");
+
     }
 }
