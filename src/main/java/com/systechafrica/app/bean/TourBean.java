@@ -16,12 +16,7 @@ import javax.ejb.Stateless;
 public class TourBean extends GenericBean<Tour> implements TourBeanI{
 
 
-
-//    @Override
-//    public void addOrUpdateEntity(Tour tour) {
-//        getDao().addOrUpdateEntity(tour);
-//
-//    }
+//Testing
 
 
 }

@@ -12,14 +12,13 @@ import com.systechafrica.database.helper.DbTableColumn;
 
 
 @DbTable(name = "bookings")
-@HtmlTable(addUrl = "./admin-bookings?action=add",searchUrl = "./admin-bookings?action=searchUrl",deleteUrl = "./admin-bookings?action=delete", url="./admin-bookings")
+@HtmlTable(addUrl = "./admin-bookings?action=add",searchUrl = "./admin-bookings?action=searchUrl",deleteUrl = "./admin-bookings?action=delete")
 @HtmlForm(label = "Tour", url = "./admin-bookings")
 public class Booking  extends BaseEntity {
 
-//    @DbTableColumn(name = "Booking_code")
-//    @TableColHeader(headerLabel = "Booking Code")
-//    @HtmlFormField(label = "Booking Code")
-//    private String code;
+    @DbTableColumn(name = "Booking_no")
+    @TableColHeader(headerLabel = "Booking Number")
+    private String bookingNo;
 
     @DbTableColumn(name = "Customer_name")
     @TableColHeader(headerLabel = "Customer Name")
@@ -47,6 +46,12 @@ public class Booking  extends BaseEntity {
         
     }
 
+    public String getBookingNo() {
+        return bookingNo;
+    }
+    public void setBookingNo(String bookingNo) {
+        this.bookingNo = bookingNo;
+    }
     public String getCustomerName() {
         return customerName;
     }

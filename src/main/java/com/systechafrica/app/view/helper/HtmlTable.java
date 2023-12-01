@@ -11,7 +11,7 @@ public @interface HtmlTable {
     String name() default "";
 
     String addUrl();
-    String deleteUrl();
-    String url();
-    String searchUrl();
+    String deleteUrl() default "";
+    String url() default "";
+    String searchUrl() default "";
 }
