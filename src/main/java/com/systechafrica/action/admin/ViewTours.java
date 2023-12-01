@@ -21,17 +21,9 @@ import java.util.List;
 @WebServlet("/admin-tours")
 public class ViewTours extends BaseAction  {
 
-//    private final TourBeanI tourBean = new TourBean();
     @EJB
     TourBeanI tourBean;
 
-//    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//
-//
-//        req.setAttribute("statContent", HtmlComponent.tourStatCard());
-//        renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class));
-//
-//    }
 public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     String searchItem = req.getParameter("searchItem");
 
@@ -55,18 +47,13 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
     }
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws  IOException{
-
-//        TODO - Use baseAction
         String action = req.getParameter("action");
         if ("delete".equals(action)) {
             String idParam = req.getParameter("id");
-            System.out.println("Deletediiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + idParam);
 
             if (idParam != null && !idParam.isEmpty()) {
                 Long id = Long.parseLong(idParam);
                 tourBean.deleteEntity(Tour.class, id);
-
-//                res.sendRedirect("./admin-tours");
                 res.setStatus(HttpServletResponse.SC_OK);
             }
         }

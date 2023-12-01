@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @WebServlet("/add-tour")
 public class AddTourAction  extends BaseAction {
-    private Tour tour = new Tour();
+//    private Tour tour = new Tour();
     private TourBeanI tourBean = new TourBean();
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 

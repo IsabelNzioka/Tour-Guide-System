@@ -40,19 +40,15 @@ public class ManageUsers extends BaseAction{
 
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws  IOException{
-//        TODO - Use baseAction
         String action = req.getParameter("action");
         if ("delete".equals(action)) {
             String idParam = req.getParameter("id");
-            System.out.println("Deletediiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" + idParam);
 
             if (idParam != null && !idParam.isEmpty()) {
                 Long id = Long.parseLong(idParam);
                 userBean.deleteEntity(User.class, id);
 
-//                res.sendRedirect("./admin-tours");
                 res.setStatus(HttpServletResponse.SC_OK);
-                res.sendRedirect("./admin-tours");
 
 
 

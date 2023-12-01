@@ -18,12 +18,10 @@ import com.systechafrica.app.model.entity.Booking;
 
 @WebServlet("/admin-bookings")
 public class BookingAction extends BaseAction {
-//    private final BookingBeanI bookingBean = new BookingBean();
     @EJB
     BookingBeanI bookingBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//        BookingBeanI bookingBean = new BookingBean();
         renderAdminPage(req, res, 3, Booking.class, bookingBean.list(Booking.class, null));
     }
 
