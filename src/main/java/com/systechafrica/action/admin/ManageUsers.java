@@ -6,10 +6,12 @@ import com.systechafrica.app.bean.UserBean;
 import com.systechafrica.app.bean.UserBeanI;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.utility.ActiveUsers;
 import com.systechafrica.app.view.helper.HtmlComponent;
 import com.systechafrica.database.Database;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -24,18 +26,22 @@ public class ManageUsers extends BaseAction{
     @EJB
     UserBeanI userBean;
 
+
+
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String searchItem = req.getParameter("searchItem");
         List<User> users;
 
-        if (searchItem != null && !searchItem.isEmpty()) {
-            users = userBean.list(User.class, searchItem);
-        } else {
-            users = userBean.list(User.class, null);
-        }
+//        if (searchItem != null && !searchItem.isEmpty()) {
+//            users = userBean.list(User.class, searchItem);
+//        } else {
+//            users = userBean.list(User.class, null);
+//        }
+
 
         req.setAttribute("statContent", HtmlComponent.statCard());
-        renderAdminPage(req, res, 2, User.class, users);
+        renderAdminPage(req, res, 2, User.class, userBean.list(new User()));
+//        renderAdminPage(req, res, 2, User.class, users);
     }
 
 

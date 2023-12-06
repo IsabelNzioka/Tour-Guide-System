@@ -51,15 +51,10 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
                 }
             }
         });
-
-       
             requestMap.forEach((k, v) -> System.out.println("Key: " + k + ", Value: " + v));
-
-
             // requestMap.forEach((k,v)-> System.out.println(k + " " + v[0]));
 
           beanUtilsBean.populate(clazzInstance, requestMap);
-
     } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException e ) {
         throw new RuntimeException(e);
     }

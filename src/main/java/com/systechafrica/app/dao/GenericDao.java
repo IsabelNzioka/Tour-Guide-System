@@ -1,44 +1,121 @@
 package com.systechafrica.app.dao;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.*;
 
-import com.systechafrica.database.Database;
-import com.systechafrica.database.MysqlDatabase;
+import com.systechafrica.database.MysqlDatabaseTodelete;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.persistence.Column;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 public class GenericDao<T> implements GenericDaoI<T> {
-    private MysqlDatabase database;
-  
+//    private MysqlDatabaseTodelete database;
+      private EntityManager em;
 
-//    @SuppressWarnings({"unchecked","rawtypes"})
-//    @Override
-//    public List<T> list(Class<?> entity) {
-//        return (List<T>) database.select(entity);
-//    }
 
+    @SuppressWarnings({"unchecked"})
     @Override
-    public List<T> list(Class<?> entity, String searchItem) {
-        return (List<T>) database.select(entity, searchItem);
+    public List<T> list(T entity) {
+        Class<?> clazz = entity.getClass();
+
+        String simpleName = entity.getClass().getSimpleName();
+
+        String tAlias = (simpleName.charAt(0) + "_").toLowerCase();
+        String jpql  = "FROM " + entity.getClass().getSimpleName() + " " + tAlias;
+
+        StringBuilder whereClause = new StringBuilder();
+        Map<String, Object> whereParams = new HashMap<>();
+
+        List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+        fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+        for (Field field : fields) {
+            if (!field.isAnnotationPresent(Column.class))
+                continue;
+
+            Column column = field.getAnnotation(Column.class);
+            field.setAccessible(true);
+
+            try {
+                if (field.get(entity) != null) {
+                    String colName = StringUtils.isEmpty(column.name()) ? field.getName() : column.name();
+
+                    whereClause
+                            .append(whereParams.isEmpty() ? "" : " AND ")
+                            .append(tAlias).append(".").append(colName).append("=:").append(colName);
+
+                    whereParams.put(colName, field.get(entity));
+                }
+
+            } catch (IllegalAccessException iEx) {
+                iEx.printStackTrace();
+
+            }
+        }
+
+        jpql = jpql + (whereParams.isEmpty() && StringUtils.isBlank(whereClause) ? "" : " WHERE " + whereClause);
+
+        jpql = jpql.replace(", FROM", " FROM");
+        System.out.println("jpql: " + jpql);
+
+        TypedQuery<T> query = (TypedQuery<T>) em.createQuery(jpql, entity.getClass());
+
+        for (Map.Entry<String, Object> entry : whereParams.entrySet()) {
+            System.out.println("param Name: " + entry.getKey() + " = " + entry.getValue() );
+            query = query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        return query.getResultList();
+
     }
+
 
     @Override
     public void addOrUpdateEntity(T entity) {
-        database.saveOrUpdate(entity);
-//        Database database = Database.getDbInstance();
-//        database.getData().add(entity);
+        em.merge(entity);
 
     }
 
     @Override
-    public void deleteEntity(Class<?> clazz,Long id) {
-        database.delete(clazz,id);
+    public void delete(T entity) {
 
     }
-    public MysqlDatabase getDatabase() {
-        return database;
+
+    public EntityManager getEm() {
+        return em;
     }
 
-    public void setDatabase(MysqlDatabase database) {
-        this.database = database;
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
+
+
+//    @Override
+//    public List<T> list(Class<?> entity, String searchItem) {
+//        return (List<T>) database.select(entity, searchItem);
+//    }
+
+//    @Override
+//    public void addOrUpdateEntity(T entity) {
+//        database.saveOrUpdate(entity);
+//
+//
+//    }
+
+//    @Override
+//    public void deleteEntity(Class<?> clazz,Long id) {
+//        database.delete(clazz,id);
+//
+//    }
+//    public MysqlDatabaseTodelete getDatabase() {
+//        return database;
+//    }
+//
+//    public void setDatabase(MysqlDatabaseTodelete database) {
+//        this.database = database;
+//    }
     
 }

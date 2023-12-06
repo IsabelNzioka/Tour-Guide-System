@@ -1,8 +1,6 @@
 package com.systechafrica.database;
 
-import com.systechafrica.app.model.entity.Booking;
-import com.systechafrica.app.model.entity.Tour;
-import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.model.entity.*;
 import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
 import com.systechafrica.database.helper.DbTableId;
@@ -16,10 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,7 +27,7 @@ import javax.sql.DataSource;
 
 @Singleton
 @Startup
-public class MysqlDatabase implements Serializable {
+public class MysqlDatabaseTodelete implements Serializable {
 //    private static MysqlDatabase database;
 
     private Connection connection;
@@ -71,6 +66,8 @@ public class MysqlDatabase implements Serializable {
             entities.add(User.class);
             entities.add(Tour.class);
             entities.add(Booking.class);
+            entities.add(AuditLog.class);
+            entities.add(UserIpAddress.class);
 
 
             for (Class<?> clazz : entities) {
@@ -193,68 +190,6 @@ public class MysqlDatabase implements Serializable {
 
 
 
-//    public <T> List<T> fetch(T entity) {
-//    }
-
-//    public <T> List<T> select (Class<T> filter) {
-//        try {
-//            Class<?> clazz = filter;
-//            System.out.println();
-//
-//            if (!clazz.isAnnotationPresent(DbTable.class))
-//                return new ArrayList<>();
-//
-//            DbTable dbTable = clazz.getAnnotation(DbTable.class);
-//            String stringBuilder = "SELECT * FROM " +
-//                    dbTable.name() + ";";
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder);
-//
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            List<T> result = new ArrayList<>();
-//
-//            while (resultSet.next()) {
-//                T object = (T) clazz.getDeclaredConstructor().newInstance();
-//
-//                List<Field> fields = new ArrayList<>(Arrays.asList(filter.getSuperclass().getDeclaredFields()));
-//                fields.addAll(Arrays.asList(filter.getDeclaredFields()));
-//
-//                for (Field field : fields) {
-//                    DbTableColumn dbColumn = field.getAnnotation(DbTableColumn.class);
-//                    if (dbColumn != null) {
-//                        String columnName = dbColumn.name();
-//
-//                        Object value = resultSet.getObject(columnName);
-//                        if (value instanceof java.sql.Date && field.getType() == LocalDate.class) {
-//                            value = ((java.sql.Date) value).toLocalDate();
-//                        }if(field.getType() == BigDecimal.class) {
-//                            value = new BigDecimal((String) value);
-//                        }
-//
-//                        if (field.getType().isEnum() && value instanceof String) {
-//                            value = Enum.valueOf((Class<Enum>) field.getType(), (String) value);
-//                        }
-//                        if (field.getType() == Long.class) {
-//                            assert value instanceof Integer;
-//                            value = Long.valueOf((Integer) value);
-//                        }
-//
-//                        field.setAccessible(true);
-//                        field.set(object, value);
-//                    }
-//                }
-//
-//                result.add(object);
-//            }
-//            return result;
-//
-//        } catch (SQLException | InvocationTargetException | InstantiationException | IllegalAccessException |
-//                 NoSuchMethodException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//    }
-
-
 
 
     public <T> List<T> select (Class<T> filter, String searchItem) {
@@ -369,6 +304,24 @@ public class MysqlDatabase implements Serializable {
             throw new RuntimeException(e);
         }
     }
+
+//    public Set<String> uniqueIpAddresses() {
+//        Set<String> uniqueIpAddresses = new HashSet<>();
+//
+//        try (Connection connection = getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT userIpAddress FROM user_ipAddress");
+//             ResultSet resultSet = preparedStatement.executeQuery()) {
+//
+//            while (resultSet.next()) {
+//                uniqueIpAddresses.add(resultSet.getString("userIpAddress"));
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return uniqueIpAddresses;
+//    }
 
     public Connection getConnection() {
         return connection;

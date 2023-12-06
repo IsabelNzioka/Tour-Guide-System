@@ -10,33 +10,41 @@ import com.systechafrica.app.view.helper.TableColHeader;
 import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
 
+import javax.persistence.*;
 
-@DbTable(name = "bookings")
+
+@Entity
+@Table(name = "bookings")
 @HtmlTable(addUrl = "./admin-bookings?action=add",searchUrl = "./admin-bookings?action=searchUrl",deleteUrl = "./admin-bookings?action=delete")
 @HtmlForm(label = "Tour", url = "./admin-bookings")
 public class Booking  extends BaseEntity {
 
-    @DbTableColumn(name = "Booking_no")
+    @Column(name = "booking_no")
     @TableColHeader(headerLabel = "Booking Number")
     private String bookingNo;
 
-    @DbTableColumn(name = "Customer_name")
+    @Column(name = "customer_name")
     @TableColHeader(headerLabel = "Customer Name")
     @HtmlFormField(label = "Customer Name")
     private String customerName;
 
+    @Column(name = "tour_name")
     @TableColHeader(headerLabel = "Tour Name")
     @HtmlFormField(label = "Tour Name")
     private String tourName;
 
+    @Column(name = "created_at")
+    @Temporal(TemporalType.DATE)
     @TableColHeader(headerLabel = "CreatedAt" , dateFormat = "dd-MM-yyyy")
     @HtmlFormField(label = "CreatedAt", type = HtmlFormFieldType.DATE)
     private Date createdAt;
 
+    @Column(name = "status")
     @TableColHeader(headerLabel = "Status")
     @HtmlFormField(label = "Status")
     private String status;
 
+    @Column(name = "payment_status")
     @TableColHeader(headerLabel = "Payment Status")
     @HtmlFormField(label = "Payment Status")
     private String fullPayment;

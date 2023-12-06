@@ -1,6 +1,7 @@
 package com.systechafrica.action;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
@@ -16,6 +17,7 @@ import java.util.Date;
 import com.systechafrica.app.bean.AuthBean;
 import com.systechafrica.app.bean.AuthBeanI;
 import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.utility.ActiveUsersP;
 
 
 @WebServlet("/account-login")
@@ -25,6 +27,9 @@ public class LoginAction extends BaseAction {
     //    AuthBeanI authBean = new AuthBean();
     @EJB
     AuthBeanI authBean;
+
+//    @Inject
+//    ActiveUsersP activeUsersP;
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -48,6 +53,8 @@ public class LoginAction extends BaseAction {
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
                 httpSession.setAttribute("userRole", userDetails.getRole());
                 httpSession.setAttribute("userName", userDetails.getUsername());
+
+
                 res.sendRedirect("./my-account");
             } else {
                 PrintWriter print = res.getWriter();

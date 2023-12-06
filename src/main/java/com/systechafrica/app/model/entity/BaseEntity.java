@@ -4,12 +4,17 @@ import com.systechafrica.app.view.helper.TableColHeader;
 import com.systechafrica.database.helper.DbTableColumn;
 import com.systechafrica.database.helper.DbTableId;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
+@MappedSuperclass
 public class BaseEntity  implements Serializable {
 
-   @DbTableId
-   @DbTableColumn(name = "id", definition = "int")
+   @Id
+   @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
 
     public long getId() {

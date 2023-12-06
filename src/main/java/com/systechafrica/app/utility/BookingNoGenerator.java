@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 @BookingNo
-public class BookingNoGenerator {
+public class BookingNoGenerator implements TransactionNoGenerator {
 
     public String generate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");

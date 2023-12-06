@@ -8,6 +8,7 @@ import com.systechafrica.database.Database;
 import com.systechafrica.database.helper.DbTableId;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -230,7 +231,7 @@ public class HtmlComponent implements Serializable {
 
         // Look for the @DbTableId annotation in the declared fields
         for (Field field : fields) {
-            if (field.isAnnotationPresent(DbTableId.class)) {
+            if (field.isAnnotationPresent(Id.class)) {
                 return field;
             }
         }

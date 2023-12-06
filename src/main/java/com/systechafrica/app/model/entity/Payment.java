@@ -4,12 +4,15 @@ package com.systechafrica.app.model.entity;
 import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.database.helper.DbTable;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@DbTable(name = "payments")
+@Entity
+@Table(name = "payments")
 @HtmlTable(addUrl = "./admin-payments?action=add")
-public class Payment {
+public class Payment extends  BaseEntity{
 
     private String paymentNo;
     private BigDecimal paymentAmount;

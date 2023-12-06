@@ -12,4 +12,6 @@ public interface UserBeanI  extends GenericBeanI<User> {
      User register(User user) throws SQLException;
      boolean isUserExists(String email) throws SQLException;
 
+    // List<User> userList();
+
 }

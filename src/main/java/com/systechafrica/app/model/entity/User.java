@@ -7,31 +7,38 @@ import com.systechafrica.app.view.helper.TableColHeader;
 import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
 
-@DbTable(name = "users")
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 @HtmlTable(addUrl = "./admin-users?action=add",searchUrl = "./admin-users?action=searchUrl",deleteUrl = "./admin-users?action=delete", url="./admin-users")
 public class User extends  BaseEntity {
 
 
-    @DbTableColumn(name = "username")
+    @Column(name = "username")
     @TableColHeader(headerLabel = "Member Name")
     private String username;
 
-    
+
+
+    @Column(name = "Mobile")
     @TableColHeader(headerLabel = "Mobile")
-    @DbTableColumn(name = "Mobile")
     private String phonenumber;
 
+
+    @Column(name = "Email")
     @TableColHeader(headerLabel = "Email")
-    @DbTableColumn(name = "Email")
     private String email;
 
-    @DbTableColumn(name = "password")
+    @Column(name = "password")
     private String password;
 
+    @Transient
     private String confirmPassword;
 
-    @DbTableColumn(name = "userRole")
+    @Column(name = "userRole")
     @TableColHeader(headerLabel = "User Role")
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     

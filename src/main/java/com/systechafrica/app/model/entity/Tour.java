@@ -8,51 +8,74 @@ import com.systechafrica.app.view.helper.*;
 import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
 
-@DbTable(name = "tours")
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "tours")
 @HtmlTable(addUrl = "./admin-tours?action=add",searchUrl = "./admin-tours?action=searchUrl", deleteUrl = "./admin-tours?action=delete", url ="./admin-tours")
 @HtmlForm(label = "Tour", url = "./admin-tours")
 public class Tour  extends BaseEntity {
 
+//TODO - REMOVE - TESTING
+@Column(name = "booking_no")
+@TableColHeader(headerLabel = "Booking Number")
+private String bookingNo;
 
+    public String getBookingNo() {
+        return bookingNo;
+    }
 
-    @DbTableColumn(name = "Name")
+    public void setBookingNo(String bookingNo) {
+        this.bookingNo = bookingNo;
+    }
+
+    @Column(name = "name")
     @HtmlCard(name = "", className = "TourTitle")
     @TableColHeader(headerLabel = "Tour Name")
     @HtmlFormField(label = "Tour Name")
     private String name;
 
-    @DbTableColumn(name = "Price")
+    @Column(name = "price")
     @HtmlCard(name = "$", className = "Price")
     @TableColHeader(headerLabel = "Tour Price")
     @HtmlFormField(label = "Tour price", type = HtmlFormFieldType.NUMBER)
     private BigDecimal price;
 
 
+    @Column(name = "start_date")
     @TableColHeader(headerLabel = "Start Date" , dateFormat = "dd-MM-yyyy")
     @HtmlFormField(label = "Start Date", type = HtmlFormFieldType.DATE)
     private Date startDate;
 
+    @Column(name = "end_date")
     @TableColHeader(headerLabel = "End Date" , dateFormat = "dd-MM-yyyy")
     @HtmlFormField(label = "End Date", type = HtmlFormFieldType.DATE)
     private Date endDate;
 
-   
 
 
+
+    @Transient
     @HtmlCard(name = "Days: ", className = "TourDetails")
     private int durationindays;
 
+    @Transient
     @TableColHeader(headerLabel = "Tour Category")
     @HtmlFormField(label = "Tour Category")
     private TourCategory tourCategories;
 
+    @Transient
     private String summary;
 
-    @DbTableColumn(name = "Image")
+    @Column(name = "image")
     @HtmlCard(name = "Tour Image", className = "TourImage")
     @HtmlFormField(label = "Tour Image")
     private String imageurl;
 
+    @Transient
     private int ratings;
 
 

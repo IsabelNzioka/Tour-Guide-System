@@ -29,14 +29,15 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
 
     List<Tour> tours;
 
-    if (searchItem != null && !searchItem.isEmpty()) {
-        tours = tourBean.list(Tour.class, searchItem);
-    } else {
-        tours = tourBean.list(Tour.class, null);
-    }
+//    if (searchItem != null && !searchItem.isEmpty()) {
+//        tours = tourBean.list(Tour.class, searchItem);
+//    } else {
+//        tours = tourBean.list(Tour.class, null);
+//    }
 
     req.setAttribute("statContent", HtmlComponent.tourStatCard());
-    renderAdminPage(req, res, 1, Tour.class, tours);
+    renderAdminPage(req, res, 1, Tour.class, tourBean.list(new Tour()));
+//    renderAdminPage(req, res, 1, Tour.class, tours);
 }
 
 
