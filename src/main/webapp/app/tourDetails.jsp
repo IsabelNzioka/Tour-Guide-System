@@ -3,7 +3,7 @@
 <jsp:useBean id="navbar" class="com.systechafrica.app.view.navbar.Navbar" scope="request" />
 <jsp:useBean id="contentBean" class="com.systechafrica.app.useBean.ContentBean" scope="request" />
 
- 
+
 
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/1211563ad5.js" crossorigin="anonymous"></script>
 
-    <jsp:include page="./style/appStyle.jsp" />
+    <jsp:include page="../style/appStyle.jsp" />
 
 </head>
 <body>
@@ -25,7 +25,7 @@
         <jsp:setProperty name="navbar" property="activeLink" value='${requestScope.activeMenu}'/>
         <jsp:setProperty name="navbar" property="userRole" value='${sessionScope.userRole}'/>
         <jsp:getProperty name="navbar" property="menu" />
-      
+
     </div>
     <div class="Content">
 
@@ -34,6 +34,13 @@
     <jsp:getProperty name="contentBean" property="content" />
     </div>
 
-    <jsp:include page="./style/userScript.jsp" />
+      <h1>${requestScope.tourDetails.getPrice() }, ${requestScope.tourDetails.getId()}</h1>
+       <button class='BookNow' onclick='viewMore("${requestScope.tourDetails.getId()}", "tour-booking")'>
+           View More
+       </button>
+
+
+
+    <jsp:include page="../style/userScript.jsp" />
 </body>
 </html>

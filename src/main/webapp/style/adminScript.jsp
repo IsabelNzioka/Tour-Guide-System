@@ -2,7 +2,7 @@
 
         function deleteEntity(id, deleteUrl) {
                     var confirmation = confirm('Are you sure you want to delete this record?');
-              <%-- deleteUrl = "./admin-tours?action=delete"  --%>
+
                     if (confirmation) {
                         fetch(deleteUrl + '&id=' + id, {
                             method: 'DELETE'
@@ -11,7 +11,6 @@
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
                             }
-              <%--  return response.json(); --%>
 
                            console.log("Deleted................");
                         })

@@ -55,6 +55,8 @@
     height: 100vh;
   }
 
+<%--  ------------------------------      Tours Styling          ------------------------------  --%>
+
   .ToursList {
     margin: 5rem 3rem;
     display: grid;
@@ -65,7 +67,7 @@
 
   .card {
     <%-- padding-bottom: 1rem; --%>
-    padding-top: 0.8rem;
+    <%-- padding-top: 0.8rem;  --%>
     border: 1px solid #ccc;
     text-align: center;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -75,10 +77,20 @@
       flex-direction: column;
   }
   .card:hover {
-     transform: scaleY(1.02);
+     transform: scaleY(1.001);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 
+  .cardButtons  {
+  display: flex;
+    justify-content: space-between;
+ }
+    .BookBowButton,
+    .ViewMoreButton {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    }
   .card img {
     width: 100%;
     height: 400px;

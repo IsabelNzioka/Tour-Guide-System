@@ -171,18 +171,15 @@ public class HtmlComponent implements Serializable {
             return StringUtils.EMPTY;
     
         Field[] fields = models.get(0).getClass().getDeclaredFields();
-    
         StringBuilder toursList = new StringBuilder("<div class='ToursList'>");
     
         for (Object model : models) {
             toursList.append("<div class='card'>");
 
-
             for (Field field : fields) {
                 HtmlCard formField = field.getAnnotation(HtmlCard.class);
                  if (!field.isAnnotationPresent(HtmlCard.class))
                             continue;
-
                 try {
                      field.setAccessible(true); //if the fields are private
                     if(formField.name().equals("Tour Image")){
@@ -192,8 +189,30 @@ public class HtmlComponent implements Serializable {
                 } catch (IllegalAccessException e ) {
                     throw  new RuntimeException(e);
                 }
+
+//                onclick='viewMoreClicked(\"" + tourId + "\")'
+//                toursList.append("<div class='cardButtons'><button class='BookNowButton'>BookNow</button><button class='ViewMoreButton' onclick='viewMoreClicked(\"" + field.getName() + "\")'>" +
+//                        "<a href='./tour-details'>View More</a>" +
+//                        "</button></div>");
             }
-    
+
+            Field idField = findIdField(model.getClass());
+            if(idField != null) {
+                idField.setAccessible(true);
+                try {
+                    Object idValue = idField.get(model);
+                    toursList.append("<div class='cardButtons'>" +
+                            "<button class='BookNowButton'>BookNow</button>" +
+                            "<button class='ViewMoreButton' onclick='viewMore(\"" + idValue + "\", \"tour-details\")'>" +
+                            "ViewMore" +
+                            "</button></div>");
+
+
+                }catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+//
             toursList.append("</div>");
         }
      toursList.append("</div>");

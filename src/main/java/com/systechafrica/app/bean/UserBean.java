@@ -37,28 +37,22 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
-
-        User userR = new User();
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + user);
+//        User userR = new User();
         getDao().addOrUpdateEntity(user); //save data to the database
 
-        //        login user
-//        try (PreparedStatement sqlStmt = database.getConnection()
-//                .prepareStatement("SELECT * FROM users WHERE username = ?")) {
-//            sqlStmt.setString(1, user.getUsername());
-//            ResultSet result = sqlStmt.executeQuery();
-//            while (result.next()) {
-//                userR.setUsername(result.getString("username"));
-//                userR.setEmail(result.getString("email"));
-//            }
-//        }
+        return user;
+    }
 
-        return userR;
+    @Override
+    public User changePassword(User user) throws SQLException {
+        return null;
     }
 
 
     @Override
     public boolean isUserExists(String email) throws SQLException {
-
+            // TODO
             return false; // true if email is already taken
         }
 

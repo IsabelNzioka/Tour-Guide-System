@@ -7,8 +7,6 @@ import com.systechafrica.app.view.helper.HtmlFormField;
 import com.systechafrica.app.view.helper.HtmlFormFieldType;
 import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.app.view.helper.TableColHeader;
-import com.systechafrica.database.helper.DbTable;
-import com.systechafrica.database.helper.DbTableColumn;
 
 import javax.persistence.*;
 
@@ -16,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "bookings")
 @HtmlTable(addUrl = "./admin-bookings?action=add",searchUrl = "./admin-bookings?action=searchUrl",deleteUrl = "./admin-bookings?action=delete")
-@HtmlForm(label = "Tour", url = "./admin-bookings")
+@HtmlForm(label = "Booking", url = "./tour-booking")
 public class Booking  extends BaseEntity {
 
     @Column(name = "booking_no")

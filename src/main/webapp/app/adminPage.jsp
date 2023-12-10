@@ -35,10 +35,7 @@
 
     </div>
     <div class="ContentLinkContent">
-    <%--
-     <jsp:setProperty name="contentBean" property="content" value='<%= request.getAttribute("statContent") %>' />
-     <jsp:getProperty name="contentBean" property="content" />
-     --%>
+
        ${requestScope.statContent}
 
     <jsp:setProperty name="contentBean" property="content" value='<%= request.getAttribute("content") %>' />

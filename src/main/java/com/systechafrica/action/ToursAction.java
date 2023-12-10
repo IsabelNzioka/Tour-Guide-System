@@ -20,13 +20,9 @@ public class ToursAction extends BaseAction {
 
     @EJB
     TourBeanI tourBean;
-//    TourBeanI tourBean = new TourBean();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//        TODO
-//        renderPage(req, res, 1, HtmlComponent.card(tourBean.list(Tour.class, null)));
         renderPage(req, res, 1, HtmlComponent.card(tourBean.list(new Tour())));
- 
     }
 
 

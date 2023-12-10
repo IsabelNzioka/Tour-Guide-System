@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 public class GenericDao<T> implements GenericDaoI<T> {
@@ -57,7 +58,6 @@ public class GenericDao<T> implements GenericDaoI<T> {
         }
 
         jpql = jpql + (whereParams.isEmpty() && StringUtils.isBlank(whereClause) ? "" : " WHERE " + whereClause);
-
         jpql = jpql.replace(", FROM", " FROM");
         System.out.println("jpql: " + jpql);
 
@@ -76,13 +76,23 @@ public class GenericDao<T> implements GenericDaoI<T> {
     @Override
     public void addOrUpdateEntity(T entity) {
         em.merge(entity);
+    }
 
+    @Override
+    public T findById(Class<T> entity, Long id) {
+            try {
+                return em.find(entity, id);
+            } catch (NoResultException e) {
+                return null;
+            }
     }
 
     @Override
     public void delete(T entity) {
 
     }
+
+
 
     public EntityManager getEm() {
         return em;

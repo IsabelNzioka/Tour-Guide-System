@@ -70,6 +70,8 @@ public class AuthBean extends GenericBean<User>  implements AuthBeanI, Serializa
         logger.fire(log);
         userIpAddressEvent.fire(userIpAddress);
 
+
+
         return user;
 
 

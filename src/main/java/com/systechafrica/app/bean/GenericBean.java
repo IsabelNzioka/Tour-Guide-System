@@ -13,9 +13,6 @@ import javax.persistence.PersistenceContext;
 
 
 public abstract class GenericBean<T> implements GenericBeanI<T> {
-
-//    @EJB
-//    MysqlDatabaseTodelete database;
     @PersistenceContext
     private EntityManager em;
 
@@ -42,6 +39,14 @@ public abstract class GenericBean<T> implements GenericBeanI<T> {
         genericDao.addOrUpdateEntity(entity);
 
     }
+
+    @Override
+    public T findById(Class<T> entity, Long id) {
+        return genericDao.findById(entity, id);
+    }
+
+
+
 
     @Override
     public void deleteEntity(Class<?> clazz, Long id) {

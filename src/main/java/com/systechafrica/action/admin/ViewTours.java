@@ -37,7 +37,7 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
 
     req.setAttribute("statContent", HtmlComponent.tourStatCard());
     renderAdminPage(req, res, 1, Tour.class, tourBean.list(new Tour()));
-//    renderAdminPage(req, res, 1, Tour.class, tours);
+
 }
 
 
