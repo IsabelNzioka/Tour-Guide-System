@@ -46,6 +46,10 @@ public abstract class GenericBean<T> implements GenericBeanI<T> {
     }
 
 
+    @Override
+    public T findByUserName(Class<T> entity, String userName) {
+        return genericDao.findByUserName(entity, userName);
+    }
 
 
     @Override

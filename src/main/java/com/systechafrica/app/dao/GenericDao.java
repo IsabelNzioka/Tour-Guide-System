@@ -88,6 +88,22 @@ public class GenericDao<T> implements GenericDaoI<T> {
     }
 
     @Override
+    public T findByUserName(Class<T> entity, String userName) {
+        try {
+            String jpql = "SELECT e FROM " + entity.getSimpleName() + " e WHERE e.userName = :userName";
+
+            TypedQuery<T> query = em.createQuery(jpql, entity);
+            query.setParameter("userName", userName);
+
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+
+
+    @Override
     public void delete(T entity) {
 
     }

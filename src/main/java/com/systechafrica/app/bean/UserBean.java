@@ -52,6 +52,7 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
 
     @Override
     public boolean isUserExists(String email) throws SQLException {
+
             // TODO
             return false; // true if email is already taken
         }

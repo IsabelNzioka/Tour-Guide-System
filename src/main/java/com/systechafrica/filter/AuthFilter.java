@@ -38,7 +38,7 @@ public class AuthFilter implements Filter {
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
         } else {
-            if( servletPath.equals("/home")  || servletPath.equals("/")  || servletPath.startsWith("/tour") || servletPath.contains(".jsp")) {
+            if( servletPath.equals("/home")  || servletPath.equals("/")  || servletPath.startsWith("/tour") || servletPath.contains("/api/")  || servletPath.contains(".jsp")) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else if(httpSession.isNew()) {
                 httpSession.invalidate();

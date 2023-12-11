@@ -174,6 +174,19 @@ private String bookingNo;
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Tour{" +
+                "bookingNo='" + bookingNo + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", durationindays=" + durationindays +
+                ", tourCategories=" + tourCategories +
+                ", summary='" + summary + '\'' +
+                ", imageurl='" + imageurl + '\'' +
+                ", ratings=" + ratings +
+                '}';
+    }
 }

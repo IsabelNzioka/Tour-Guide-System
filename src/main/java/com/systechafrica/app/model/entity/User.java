@@ -2,6 +2,7 @@ package com.systechafrica.app.model.entity;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.app.view.helper.TableColHeader;
 import com.systechafrica.database.helper.DbTable;
@@ -11,6 +12,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@NamedQueries({
+        @NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
+})
 @HtmlTable(addUrl = "./admin-users?action=add",searchUrl = "./admin-users?action=searchUrl",deleteUrl = "./admin-users?action=delete", url="./admin-users")
 public class User extends  BaseEntity {
 
@@ -31,6 +35,7 @@ public class User extends  BaseEntity {
     private String email;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Transient

@@ -22,6 +22,7 @@ public interface GenericDaoI<T> extends Serializable{
     void delete(T entity);
     void addOrUpdateEntity(T entity);
     T findById(Class<T> entity, Long id);
+    T findByUserName(Class<T> entity, String userName);
     EntityManager getEm();
     void setEm(EntityManager em);
     

@@ -21,15 +21,20 @@ public class Booking  extends BaseEntity {
     @TableColHeader(headerLabel = "Booking Number")
     private String bookingNo;
 
-    @Column(name = "customer_name")
-    @TableColHeader(headerLabel = "Customer Name")
-    @HtmlFormField(label = "Customer Name")
-    private String customerName;
 
-    @Column(name = "tour_name")
-    @TableColHeader(headerLabel = "Tour Name")
-    @HtmlFormField(label = "Tour Name")
-    private String tourName;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tour_id")
+    private Tour tour;
+
+//
+//    @Column(name = "tour_name")
+//    @TableColHeader(headerLabel = "Tour Name")
+//    @HtmlFormField(label = "Tour Name")
+//    private String tourName;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
@@ -58,18 +63,13 @@ public class Booking  extends BaseEntity {
     public void setBookingNo(String bookingNo) {
         this.bookingNo = bookingNo;
     }
-    public String getCustomerName() {
-        return customerName;
-    }
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-    public String getTourName() {
-        return tourName;
-    }
-    public void setTourName(String tourName) {
-        this.tourName = tourName;
-    }
+
+//    public String getTourName() {
+//        return tourName;
+//    }
+//    public void setTourName(String tourName) {
+//        this.tourName = tourName;
+//    }
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -88,7 +88,20 @@ public class Booking  extends BaseEntity {
     public void setFullPayment(String fullPayment) {
         this.fullPayment = fullPayment;
     }
-    
 
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
 }

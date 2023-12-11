@@ -28,8 +28,6 @@ public class LoginAction extends BaseAction {
     @EJB
     AuthBeanI authBean;
 
-//    @Inject
-//    ActiveUsersP activeUsersP;
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
