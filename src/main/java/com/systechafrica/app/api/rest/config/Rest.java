@@ -1,4 +1,4 @@
-package com.systechafrica.app.rest.config;
+package com.systechafrica.app.api.rest.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

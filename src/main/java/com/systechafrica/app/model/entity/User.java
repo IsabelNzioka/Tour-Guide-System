@@ -13,7 +13,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-        @NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
+        @NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+        @NamedQuery(name = "findUserByUserId", query = "SELECT u FROM User u WHERE u.id = :id")
 })
 @HtmlTable(addUrl = "./admin-users?action=add",searchUrl = "./admin-users?action=searchUrl",deleteUrl = "./admin-users?action=delete", url="./admin-users")
 public class User extends  BaseEntity {

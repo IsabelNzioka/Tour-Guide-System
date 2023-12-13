@@ -1,6 +1,7 @@
 package com.systechafrica.app.bean;
 
 import java.util.Date;
+import java.util.List;
 
 import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.Tour;
@@ -31,14 +32,12 @@ public class BookingBean extends GenericBean<Booking> implements BookingBeanI {
 
 
     public void addOrUpdateBooking(Booking booking,Tour tour, String userName) {
-
         User user;
 
         TypedQuery<User> query = em.createNamedQuery("findUserByUsername", User.class);
         query.setParameter("username", userName);
-
-
         user = query.getSingleResult();
+
         booking.setUser(user);
         booking.setTour(tour);
 
@@ -47,6 +46,13 @@ public class BookingBean extends GenericBean<Booking> implements BookingBeanI {
 
         booking.setBookingNo(txnNoGenerator.generate());
         getDao().addOrUpdateEntity(booking);
+    }
+
+    public List<Booking> getBookingByUserId(Long userId) {
+        return em.createQuery("SELECT b FROM Booking b WHERE b.user.id = :userId", Booking.class)
+                .setParameter("userId", userId)
+                .getResultList();
+
     }
 
 }

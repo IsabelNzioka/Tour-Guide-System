@@ -51,6 +51,7 @@ public class LoginAction extends BaseAction {
                 httpSession.setAttribute("loggedInId", new Date().getTime() + "");
                 httpSession.setAttribute("userRole", userDetails.getRole());
                 httpSession.setAttribute("userName", userDetails.getUsername());
+                httpSession.setAttribute("userId", userDetails.getId());
 
 
                 res.sendRedirect("./my-account");

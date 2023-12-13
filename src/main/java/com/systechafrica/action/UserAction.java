@@ -48,7 +48,8 @@ public void doPost(HttpServletRequest req, HttpServletResponse res) throws Servl
         if(userDetails != null ) {
             httpSession.setAttribute("loggedInId", new Date().getTime() + "");
             httpSession.setAttribute("userRole", userDetails.getRole()); 
-            httpSession.setAttribute("userName", userDetails.getUsername()); 
+            httpSession.setAttribute("userName", userDetails.getUsername());
+            httpSession.setAttribute("userId", userDetails.getId());
             res.sendRedirect("./my-account");
         } else {
            PrintWriter print = res.getWriter();

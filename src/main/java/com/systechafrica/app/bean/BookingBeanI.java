@@ -11,6 +11,7 @@ import javax.ejb.Remote;
 @Remote
 public interface BookingBeanI extends GenericBeanI<Booking>{
     public void addOrUpdateBooking(Booking booking, Tour tour,String userName);
+    public List<Booking> getBookingByUserId(Long userId);
 
     
 }

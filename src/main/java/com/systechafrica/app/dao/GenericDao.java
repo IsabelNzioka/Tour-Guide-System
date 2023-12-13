@@ -6,16 +6,70 @@ import java.util.*;
 
 import com.systechafrica.database.MysqlDatabaseTodelete;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Formula;
 
-import javax.persistence.Column;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 
 public class GenericDao<T> implements GenericDaoI<T> {
 //    private MysqlDatabaseTodelete database;
       private EntityManager em;
 
+//    @SuppressWarnings({"unchecked"})
+//    @Override
+//    public List<T> list(T entity) {
+//        Class<?> clazz = entity.getClass();
+//
+//        String simpleName = entity.getClass().getSimpleName();
+//
+//        String tAlias = (simpleName.charAt(0) + "_").toLowerCase();
+//        String jpql  = "FROM " + entity.getClass().getSimpleName() + " " + tAlias;
+//
+//        StringBuilder whereClause = new StringBuilder();
+//        Map<String, Object> whereParams = new HashMap<>();
+//
+//        List<Field> fields = new ArrayList<>(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+//        fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+//
+//        for (Field field : fields) {
+//            if (!field.isAnnotationPresent(Column.class) && !field.isAnnotationPresent(Formula.class)
+//                    && !field.isAnnotationPresent(Id.class))
+//                continue;
+//
+//            field.setAccessible(true);
+//
+//            try {
+//                if (field.get(entity) != null) {
+//                    String colName = field.getName();
+//
+//                    whereClause
+//                            .append(whereParams.isEmpty() ? "" : " AND ")
+//                            .append(tAlias).append(".").append(colName).append("=:").append(colName);
+//
+//                    whereParams.put(colName, field.get(entity));
+//                }
+//
+//            } catch (IllegalAccessException iEx) {
+//                iEx.printStackTrace();
+//
+//            }
+//        }
+//
+//        jpql = jpql + (whereParams.isEmpty() && StringUtils.isBlank(whereClause) ? "" : " WHERE " + whereClause);
+//
+//        jpql = jpql.replace(", FROM", " FROM");
+//        System.out.println("jpql: " + jpql);
+//
+//        TypedQuery<T> query = (TypedQuery<T>) em.createQuery(jpql, entity.getClass());
+//
+//        for (Map.Entry<String, Object> entry : whereParams.entrySet()) {
+//            System.out.println("param Name: " + entry.getKey() + " = " + entry.getValue() );
+//            query = query.setParameter(entry.getKey(), entry.getValue());
+//        }
+//
+//        return query.getResultList();
+//
+//    }
+//
 
     @SuppressWarnings({"unchecked"})
     @Override
@@ -80,11 +134,10 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
     @Override
     public T findById(Class<T> entity, Long id) {
-            try {
-                return em.find(entity, id);
-            } catch (NoResultException e) {
-                return null;
-            }
+//        String queryStr = "SELECT e FROM " + entity.getSimpleName() + " e WHERE e.id = :id";
+//        System.out.println("Query???????????????????????????????????????????" + queryStr);
+        return  em.find(entity, id);
+
     }
 
     @Override
@@ -119,29 +172,5 @@ public class GenericDao<T> implements GenericDaoI<T> {
     }
 
 
-//    @Override
-//    public List<T> list(Class<?> entity, String searchItem) {
-//        return (List<T>) database.select(entity, searchItem);
-//    }
-
-//    @Override
-//    public void addOrUpdateEntity(T entity) {
-//        database.saveOrUpdate(entity);
-//
-//
-//    }
-
-//    @Override
-//    public void deleteEntity(Class<?> clazz,Long id) {
-//        database.delete(clazz,id);
-//
-//    }
-//    public MysqlDatabaseTodelete getDatabase() {
-//        return database;
-//    }
-//
-//    public void setDatabase(MysqlDatabaseTodelete database) {
-//        this.database = database;
-//    }
     
 }

@@ -1,4 +1,4 @@
-package com.systechafrica.app.rest.api;
+package com.systechafrica.app.api.rest.endpoints;
 
 import java.io.Serializable;
 

@@ -87,6 +87,14 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
 
      }
 
+//    public void renderUserAccount(HttpServletRequest req, HttpServletResponse res, int activeMenu, Class<?> entity, List<?> entityList) throws ServletException, IOException {
+//        req.setAttribute("activeMenu", activeMenu);
+//        req.setAttribute("content", content);
+//
+//        RequestDispatcher dispatcher = req.getRequestDispatcher("./app/userAccount.jsp");
+//        dispatcher.forward(req, res);
+//
+//    }
 
 
        public void renderUserAccountPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws ServletException, IOException {
