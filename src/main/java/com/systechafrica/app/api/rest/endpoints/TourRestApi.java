@@ -28,4 +28,13 @@ public class TourRestApi extends BaseRestApi {
     public Response tour(@PathParam("tourId") Long userId){
         return respond(tourBean.findById(Tour.class, userId));
     }
+
+    @Path("/tour/{tourId}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteTour(@PathParam("tourId") Long userId){
+        tourBean.deleteEntity(Tour.class, userId);
+        return respond(new RestResponseWrapper("Deleted Successfully"));
+    }
+
 }

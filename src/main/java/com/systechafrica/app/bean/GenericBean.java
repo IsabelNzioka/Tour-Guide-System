@@ -54,9 +54,7 @@ public abstract class GenericBean<T> implements GenericBeanI<T> {
 
     @Override
     public void deleteEntity(Class<?> clazz, Long id) {
-//        genericDao.setDatabase(database);
-//        genericDao.deleteEntity(clazz, id);
-
+        genericDao.deleteEntity(clazz, id);
     }
 
     public GenericDao<T> getDao() {

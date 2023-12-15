@@ -51,8 +51,11 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
         String action = req.getParameter("action");
         if ("delete".equals(action)) {
             String idParam = req.getParameter("id");
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + idParam);
 
             if (idParam != null && !idParam.isEmpty()) {
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2" + idParam);
+
                 Long id = Long.parseLong(idParam);
                 tourBean.deleteEntity(Tour.class, id);
                 res.setStatus(HttpServletResponse.SC_OK);

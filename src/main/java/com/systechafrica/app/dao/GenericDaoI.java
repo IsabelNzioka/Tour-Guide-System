@@ -19,6 +19,7 @@ public interface GenericDaoI<T> extends Serializable{
 //    void setDatabase(MysqlDatabaseTodelete database) ;
 
     List<T> list(T entity);
+    public void deleteEntity(Class<?> clazz, Long id);
     void delete(T entity);
     void addOrUpdateEntity(T entity);
     T findById(Class<T> entity, Long id);

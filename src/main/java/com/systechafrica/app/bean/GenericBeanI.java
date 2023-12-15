@@ -14,5 +14,6 @@ public interface GenericBeanI<T> extends Serializable {
     T findByUserName(Class<T> entity, String userName);
 
     void deleteEntity(Class<?> clazz, Long id);
+
     
 }

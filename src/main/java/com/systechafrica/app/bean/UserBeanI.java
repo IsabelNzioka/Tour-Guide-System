@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserBeanI  extends GenericBeanI<User> {
      User register(User user) throws SQLException;
      User changePassword(User user) throws SQLException;
-     boolean isUserExists(String email) throws SQLException;
+     boolean isUserExists(String email);
 
 
     // List<User> userList();

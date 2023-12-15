@@ -4,17 +4,19 @@
                     var confirmation = confirm('Are you sure you want to delete this record?');
 
                     if (confirmation) {
-                        fetch(deleteUrl + '&id=' + id, {
+                        fetch("./api/v1/tours/tour/" + id, {
                             method: 'DELETE'
                         })
                         .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-
-                           console.log("Deleted................");
-                        })
-                        .catch(error => console.error('Error:', error));
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log(data);
+                                window.location.reload();
+                            }).catch(error => console.error('Error:', error));
                     }
                 }
 

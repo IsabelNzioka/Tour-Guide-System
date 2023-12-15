@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,13 +50,26 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
         return null;
     }
 
-
     @Override
-    public boolean isUserExists(String email) throws SQLException {
+    public boolean isUserExists(String email) {
+                String jpql = "SELECT COUNT(u) FROM User u WHERE u.email = :email";
+        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+        query.setParameter("email", email);
 
-            // TODO
-            return false; // true if email is already taken
-        }
+        Long count = query.getSingleResult();
+        return count > 0; // false is user does not exist.
+    }
+
+
+//    @Override
+//    public boolean isUserExist(String email) {
+//        String jpql = "SELECT COUNT(u) FROM User u WHERE u.email = :email";
+//        TypedQuery<Long> query = entityManager.createQuery(jpql, Long.class);
+//        query.setParameter("email", email);
+//
+//        Long count = query.getSingleResult();
+//        return count > 0;
+//    }
 
     @Override
     public List<User> list(User user) {

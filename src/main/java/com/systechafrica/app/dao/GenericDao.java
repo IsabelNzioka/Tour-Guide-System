@@ -134,10 +134,7 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
     @Override
     public T findById(Class<T> entity, Long id) {
-//        String queryStr = "SELECT e FROM " + entity.getSimpleName() + " e WHERE e.id = :id";
-//        System.out.println("Query???????????????????????????????????????????" + queryStr);
-        return  em.find(entity, id);
-
+     return  em.find(entity, id);
     }
 
     @Override
@@ -154,6 +151,12 @@ public class GenericDao<T> implements GenericDaoI<T> {
         }
     }
 
+
+    @Override
+    public void deleteEntity(Class<?> entity, Long id) {
+        Object o = em.find(entity, id);
+        em.remove(o);
+    }
 
 
     @Override
