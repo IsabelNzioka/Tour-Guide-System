@@ -103,7 +103,9 @@ public class HtmlComponent implements Serializable {
 
 
 
-    
+
+
+
     public static String form(Class<?> model) {
         HtmlForm htmlForm = null;
         if(model.isAnnotationPresent((HtmlForm.class)))
@@ -122,11 +124,10 @@ public class HtmlComponent implements Serializable {
                 continue;
 
             HtmlFormField formField = field.getAnnotation(HtmlFormField.class);
-            
+
             String fieldName = field.getName();
             String fieldType = String.valueOf(field.getType());
             boolean isEnum = field.getType().isEnum();
-//          getEnumConstants() - Returns the elements of this enum class or null if this Class object does not represent an enum type
 
             if(isEnum) {
                 formHtml +=  "<label for=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor()) + "\">"+
@@ -142,7 +143,7 @@ public class HtmlComponent implements Serializable {
                 formHtml +=  "<label for=\""+ (StringUtils.isBlank(formField.labelFor()) ? fieldName : formField.labelFor()) + "\">"+
                                              (StringUtils.isBlank(formField.label()) ? fieldName : formField.label())  + ":</label><br>";
 
-                formHtml +=  "<input type=\""+ formField.type() + "\" id=\""+     //text, number, ...
+                formHtml +=  "<input type=\""+ formField.type() + "\" id=\""+
                                              (StringUtils.isBlank(formField.id()) ? fieldName : formField.id()) +"\" name=\""+
                                               (StringUtils.isBlank(formField.name()) ? fieldName : formField.name())  + "\"><br>" ;
             }
@@ -154,7 +155,6 @@ public class HtmlComponent implements Serializable {
 
         return formHtml;
     }
-
 
 
 

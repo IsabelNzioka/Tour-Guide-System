@@ -73,6 +73,14 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
 
      }
 
+    public void renderTourPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws ServletException, IOException {
+        req.setAttribute("activeMenu", activeMenu);
+        req.setAttribute("content", content);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("./app/tourAppPage.jsp");
+        dispatcher.forward(req, res);
+    }
+
 
     //  new AdminPage().renderAdmin(req, res, 0, HtmlComponent.form(Tour.class));
       public void renderAdminPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, Class<?> entity, List<?> entityList) throws ServletException, IOException {

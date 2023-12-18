@@ -77,4 +77,78 @@
                      transition: all 2s;
                  }
 
+      .TourPrevDetails {
+          display: flex;
+          flex-direction: column;
+          padding: 3rem 2rem;
+          justify-content: center;
+          align-items: center;
+      }
+      .Top, Bottom{
+          display: flex;
+          width: 50%;
+          justify-content: space-between;
+      }
+      .Top h1,
+      .Bottom h1{
+            font-size: 2rem;
+            color: #5F6F52;
+      }
+
+
+
+.TourMore {
+    display: flex;
+    padding-inline: 2rem;
+
+    border-radius: 5px;
+
+}
+.TourMoreDetails {
+flex: 1;
+}
+   .BookNowDetails {
+        padding: 2rem;
+        flex: 0 0 22%;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        display: flex;
+        flex-direction: column;
+}
+
+.BookNowDetails p {
+text-decoration: underline;
+padding-bottom: .5rem;
+}
+.BookNowDetails span {
+text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.BookNowDetails button {
+        padding: .5rem 1rem;
+         border: 1px solid #64868E;
+        background-color: #5F6F52;
+        width: 100%
+}
+
+    .BookNowDetails input {
+        padding: .5rem 1rem;
+        width: 100%;
+         border: 1px solid #64868E;
+         color: #1F1717;
+         margin-bottom: 1.5rem;
+          background-color: white;
+           box-sizing: border-box;
+                      display: block;
+    }
+
+
+
+        .BookNowDetails input:focus {
+            outline: none;
+            background-color: #ccc;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        }
+
 </style>

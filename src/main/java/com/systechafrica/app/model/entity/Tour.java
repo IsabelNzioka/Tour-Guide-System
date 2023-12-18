@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +74,7 @@ public class Tour  extends BaseEntity {
     @HtmlFormField(label = "Tour Category")
     private TourCategory tourCategories;
 
+
     @Transient
     private String summary;
 
@@ -94,16 +96,32 @@ public class Tour  extends BaseEntity {
         return bookings;
     }
 
-//  Todo - database details
-//    start date - end date
-//    ratings
-//    cancellation - free?
-//    image - love button?
-//    from - price details if they vary by the size of the group
-//    duration - HOurs?? days?? - Can be calculated using the start date and the end dta
 
+    @ElementCollection
+    @CollectionTable(name = "tour_images", joinColumns = @JoinColumn(name = "tour_id"))
+    @Column(name = "image_url", length = 100000)
+    private List<String> imageUrls;
 
+    @Transient
+    @HtmlFormField(label = "Image URLs", type = HtmlFormFieldType.TEXT)
+    private String imageUrlsAsString;
 
+    // Convert the comma-separated string to a list
+    @PostLoad
+    private void convertImageUrls() {
+        if (imageUrlsAsString != null) {
+            imageUrls = List.of(imageUrlsAsString.split(","));
+        }
+    }
+
+    // Convert the list to a comma-separated string
+    @PrePersist
+    @PreUpdate
+    private void convertImageUrlsAsString() {
+        if (imageUrls != null) {
+            imageUrlsAsString = String.join(",", imageUrls);
+        }
+    }
 
     public  Tour() {
 
@@ -183,6 +201,22 @@ public class Tour  extends BaseEntity {
         this.endDate = endDate;
     }
 
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public String getImageUrlsAsString() {
+        return imageUrlsAsString;
+    }
+
+    public void setImageUrlsAsString(String imageUrlsAsString) {
+        this.imageUrlsAsString = imageUrlsAsString;
+    }
 
     @Override
     public String toString() {

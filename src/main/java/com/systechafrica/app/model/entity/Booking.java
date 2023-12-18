@@ -1,8 +1,16 @@
 package com.systechafrica.app.model.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.systechafrica.app.view.helper.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
@@ -20,6 +28,7 @@ public class Booking extends BaseEntity {
 
 
 
+
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
@@ -29,6 +38,18 @@ public class Booking extends BaseEntity {
     private Tour tour;
 
 
+    @Formula("tour_id")
+    private Long tourId;
+
+    @Formula("user_id")
+    private Long userId;
+
+
+
+    @Column(name = "noOfPeople")
+    @TableColHeader(headerLabel = "NumberOfPeople")
+    @HtmlFormField(label = "NumberOfPeople", id = "numberOfPeople")
+    private Integer noOfPeople;
 
     @HtmlCard(name = "", className = "TourTitle")
     @TableColHeader(headerLabel = "Tour Name")
@@ -39,40 +60,36 @@ public class Booking extends BaseEntity {
     @Formula("(select t.image from tours t where t.id=tour_id)")
     private String imageurl;
 
+    @Column(name = "totalPrice")
+    private BigDecimal totalPrice;
 
 
     @Column(name = "created_at")
-    @Temporal(TemporalType.DATE)
-    @TableColHeader(headerLabel = "CreatedAt", dateFormat = "dd-MM-yyyy")
-    @HtmlFormField(label = "CreatedAt", type = HtmlFormFieldType.DATE)
-    private Date createdAt;
+    @CreationTimestamp
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonIgnore
+    private LocalDateTime createdAt;
 
     @Column(name = "status")
     @TableColHeader(headerLabel = "Status")
-    @HtmlFormField(label = "Status")
     private String status;
 
     @Column(name = "payment_status")
     @TableColHeader(headerLabel = "Payment Status")
-    @HtmlFormField(label = "Payment Status")
     private String fullPayment;
 
     public Booking() {
 
     }
+
     public String getBookingNo() {
         return bookingNo;
     }
     public void setBookingNo(String bookingNo) {
         this.bookingNo = bookingNo;
     }
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-    public String getStatus() {
+     public String getStatus() {
         return status;
     }
     public void setStatus(String status) {
@@ -102,17 +119,59 @@ public class Booking extends BaseEntity {
         this.fullPayment = fullPayment;
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "bookingNo='" + bookingNo + '\'' +
-                ", user=" + user +
-                ", tour=" + tour +
-                ", tourName='" + tourName + '\'' +
-                ", imageurl='" + imageurl + '\'' +
-                ", createdAt=" + createdAt +
-                ", status='" + status + '\'' +
-                ", fullPayment='" + fullPayment + '\'' +
-                '}';
+    public Long getTourId() {
+        return tourId;
+    }
+
+    public void setTourId(Long tourId) {
+        this.tourId = tourId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public int getNoOfPeople() {
+        return noOfPeople;
+    }
+
+    public void setNoOfPeople(int noOfPeople) {
+        this.noOfPeople = noOfPeople;
+    }
+
+    public void setNoOfPeople(Integer noOfPeople) {
+        this.noOfPeople = noOfPeople;
+    }
+
+
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
+    @PrePersist
+    public void calculateTotalPriceBeforePersist() {
+        if (noOfPeople != null && tour != null && tour.getPrice() != null) {
+            totalPrice = tour.getPrice().multiply(new BigDecimal(noOfPeople));
+        } else {
+            totalPrice = BigDecimal.ZERO;
+        }
     }
 }

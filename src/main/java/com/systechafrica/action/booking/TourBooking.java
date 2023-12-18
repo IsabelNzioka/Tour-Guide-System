@@ -31,18 +31,18 @@ public class TourBooking  extends BaseAction {
 
 
         if(StringUtils.isNotBlank((String) session.getAttribute(("loggedInId")))) {
+
             Long tourId = Long.parseLong(req.getParameter("id"));
 
             Tour tour = tourBean.findById(Tour.class, tourId);
             req.getSession().setAttribute("tour", tour);
 
             req.setAttribute("content", HtmlComponent.form(Booking.class));
-            RequestDispatcher dispatcher = req.getRequestDispatcher("./app/tourDetails.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("./app/tourBooking.jsp");
             dispatcher.forward(req, res);
         } else {
             res.sendRedirect("./account-login");
         }
-
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -52,8 +52,10 @@ public class TourBooking  extends BaseAction {
 
         Booking booking = serializeForm(Booking.class, req.getParameterMap());
 
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + userName);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + booking.getNoOfPeople());
+
         bookingBean.addOrUpdateBooking(booking, tour, userName);
+
         res.sendRedirect("./my-bookings");
     }
 

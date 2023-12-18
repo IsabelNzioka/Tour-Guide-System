@@ -12,8 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/1211563ad5.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 
-    <jsp:include page="./style/appStyle.jsp" />
+    <jsp:include page="../style/appStyle.jsp" />
+    <jsp:include page="../style/userDetails.jsp" />
 
 </head>
 <body>
@@ -23,15 +27,17 @@
         <jsp:setProperty name="navbar" property="activeLink" value='${requestScope.activeMenu}'/>
         <jsp:setProperty name="navbar" property="userRole" value='${sessionScope.userRole}'/>
         <jsp:getProperty name="navbar" property="menu" />
-      
-    </div>
-    <div class="Content">
 
-
-    <jsp:setProperty name="contentBean" property="content" value='<%= request.getAttribute("content") %>' />
-    <jsp:getProperty name="contentBean" property="content" />
     </div>
 
-    <jsp:include page="./style/userScript.jsp" />
+
+
+     <div class="Content">
+                <jsp:setProperty name="contentBean" property="content" value='<%= request.getAttribute("content") %>' />
+                <jsp:getProperty name="contentBean" property="content" />
+        </div>
+
+
+    <jsp:include page="../style/userScript.jsp" />
 </body>
 </html>

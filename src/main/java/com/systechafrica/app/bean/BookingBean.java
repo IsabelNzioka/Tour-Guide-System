@@ -42,8 +42,8 @@ public class BookingBean extends GenericBean<Booking> implements BookingBeanI {
         booking.setUser(user);
         booking.setTour(tour);
 
-        if (booking.getCreatedAt() == null)
-            booking.setCreatedAt(new Date());
+//        if (booking.getCreatedAt() == null)
+//            booking.setCreatedAt(new Date());
 
         booking.setBookingNo(txnNoGenerator.generate());
         getDao().addOrUpdateEntity(booking);

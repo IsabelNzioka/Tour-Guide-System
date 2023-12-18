@@ -28,10 +28,10 @@ public class ToursAction extends BaseAction {
 
         String filter = req.getParameter("filter");
         if ("popular".equals(filter)) {
-            renderPage(req, res, 1, HtmlComponent.card(tourBean.getToursWithHighestBookings()));
+            renderTourPage(req, res, 1, HtmlComponent.card(tourBean.getToursWithHighestBookings()));
         }
         if ("latest".equals(filter)) {
-            renderPage(req, res, 1, HtmlComponent.card(tourBean.getLatestTours()));
+            renderTourPage(req, res, 1, HtmlComponent.card(tourBean.getLatestTours()));
         }
         if ("price".equals(filter)) {
 
@@ -41,9 +41,9 @@ public class ToursAction extends BaseAction {
             BigDecimal minPrice = StringUtils.isNotBlank(minPriceStr) ? new BigDecimal(minPriceStr) : BigDecimal.ZERO;
             BigDecimal maxPrice = StringUtils.isNotBlank(maxPriceStr) ? new BigDecimal(maxPriceStr) : BigDecimal.valueOf(Double.MAX_VALUE);
 
-            renderPage(req, res, 1, HtmlComponent.card(tourBean.getToursWithinPriceRange(minPrice,maxPrice)));
+            renderTourPage(req, res, 1, HtmlComponent.card(tourBean.getToursWithinPriceRange(minPrice,maxPrice)));
         }
-        renderPage(req, res, 1, HtmlComponent.card(tourBean.list(new Tour())));
+        renderTourPage(req, res, 1, HtmlComponent.card(tourBean.list(new Tour())));
     }
 
 

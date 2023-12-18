@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface HtmlCard {
 
-   
     String name() default "";
     String className() default "";
     
