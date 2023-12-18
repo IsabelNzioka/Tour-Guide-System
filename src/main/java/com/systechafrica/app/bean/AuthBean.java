@@ -50,13 +50,12 @@ public class AuthBean extends GenericBean<User>  implements AuthBeanI, Serializa
         query.setParameter("username", loginUser.getUsername());
         query.setParameter("password", loginUser.getPassword());
 
-        List<User> users = query.getResultList();
+        User user = query.getSingleResult();
 
-        if (users.isEmpty()) {
+        if (user==null) {
             throw new RuntimeException("Invalid user!!");
         }
 
-        User user = users.get(0);
 
         AuditLog log = new AuditLog();
         log.setLogDetails(user.getUsername() + " logged in at " + DateFormat.getDateTimeInstance().format(new Date()) + ".");

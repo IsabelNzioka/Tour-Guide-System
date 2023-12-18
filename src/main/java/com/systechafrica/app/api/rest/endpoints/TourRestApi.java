@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.math.BigDecimal;
 
 @Path("/tours")
 public class TourRestApi extends BaseRestApi {
@@ -36,5 +37,26 @@ public class TourRestApi extends BaseRestApi {
         tourBean.deleteEntity(Tour.class, userId);
         return respond(new RestResponseWrapper("Deleted Successfully"));
     }
+
+    @Path("/bookings-per-tour")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response bookingsPerTour(){
+        return respond(tourBean.tourBookingsCount());
+    }
+    @Path("/most-popular")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response mostPopularTours(){
+        return respond(tourBean.getToursWithHighestBookings());
+    }
+
+    @Path("/tours-price")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchToursWithinPriceRange(@QueryParam("minPrice")BigDecimal minPrice,@QueryParam("maxPrice")BigDecimal maxPrice ){
+        return respond(tourBean.getToursWithinPriceRange(minPrice, maxPrice));
+    }
+
 
 }

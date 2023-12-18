@@ -4,10 +4,7 @@ import com.systechafrica.app.bean.BookingBeanI;
 import com.systechafrica.app.model.entity.Booking;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -36,5 +33,14 @@ public class BookingRestApi extends  BaseRestApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response listUserBookingsById(@PathParam("userId") Long userId){
         return respond(bookingBean.getBookingByUserId(userId));
+    }
+
+
+    @Path("/booking/{bookingId}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteBooking(@PathParam("bookingId") Long bookingId){
+        bookingBean.deleteEntity(Booking.class, bookingId);
+        return respond(new RestResponseWrapper("Deleted Successfully"));
     }
 }

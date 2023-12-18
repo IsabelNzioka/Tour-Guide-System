@@ -1,54 +1,47 @@
 <script>
+$(document).ready(function(){
+  $("#searchForm").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".TourList tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 
-        function deleteEntity(id, deleteUrl) {
-                    var confirmation = confirm('Are you sure you want to delete this record?');
+function deleteEntity(tourId, deleteUrl) {
+    var url = 'http://localhost:8080/Tours-system/api/v1/tours/tour/' + tourId;
 
-                    if (confirmation) {
-                        fetch("./api/v1/tours/tour/" + id, {
-                            method: 'DELETE'
-                        })
-                        .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                console.log(data);
-                                window.location.reload();
-                            }).catch(error => console.error('Error:', error));
-                    }
-                }
+    var confirmation = confirm('Are you sure you want to delete this record?');
+
+    if (confirmation) {
+      fetch(url, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      })
+      .then(response => {
+          console.log('Response:', response);
+          if (response.status === 204) {
+              window.location.reload();
+          }
+          return response.json();
+      })
+      .then(data => {
+          console.log('Tour deleted successfully:', data);
+      })
+      .catch(error => {
+          console.error('Error deleting tour:', error);
+      });
+    }
+}
 
 
-     document.getElementById("searchForm").addEventListener("submit", function(event) {
-         event.preventDefault();
-
-         const formData = new FormData(this);
-         const searchItem = formData.get("searchItem");
-
-         const searchUrl = document.getElementById("searchUrl").value;
-
-         const url = `${searchUrl}?action=search&searchItem=${encodeURIComponent(searchItem)}`;
-
-           fetch(url)
-                 .then(response => response.text())
-                 .then(data => {
-                     console.log("Data fetched:", data);
-
-                     const parser = new DOMParser();
-                     const htmlDoc = parser.parseFromString(data, 'text/html');
-
-                     const tableContent = htmlDoc.querySelector('.TourList');
-
-                     const table = document.querySelector('.TourList');
-                     if (table && tableContent) {
-                         table.innerHTML = tableContent.innerHTML;
-                     }
-                 })
-                 .catch(error => console.error("Error fetching data:", error));
-     });
-
+     function editUrl(id, url) {
+        const fullUrl = './' + url + '&id=' + id;
+         console.log("Hello editing" + fullUrl);
+         window.location.href = fullUrl;
+     }
 
 
 

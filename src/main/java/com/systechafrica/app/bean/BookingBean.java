@@ -2,6 +2,7 @@ package com.systechafrica.app.bean;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.Tour;
@@ -54,5 +55,7 @@ public class BookingBean extends GenericBean<Booking> implements BookingBeanI {
                 .getResultList();
 
     }
+
+
 
 }

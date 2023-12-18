@@ -6,6 +6,7 @@ import com.systechafrica.app.bean.UserBean;
 import com.systechafrica.app.bean.UserBeanI;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.model.entity.UserIpAddress;
 import com.systechafrica.app.utility.ActiveUsers;
 import com.systechafrica.app.view.helper.HtmlComponent;
 import com.systechafrica.database.Database;
@@ -29,36 +30,29 @@ public class ManageUsers extends BaseAction{
 
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String searchItem = req.getParameter("searchItem");
-        List<User> users;
-
-//        if (searchItem != null && !searchItem.isEmpty()) {
-//            users = userBean.list(User.class, searchItem);
-//        } else {
-//            users = userBean.list(User.class, null);
-//        }
-
-
-        req.setAttribute("statContent", HtmlComponent.statCard());
+        Long allActiveUsers = userBean.countAllUserIpAddresses();
+        req.setAttribute("statContent", HtmlComponent.statCard(allActiveUsers));
         renderAdminPage(req, res, 2, User.class, userBean.list(new User()));
-//        renderAdminPage(req, res, 2, User.class, users);
     }
 
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws  IOException{
         String action = req.getParameter("action");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + action);
+
         if ("delete".equals(action)) {
             String idParam = req.getParameter("id");
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + idParam);
 
-            if (idParam != null && !idParam.isEmpty()) {
-                Long id = Long.parseLong(idParam);
-                userBean.deleteEntity(User.class, id);
+            userBean.deleteEntity(User.class, Long.parseLong(idParam));
 
-                res.setStatus(HttpServletResponse.SC_OK);
-
-
-
-            }
+            res.setStatus(HttpServletResponse.SC_NO_CONTENT);
+//            if (idParam != null && !idParam.isEmpty()) {
+//                Long id = Long.parseLong(idParam);
+//                userBean.deleteEntity(User.class, id);
+//                res.setStatus(HttpServletResponse.SC_OK);
+//
+//            }
         }
 
 

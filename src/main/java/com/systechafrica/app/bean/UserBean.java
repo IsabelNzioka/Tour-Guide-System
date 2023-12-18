@@ -1,17 +1,13 @@
 package com.systechafrica.app.bean;
 
 import com.systechafrica.app.model.entity.User;
-import com.systechafrica.database.MysqlDatabaseTodelete;
 import com.systechafrica.app.utility.HashText;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -61,19 +57,21 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
     }
 
 
-//    @Override
-//    public boolean isUserExist(String email) {
-//        String jpql = "SELECT COUNT(u) FROM User u WHERE u.email = :email";
-//        TypedQuery<Long> query = entityManager.createQuery(jpql, Long.class);
-//        query.setParameter("email", email);
-//
-//        Long count = query.getSingleResult();
-//        return count > 0;
-//    }
+    @Override
+    public long countAllUserIpAddresses() {
+        TypedQuery<Long> query = em.createNamedQuery("UserIpAddressCount", Long.class);
+        return query.getSingleResult();
+    }
 
     @Override
     public List<User> list(User user) {
        return em.createQuery("FROM User u").getResultList();
+    }
+
+    @Override
+    public User find(Long id){
+       return em.find(User.class, id);
+
     }
 }
 

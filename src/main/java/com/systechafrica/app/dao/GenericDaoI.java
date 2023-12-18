@@ -21,6 +21,8 @@ public interface GenericDaoI<T> extends Serializable{
     List<T> list(T entity);
     public void deleteEntity(Class<?> clazz, Long id);
     void delete(T entity);
+    public long getEntityCount(Class<?> entityClass);
+//    public List<T> select(Class<T> filter, String searchItem);
     void addOrUpdateEntity(T entity);
     T findById(Class<T> entity, Long id);
     T findByUserName(Class<T> entity, String userName);

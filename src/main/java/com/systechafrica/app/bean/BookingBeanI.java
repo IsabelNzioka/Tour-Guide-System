@@ -1,6 +1,8 @@
 package com.systechafrica.app.bean;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.Tour;
@@ -13,5 +15,5 @@ public interface BookingBeanI extends GenericBeanI<Booking>{
     public void addOrUpdateBooking(Booking booking, Tour tour,String userName);
     public List<Booking> getBookingByUserId(Long userId);
 
-    
+
 }

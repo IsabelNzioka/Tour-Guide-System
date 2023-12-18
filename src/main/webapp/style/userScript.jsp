@@ -5,15 +5,4 @@ function viewMore( tourId, url) {
 }
 </script>
 
-<%--
-<script>
-function viewMore(tourId) {
-    console.log("TourID>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + tourId);
-    const url = './tour-details?id=' + tourId;
-    const url = './tour-booking?id=' + tourId;
-    window.location.href = url;
-}
-</script>
-
---%>
 

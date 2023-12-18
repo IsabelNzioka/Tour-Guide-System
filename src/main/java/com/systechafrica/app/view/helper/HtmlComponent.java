@@ -32,17 +32,10 @@ public class HtmlComponent implements Serializable {
 
 //            TODO - append actions  --- Add for tours only
               toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.addUrl()).append("\">Add</a><br/>");
-//              toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.searchUrl()).append("\">Search ....</a><br/>");
 
-        toursList.append("<form id=\"searchForm\" class=\"searchForm\" action=\"\" method=\"GET\">");
-        toursList.append("<input type=\"hidden\" id=\"searchUrl\" value=\"" + htmlTable.searchUrl() + "\">");
-        toursList.append("<input type=\"text\"  class=\"searchInput\" name=\"searchItem\" placeholder=\"Search...\">");
-        toursList.append("<button type=\"submit\" class=\"searchButton\">Search</button>");
-        toursList.append("</form>");
-
-        toursList.append("</form>");
+           toursList.append("<input id=\"searchForm\" type=\"text\" placeholder=\"Search..\">") ;
             toursList.append("<a class=\"linkBtn\" href=\"").append("\">Filter by ....</a><br/>");
-            toursList.append("</div><table class='TourList'><tr>");
+            toursList.append("</div><table  class='TourList'><tr>");
 
         for (Field  field : fields) {
             if (!field.isAnnotationPresent(TableColHeader.class))
@@ -84,14 +77,14 @@ public class HtmlComponent implements Serializable {
                     }
 
                 }
-//                toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.addUrl()).append("\">Add</a><br/>");
+
                Field idField = findIdField(data.getClass());
                 if(idField != null) {
                     idField.setAccessible(true);
                     try {
                         Object idValue = idField.get(data);
-                        toursList.append("<td> <i class=\"fa-regular fa-pen-to-square\"></i>");
-//                        toursList.append("<a href=\"").append(htmlTable.deleteUrl()).append("?id=").append(idValue).append("\"><i class=\"fa-solid fa-trash-can\"></i></a>")
+
+                        toursList.append("<td><i class=\"fa-regular fa-pen-to-square\" onclick=\"editUrl(" + idValue + ",'" +htmlTable.editUrl()+ "')\"></i>");
                         toursList.append("<a href=\"").append(htmlTable.url()).append("\" onclick=\"deleteEntity(").append(idValue).append(", '").append(htmlTable.deleteUrl()).append("')\"><i class=\"fa-solid fa-trash-can\"></i></a>")
                            .append("</td>");
 
@@ -219,19 +212,19 @@ public class HtmlComponent implements Serializable {
         return toursList.toString();
     }
 
-    public static String statCard() {
+    public static String statCard(Long activeUsers) {
         StringBuilder statDetails = new StringBuilder("<div class='StatCard'>");
         statDetails.append("<div class='TotalStat'> <p>Total Customers </p> <h1>9,789</h1> </div>");
         statDetails.append("<div class='MembersStat'> <p>Members </p> <h1>1,789</h1> </div>");
-        statDetails.append("<div class='ActiveStat'> <p>Active Now</p> <h1>789</h1> </div>");
+        statDetails.append("<div class='ActiveStat'> <p>Active Now</p> <h1>"+activeUsers+"</h1> </div>");
                     statDetails.append("</div>");
         return statDetails.toString();
     }
 
-    public static String tourStatCard() {
+    public static String tourStatCard(Long totalTours) {
         StringBuilder statDetails = new StringBuilder("<div class='StatCard'>");
-        statDetails.append("<div class='TotalStat'> <p>Total Tours </p> <h1>1,789</h1> </div>");
-        statDetails.append("<div class='MembersStat'> <p>Upcoming Tours</p> <h1>989</h1> </div>");
+        statDetails.append("<div class='TotalStat'> <p>Total Tours </p> <h1>"+ totalTours +"</h1> </div>");
+        statDetails.append("<div class='MembersStat'> <p>Booked Tours</p> <h1>989</h1> </div>");
         statDetails.append("<div class='ActiveStat'> <p>Pending Tours</p> <h1>189</h1> </div>");
         statDetails.append("</div>");
         return statDetails.toString();
@@ -244,6 +237,12 @@ public class HtmlComponent implements Serializable {
     private static String ifBlank(String target, String alternative){
         return StringUtils.isBlank(target)? alternative : StringUtils.trimToEmpty(target);
     }
+
+//    ///////////////////////// USER ACCOUNT DETAILS
+public static String userSummary(Long totalTours) {
+  return null;
+}
+
 
     private static Field findIdField(Class<?> dataClass) {
         Field[] fields = dataClass.getDeclaredFields();

@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "bookings")
-@HtmlTable(addUrl = "./admin-bookings?action=add", searchUrl = "./admin-bookings?action=searchUrl", deleteUrl = "./admin-bookings?action=delete")
+@HtmlTable(addUrl = "./admin-bookings?action=add", editUrl = "./admin-bookings?action=update", deleteUrl = "./admin-bookings?action=delete")
 @HtmlForm(label = "Booking", url = "./tour-booking")
 public class Booking extends BaseEntity {
 
@@ -19,11 +19,12 @@ public class Booking extends BaseEntity {
     private String bookingNo;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "tour_id")
     private Tour tour;
 

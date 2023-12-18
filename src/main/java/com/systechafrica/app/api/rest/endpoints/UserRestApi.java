@@ -1,6 +1,7 @@
 package com.systechafrica.app.api.rest.endpoints;
 
 import com.systechafrica.app.bean.UserBeanI;
+import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.User;
 
 import javax.ejb.EJB;
@@ -35,5 +36,14 @@ public class UserRestApi extends BaseRestApi  {
     @Produces(MediaType.APPLICATION_JSON)
     public Response user(@PathParam("userId") Long userId){
         return respond(userBean.findById(User.class, userId));
+    }
+
+
+    @Path("/user/{userId}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteUser(@PathParam("bookingId") Long userId){
+        userBean.deleteEntity(User.class, userId);
+        return respond(new RestResponseWrapper("Deleted Successfully"));
     }
 }

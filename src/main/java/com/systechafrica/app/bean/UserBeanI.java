@@ -12,8 +12,11 @@ public interface UserBeanI  extends GenericBeanI<User> {
      User register(User user) throws SQLException;
      User changePassword(User user) throws SQLException;
      boolean isUserExists(String email);
+     public long countAllUserIpAddresses();
+
+     User find(Long id);
 
 
-    // List<User> userList();
+     // List<User> userList();
 
 }

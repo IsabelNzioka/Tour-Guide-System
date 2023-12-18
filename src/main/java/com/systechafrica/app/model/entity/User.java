@@ -7,8 +7,11 @@ import com.systechafrica.app.view.helper.HtmlTable;
 import com.systechafrica.app.view.helper.TableColHeader;
 import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -16,10 +19,13 @@ import javax.persistence.*;
         @NamedQuery(name = "findUserByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
         @NamedQuery(name = "findUserByUserId", query = "SELECT u FROM User u WHERE u.id = :id")
 })
-@HtmlTable(addUrl = "./admin-users?action=add",searchUrl = "./admin-users?action=searchUrl",deleteUrl = "./admin-users?action=delete", url="./admin-users")
+@DynamicInsert
+@DynamicUpdate
+@HtmlTable(addUrl = "./admin-users?action=add",editUrl = "./admin-update-user?action=update",deleteUrl = "./admin-users?action=delete", url="./admin-users")
 public class User extends  BaseEntity {
 
 
+    @NotNull
     @Column(name = "username")
     @TableColHeader(headerLabel = "Member Name")
     private String username;
@@ -49,7 +55,7 @@ public class User extends  BaseEntity {
 
     
     public  User() {
-        this.role = UserRole.CUSTOMER;
+        this.role = UserRole.USER;
         this.role = UserRole.ADMIN;
     }
 
@@ -104,5 +110,18 @@ public class User extends  BaseEntity {
     }
 
     public void setRole(String string) {
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

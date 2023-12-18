@@ -22,6 +22,7 @@ public class BookingAction extends BaseAction {
     BookingBeanI bookingBean;
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
         renderAdminPage(req, res, 3, Booking.class, bookingBean.list(new Booking()));
     }
 

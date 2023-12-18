@@ -59,8 +59,9 @@ public class AdminAction extends BaseAction {
             } else {
 //                TODO - Stat page
 //                new ViewTours().doGet(req, res);
-                req.setAttribute("statContent", HtmlComponent.tourStatCard());
-//                renderAdminPage(req, res, 1, Tour.class, tourBean.list(Tour.class, null));
+
+//                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + tourBean.getEntityCount(Tour.class));
+                req.setAttribute("statContent", HtmlComponent.tourStatCard(20L));
                 renderAdminPage(req, res, 1, Tour.class, tourBean.list(new Tour()));
             }
 

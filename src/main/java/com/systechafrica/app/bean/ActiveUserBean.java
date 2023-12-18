@@ -6,13 +6,15 @@ import com.systechafrica.database.MysqlDatabaseTodelete;
 import javax.ejb.EJB;
 import javax.enterprise.event.Observes;
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Singleton
 public class ActiveUserBean {
 
-    @EJB
-    MysqlDatabaseTodelete database;
+    @PersistenceContext
+    EntityManager em;
     public void userIpAddressLog(@Observes UserIpAddress userIpAddress){
-        database.saveOrUpdate(userIpAddress);
+        em.merge(userIpAddress);
     }
 }

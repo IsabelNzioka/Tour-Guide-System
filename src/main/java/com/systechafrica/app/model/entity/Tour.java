@@ -2,35 +2,34 @@ package com.systechafrica.app.model.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.systechafrica.app.view.helper.*;
 import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
+import org.hibernate.annotations.*;
 
-import javax.persistence.Column;
+import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tours")
-@HtmlTable(addUrl = "./admin-tours?action=add",searchUrl = "./admin-tours?action=searchUrl", deleteUrl = "./admin-tours?action=delete", url ="./admin-tours")
+@HtmlTable(addUrl = "./admin-tours?action=add",editUrl = "./admin-tours?action=update", deleteUrl = "./admin-tours?action=delete", url ="./admin-tours")
 @HtmlForm(label = "Tour", url = "./admin-tours")
+@DynamicInsert
+@DynamicUpdate
 public class Tour  extends BaseEntity {
-
-//TODO - REMOVE - TESTING
-@Column(name = "booking_no")
-@TableColHeader(headerLabel = "Booking Number")
-private String bookingNo;
-
-    public String getBookingNo() {
-        return bookingNo;
-    }
-
-    public void setBookingNo(String bookingNo) {
-        this.bookingNo = bookingNo;
-    }
 
     @Column(name = "name")
     @HtmlCard(name = "", className = "TourTitle")
@@ -46,16 +45,23 @@ private String bookingNo;
 
 
     @Column(name = "start_date")
-    @TableColHeader(headerLabel = "Start Date" , dateFormat = "dd-MM-yyyy")
+    @Temporal(TemporalType.DATE)
+    @TableColHeader(headerLabel = "start_date" , dateFormat = "yyyy-MM-dd")
     @HtmlFormField(label = "Start Date", type = HtmlFormFieldType.DATE)
     private Date startDate;
 
+    @Column(name = "created_at")
+    @CreationTimestamp
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonIgnore
+    private LocalDateTime createdAt;
+
     @Column(name = "end_date")
-    @TableColHeader(headerLabel = "End Date" , dateFormat = "dd-MM-yyyy")
+    @Temporal(TemporalType.DATE)
+    @TableColHeader(headerLabel = "End_Date" , dateFormat = "yyyy-MM-dd")
     @HtmlFormField(label = "End Date", type = HtmlFormFieldType.DATE)
     private Date endDate;
-
-
 
 
     @Transient
@@ -79,10 +85,14 @@ private String bookingNo;
     private int ratings;
 
 
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Booking> bookings;
 
-
-
-
+    @JsonIgnore
+    public List<Booking> getBookings() {
+        return bookings;
+    }
 
 //  Todo - database details
 //    start date - end date
@@ -177,7 +187,6 @@ private String bookingNo;
     @Override
     public String toString() {
         return "Tour{" +
-                "bookingNo='" + bookingNo + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", startDate=" + startDate +

@@ -25,18 +25,13 @@ public class ViewTours extends BaseAction  {
     TourBeanI tourBean;
 
 public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    String searchItem = req.getParameter("searchItem");
+//    String searchItem = req.getParameter("searchItem");
 
-    List<Tour> tours;
+    Long totalTours = tourBean.getEntityCount(Tour.class);
+    req.setAttribute("statContent", HtmlComponent.tourStatCard(totalTours));
 
-//    if (searchItem != null && !searchItem.isEmpty()) {
-//        tours = tourBean.list(Tour.class, searchItem);
-//    } else {
-//        tours = tourBean.list(Tour.class, null);
-//    }
+        renderAdminPage(req, res, 1, Tour.class, tourBean.list(new Tour()));
 
-    req.setAttribute("statContent", HtmlComponent.tourStatCard());
-    renderAdminPage(req, res, 1, Tour.class, tourBean.list(new Tour()));
 
 }
 
@@ -49,6 +44,8 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
 
     public void doDelete(HttpServletRequest req, HttpServletResponse res) throws  IOException{
         String action = req.getParameter("action");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + action);
+
         if ("delete".equals(action)) {
             String idParam = req.getParameter("id");
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + idParam);
@@ -58,11 +55,13 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
 
                 Long id = Long.parseLong(idParam);
                 tourBean.deleteEntity(Tour.class, id);
-                res.setStatus(HttpServletResponse.SC_OK);
+                res.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
             }
+
+            res.sendRedirect("./admin-tours");
+
         }
-
-
     }
 
 }

@@ -57,6 +57,12 @@ public abstract class GenericBean<T> implements GenericBeanI<T> {
         genericDao.deleteEntity(clazz, id);
     }
 
+
+
+    @Override
+    public long getEntityCount(Class<?> entityClass){
+        return genericDao.getEntityCount(entityClass);
+    }
     public GenericDao<T> getDao() {
         genericDao.setEm(em);
         return (GenericDao<T>) genericDao;
