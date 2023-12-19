@@ -31,7 +31,8 @@ public class ManageUsers extends BaseAction{
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         Long allActiveUsers = userBean.countAllUserIpAddresses();
-        req.setAttribute("statContent", HtmlComponent.statCard(allActiveUsers));
+        Long userCount = userBean.countUsers();
+        req.setAttribute("statContent", HtmlComponent.statCard(allActiveUsers, userCount));
         renderAdminPage(req, res, 2, User.class, userBean.list(new User()));
     }
 

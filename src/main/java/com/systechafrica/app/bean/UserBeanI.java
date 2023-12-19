@@ -18,7 +18,5 @@ public interface UserBeanI  extends GenericBeanI<User> {
      User find(Long id);
 
 
-
-
-
+     long countUsers();
 }

@@ -1,5 +1,22 @@
 <style>
 
+#UserNavbar {
+   display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    color: #363062;
+    <%-- background-color: #363062; --%>
+    <%-- background-color: #331D2C; --%>
+    align-items: center;
+    <%-- color: #F1EAFF;  --%>
+}
+
+#UserNavbar  .topnav a {
+                margin-right: 20px;
+                text-decoration: none;
+                color: #363062;
+                font-size: 1.1rem;
+              }
 
     .UserCardDetails {
       margin-top: 6rem;

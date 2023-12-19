@@ -1,4 +1,4 @@
-<%@ page isELIgnored="false" %>
+ <%@ page isELIgnored="false" %>
 
 <jsp:useBean id="navbar" class="com.systechafrica.app.view.navbar.Navbar" scope="request" />
 <jsp:useBean id="contentBean" class="com.systechafrica.app.useBean.ContentBean" scope="request" />
@@ -21,7 +21,7 @@
 
 </head>
 <body>
-    <div class="NavbarContent">
+    <div class="NavbarContent" id="UserNavbar">
         <span>Nata Travels</span>
 
         <jsp:setProperty name="navbar" property="activeLink" value='${requestScope.activeMenu}'/>

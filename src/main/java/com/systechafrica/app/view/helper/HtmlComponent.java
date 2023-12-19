@@ -210,11 +210,11 @@ public class HtmlComponent implements Serializable {
         return toursList.toString();
     }
 
-    public static String statCard(Long activeUsers) {
+    public static String statCard(Long activeUsers, Long userCount) {
         StringBuilder statDetails = new StringBuilder("<div class='StatCard'>");
-        statDetails.append("<div class='TotalStat'> <p>Total Customers </p> <h1>9,789</h1> </div>");
-        statDetails.append("<div class='MembersStat'> <p>Members </p> <h1>1,789</h1> </div>");
-        statDetails.append("<div class='ActiveStat'> <p>Active Now</p> <h1>"+activeUsers+"</h1> </div>");
+        statDetails.append("<div class='TotalStat'> <p>Total Customers </p> <h1>"+userCount+"</h1> </div>");
+        statDetails.append("<div class='MembersStat'> <p>Members </p> <h1>189</h1> </div>");
+        statDetails.append("<div class='ActiveStat'> <p>Active This Month</p> <h1>"+activeUsers+"</h1> </div>");
                     statDetails.append("</div>");
         return statDetails.toString();
     }
