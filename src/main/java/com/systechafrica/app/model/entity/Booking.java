@@ -21,13 +21,9 @@ import javax.persistence.*;
 @HtmlTable(addUrl = "./admin-bookings?action=add", editUrl = "./admin-bookings?action=update", deleteUrl = "./admin-bookings?action=delete")
 @HtmlForm(label = "Booking", url = "./tour-booking")
 public class Booking extends BaseEntity {
-
     @Column(name = "booking_no")
     @TableColHeader(headerLabel = "Booking Number")
     private String bookingNo;
-
-
-
 
     @ManyToOne()
     @JoinColumn(name = "user_id")

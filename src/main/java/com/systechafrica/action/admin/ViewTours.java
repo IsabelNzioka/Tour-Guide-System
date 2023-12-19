@@ -25,16 +25,13 @@ public class ViewTours extends BaseAction  {
     TourBeanI tourBean;
 
 public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//    String searchItem = req.getParameter("searchItem");
 
     Long totalTours = tourBean.getEntityCount(Tour.class);
-    req.setAttribute("statContent", HtmlComponent.tourStatCard(totalTours));
-
+    long toursWithBookingsCount = tourBean.getToursWithBookingsCount();
+       req.setAttribute("statContent", HtmlComponent.tourStatCard(totalTours, toursWithBookingsCount));
         renderAdminPage(req, res, 1, Tour.class, tourBean.list(new Tour()));
 
-
 }
-
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -42,26 +39,33 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
         res.sendRedirect("./admin-tours");
     }
 
-    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws  IOException{
+    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String action = req.getParameter("action");
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + action);
 
         if ("delete".equals(action)) {
             String idParam = req.getParameter("id");
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + idParam);
 
             if (idParam != null && !idParam.isEmpty()) {
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2" + idParam);
+                try {
+                    Long id = Long.parseLong(idParam);
+                    tourBean.deleteEntity(Tour.class, id);
 
-                Long id = Long.parseLong(idParam);
-                tourBean.deleteEntity(Tour.class, id);
-                res.setStatus(HttpServletResponse.SC_NO_CONTENT);
-
+                    res.setContentType("application/json");
+                    res.setCharacterEncoding("UTF-8");
+                    res.getWriter().write("{\"id\": " + id + "}");
+                    res.setStatus(HttpServletResponse.SC_OK);
+                    res.sendRedirect("./admin-tours");
+                } catch (Exception e) {
+                    // Log the exception stack trace
+                    e.printStackTrace();
+                    res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+                return;
             }
-
-            res.sendRedirect("./admin-tours");
-
         }
+
+        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return;
     }
 
 }

@@ -98,7 +98,7 @@
     .AddToursPage form {
         width: 100%;
     }
-
+        #searchForm,
     .AddToursPage input ,
     .AddToursPage select{
         box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
@@ -113,6 +113,11 @@
         outline:none;
     }
 
+    #searchForm {
+    width: 50%;
+    }
+
+    #searchForm input:focus,
     .AddToursPage input:focus {
         outline: none;
         background-color: #ccc;

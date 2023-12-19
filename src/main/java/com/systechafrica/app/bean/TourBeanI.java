@@ -16,4 +16,5 @@ public interface TourBeanI  extends GenericBeanI<Tour>{
     List<Tour> getToursWithinPriceRange(BigDecimal minPrice, BigDecimal maxPrice);
 
 
+    Long getToursWithBookingsCount();
 }

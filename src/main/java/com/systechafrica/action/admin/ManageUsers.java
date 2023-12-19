@@ -36,27 +36,34 @@ public class ManageUsers extends BaseAction{
     }
 
 
-    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws  IOException{
+
+    public void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String action = req.getParameter("action");
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + action);
 
         if ("delete".equals(action)) {
             String idParam = req.getParameter("id");
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + idParam);
 
-            userBean.deleteEntity(User.class, Long.parseLong(idParam));
+            if (idParam != null && !idParam.isEmpty()) {
+                try {
+                    Long id = Long.parseLong(idParam);
+                    userBean.deleteEntity(User.class, id);
 
-            res.setStatus(HttpServletResponse.SC_NO_CONTENT);
-//            if (idParam != null && !idParam.isEmpty()) {
-//                Long id = Long.parseLong(idParam);
-//                userBean.deleteEntity(User.class, id);
-//                res.setStatus(HttpServletResponse.SC_OK);
-//
-//            }
+                    res.setContentType("application/json");
+                    res.setCharacterEncoding("UTF-8");
+                    res.getWriter().write("{\"id\": " + id + "}");
+                    res.setStatus(HttpServletResponse.SC_OK);
+                    res.sendRedirect("./admin-users");
+                } catch (Exception e) {
+                    // Log the exception stack trace
+                    e.printStackTrace();
+                    res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                }
+                return;
+            }
         }
 
-
+        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return;
     }
-
 
 }

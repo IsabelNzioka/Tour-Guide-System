@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.systechafrica.app.model.entity.AuditLog;
 import com.systechafrica.app.model.entity.Booking;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.model.entity.User;
@@ -12,6 +13,7 @@ import com.systechafrica.app.utility.BookingNoGenerator;
 import com.systechafrica.app.utility.TransactionNoGenerator;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -21,11 +23,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 
+
 @Stateless
 public class BookingBean extends GenericBean<Booking> implements BookingBeanI {
 
     @PersistenceContext
     EntityManager em;
+
+    @Inject
+    private Event<Booking> bookingEvent;
 
     @Inject
     @BookingNo
@@ -47,6 +53,8 @@ public class BookingBean extends GenericBean<Booking> implements BookingBeanI {
 
         booking.setBookingNo(txnNoGenerator.generate());
         getDao().addOrUpdateEntity(booking);
+        bookingEvent.fire(booking);
+
     }
 
     public List<Booking> getBookingByUserId(Long userId) {

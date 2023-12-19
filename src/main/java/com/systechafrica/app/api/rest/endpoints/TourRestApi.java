@@ -3,6 +3,7 @@ package com.systechafrica.app.api.rest.endpoints;
 import com.systechafrica.app.bean.TourBeanI;
 import com.systechafrica.app.model.entity.Tour;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,6 +34,7 @@ public class TourRestApi extends BaseRestApi {
     @Path("/tour/{tourId}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response deleteTour(@PathParam("tourId") Long userId){
         tourBean.deleteEntity(Tour.class, userId);
         return respond(new RestResponseWrapper("Deleted Successfully"));
@@ -41,12 +43,14 @@ public class TourRestApi extends BaseRestApi {
     @Path("/bookings-per-tour")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response bookingsPerTour(){
         return respond(tourBean.tourBookingsCount());
     }
     @Path("/most-popular")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response mostPopularTours(){
         return respond(tourBean.getToursWithHighestBookings());
     }
@@ -54,6 +58,7 @@ public class TourRestApi extends BaseRestApi {
     @Path("/tours-price")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response searchToursWithinPriceRange(@QueryParam("minPrice")BigDecimal minPrice,@QueryParam("maxPrice")BigDecimal maxPrice ){
         return respond(tourBean.getToursWithinPriceRange(minPrice, maxPrice));
     }

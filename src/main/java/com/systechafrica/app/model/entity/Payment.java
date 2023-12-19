@@ -18,16 +18,6 @@ public class Payment extends  BaseEntity{
     private BigDecimal paymentAmount;
     private Date paymentDate;
     private String paymentStatus;
-//    private String paymentMethod;  Todo - use utils
-//    private String transactionReference;
-//    private String currency;
-//    private Booking booking;
-//    private User user;
-//    private Tour tour;
-//
-//    private String tourId;
-//    private String userId;
-
 
     public String getPaymentNo() {
         return paymentNo;

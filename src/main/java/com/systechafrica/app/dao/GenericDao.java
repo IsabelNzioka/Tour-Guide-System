@@ -1,13 +1,10 @@
 package com.systechafrica.app.dao;
 
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.*;
 
-import com.systechafrica.database.MysqlDatabaseTodelete;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 
@@ -97,11 +94,6 @@ public class GenericDao<T> implements GenericDaoI<T> {
 
     @Override
     public void deleteEntity(Class<?> entity, Long id) {
-//        System.out.println("DAO?????????????????????????????????????" + id);
-//        Object entityToRemove = em.find(entity, id);
-//        System.out.println("DAO?????????????????????????????????????" + entityToRemove);
-//        em.remove(entityToRemove);
-//        em.flush();
         Query query = em.createQuery("DELETE FROM " + entity.getSimpleName() + " e WHERE e.id = :id");
         query.setParameter("id", id);
 

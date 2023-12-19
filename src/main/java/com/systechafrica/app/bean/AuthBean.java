@@ -3,28 +3,26 @@ package com.systechafrica.app.bean;
 import com.systechafrica.app.model.entity.AuditLog;
 import com.systechafrica.app.model.entity.User;
 import com.systechafrica.app.model.entity.UserIpAddress;
-import com.systechafrica.database.MysqlDatabaseTodelete;
 import com.systechafrica.app.utility.HashText;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Stateless
 public class AuthBean extends GenericBean<User>  implements AuthBeanI, Serializable {
-//    @EJB
-//    MysqlDatabaseTodelete database;
+
     @PersistenceContext
     EntityManager em;
 
@@ -38,7 +36,8 @@ public class AuthBean extends GenericBean<User>  implements AuthBeanI, Serializa
     private Event<UserIpAddress> userIpAddressEvent;
 
 
-    public User authenticate(User loginUser) throws SQLException{
+    public User authenticate(User loginUser){
+        System.out.println("loginUser = " + loginUser);
 
         try {
             loginUser.setPassword(hashText.hash(loginUser.getPassword()));
@@ -60,43 +59,38 @@ public class AuthBean extends GenericBean<User>  implements AuthBeanI, Serializa
         AuditLog log = new AuditLog();
         log.setLogDetails(user.getUsername() + " logged in at " + DateFormat.getDateTimeInstance().format(new Date()) + ".");
 
-        UserIpAddress userIpAddress = new UserIpAddress();
-        userIpAddress.setUserIpAddress("12234");
+        try {
+            UserIpAddress userIpAddress = new UserIpAddress();
+            String ipAddress = getPublicIPAddress();
+            userIpAddress.setUserIpAddress(ipAddress);
+            em.persist(userIpAddress);
+            userIpAddressEvent.fire(userIpAddress);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         em.persist(log);
-        em.persist(userIpAddress);
-
         logger.fire(log);
-        userIpAddressEvent.fire(userIpAddress);
-
-
 
         return user;
 
+    }
 
-//        PreparedStatement sqlStmt = database.getConnection().prepareStatement("select id,username from users where username=? and password=? limit 1");
-//        sqlStmt.setString(1, loginUser.getUsername());
-//        sqlStmt.setString(2, loginUser.getPassword());
-//        ResultSet result = sqlStmt.executeQuery();
-//
-//        User user = null;
-//        while (result.next()){
-//            user = new User();
-//            user.setId(result.getLong("id"));
-//            user.setUsername(result.getString("username"));
-//
-//            AuditLog log = new AuditLog();
-//            log.setLogDetails( user.getUsername() + " logged in at " + DateFormat.getDateTimeInstance().format(new Date()) + "." );
-//
-//            UserIpAddress userIpAddress = new UserIpAddress();
-//            userIpAddress.setUserIpAddress("12234");
-//
-//            logger.fire(log);
-//            userIpAddressEvent.fire(userIpAddress);
-//
-//
-//        }
-//        return user;
+    public String getPublicIPAddress() throws IOException {
+        String url = "https://httpbin.org/ip";
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestMethod("GET");
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            return response.toString();
+        } finally {
+            connection.disconnect();
+        }
     }
 
 }

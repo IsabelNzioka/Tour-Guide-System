@@ -73,15 +73,11 @@ public class TourBean extends GenericBean<Tour> implements TourBeanI {
         return query.getResultList();
     }
 
-
-//    @Override
-//    public void addOrUpdateEntity(Tour tour) {
-//        if (tour.getStartDate() == null)
-//            tour.setStartDate(new Date());
-//
-//        tour.setBookingNo(txnNoGenerator.generate());
-//        getDao().addOrUpdateEntity(tour);
+    @Override
+    public Long getToursWithBookingsCount() {
+        Query query = em.createQuery("SELECT COUNT(DISTINCT t.id) FROM Tour t JOIN t.bookings b");
+        return (Long) query.getSingleResult();
+    }
 
 
-//    }
 }

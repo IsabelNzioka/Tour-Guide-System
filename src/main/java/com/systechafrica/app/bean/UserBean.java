@@ -1,6 +1,7 @@
 package com.systechafrica.app.bean;
 
 import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.model.entity.UserIpAddress;
 import com.systechafrica.app.utility.HashText;
 
 import javax.ejb.Stateless;
@@ -8,6 +9,11 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,7 +26,7 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
     private HashText hashText;
 
     @Override
-    public User register(User user) throws SQLException {
+    public User register(User user) {
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new RuntimeException("Password & confirm password do not match");
         }
@@ -73,6 +79,11 @@ public class UserBean extends GenericBean<User> implements UserBeanI {
        return em.find(User.class, id);
 
     }
+
+
+
+
+
 }
 
 

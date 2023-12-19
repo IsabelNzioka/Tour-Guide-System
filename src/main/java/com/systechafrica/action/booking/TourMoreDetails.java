@@ -40,14 +40,6 @@ public class TourMoreDetails extends BaseAction {
             req.getSession().setAttribute("tour", tour);
 
             req.setAttribute("content", HtmlComponent.form(Booking.class));
-//            RequestDispatcher dispatcher = req.getRequestDispatcher("./app/tourBooking.jsp");
-//            dispatcher.forward(req, res);
-
-//            Long tourId = Long.parseLong(req.getParameter("id"));
-
-//            req.setAttribute("content", HtmlComponent.form(Booking.class));
-
-
 
             req.setAttribute("tourDetails", tourBean.findById(Tour.class,  tourId) );
             RequestDispatcher dispatcher = req.getRequestDispatcher("./app/tourDetails.jsp");

@@ -25,16 +25,11 @@ public class MyAccountDetails extends BaseAction {
 
         User user = userBean.find((Long) httpSession.getAttribute("userId"));
         req.getSession().setAttribute("user", user);
-
-//        System.out.println("User>>>>>>>>>>>>>>>>>>>>>>>>>>>" +  user);
-
         renderUserAccountDetails(req, res, 3, "Hello >>>>>>>>>>>>>>>>>>>>>");
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         User usr = (User) req.getSession().getAttribute("user");
-        System.out.println("User>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + usr);
-
         usr.setUsername(req.getParameter("username"));
         usr.setPhonenumber(req.getParameter("phonenumber"));
         usr.setEmail(req.getParameter("email"));

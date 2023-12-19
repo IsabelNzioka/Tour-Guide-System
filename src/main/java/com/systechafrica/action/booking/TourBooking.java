@@ -51,9 +51,6 @@ public class TourBooking  extends BaseAction {
         Tour tour = (Tour) req.getSession().getAttribute("tour");
 
         Booking booking = serializeForm(Booking.class, req.getParameterMap());
-
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + booking.getNoOfPeople());
-
         bookingBean.addOrUpdateBooking(booking, tour, userName);
 
         res.sendRedirect("./my-bookings");

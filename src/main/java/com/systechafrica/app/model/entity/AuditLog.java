@@ -12,7 +12,6 @@ import javax.persistence.Table;
 public class AuditLog extends BaseEntity{
     @Column(name = "log_details", columnDefinition = "longtext")
     private String logDetails;
-
     public String getLogDetails() {
         return logDetails;
     }

@@ -71,9 +71,8 @@
     }
 
 .TourContentLinks {
-        padding: 2rem 1rem;
+        padding: 3rem 1rem;
        flex: 0 0 18%;
-        height: 100vh;
         display: flex;
         flex-direction: column;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -134,7 +133,7 @@
     }
   .card img {
     width: 100%;
-    height: 400px;
+    height: 300px;
     border-radius: 5px;
     order: -1;
   }

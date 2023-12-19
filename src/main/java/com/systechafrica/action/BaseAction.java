@@ -52,8 +52,6 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
             }
         });
             requestMap.forEach((k, v) -> System.out.println("Key: " + k + ", Value: " + v));
-            // requestMap.forEach((k,v)-> System.out.println(k + " " + v[0]));
-
           beanUtilsBean.populate(clazzInstance, requestMap);
     } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException e ) {
         throw new RuntimeException(e);
@@ -94,16 +92,6 @@ public <T> T serializeForm(Class<?> clazz, Map<String, ?> requestMap) {
         dispatcher.forward(req, res);
 
      }
-
-//    public void renderUserAccount(HttpServletRequest req, HttpServletResponse res, int activeMenu, Class<?> entity, List<?> entityList) throws ServletException, IOException {
-//        req.setAttribute("activeMenu", activeMenu);
-//        req.setAttribute("content", content);
-//
-//        RequestDispatcher dispatcher = req.getRequestDispatcher("./app/userAccount.jsp");
-//        dispatcher.forward(req, res);
-//
-//    }
-
 
        public void renderUserAccountPage(HttpServletRequest req, HttpServletResponse res, int activeMenu, String content) throws ServletException, IOException {
         req.setAttribute("activeMenu", activeMenu);

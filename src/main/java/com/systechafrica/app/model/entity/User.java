@@ -1,6 +1,7 @@
 package com.systechafrica.app.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.systechafrica.app.view.helper.HtmlTable;
@@ -9,6 +10,8 @@ import com.systechafrica.database.helper.DbTable;
 import com.systechafrica.database.helper.DbTableColumn;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -42,7 +45,6 @@ public class User extends  BaseEntity {
     private String email;
 
     @Column(name = "password")
-    @JsonIgnore
     private String password;
 
     @Transient
@@ -53,11 +55,20 @@ public class User extends  BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Booking> bookings;
+
+    @JsonIgnore
+    public List<Booking> getBookings() {
+        return bookings;
+    }
     
     public  User() {
         this.role = UserRole.USER;
-        this.role = UserRole.ADMIN;
+//        this.role = UserRole.ADMIN;
     }
+
 
 
 
@@ -113,15 +124,5 @@ public class User extends  BaseEntity {
     }
 
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                ", role=" + role +
-                '}';
-    }
+
 }

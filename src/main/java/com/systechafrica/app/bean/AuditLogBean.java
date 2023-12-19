@@ -1,9 +1,7 @@
 package com.systechafrica.app.bean;
 
 import com.systechafrica.app.model.entity.AuditLog;
-import com.systechafrica.database.MysqlDatabaseTodelete;
 
-import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.enterprise.event.Observes;
 import javax.persistence.EntityManager;

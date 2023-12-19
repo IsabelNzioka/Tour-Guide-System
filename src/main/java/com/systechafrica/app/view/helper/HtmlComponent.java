@@ -29,12 +29,10 @@ public class HtmlComponent implements Serializable {
         StringBuilder toursList = new StringBuilder();
              toursList.append("<div class='TableData'>" );
              toursList.append("<div class='TableActions'>");
-
-//            TODO - append actions  --- Add for tours only
               toursList.append("<a class=\"linkBtn\" href=\"").append(htmlTable.addUrl()).append("\">Add</a><br/>");
 
            toursList.append("<input id=\"searchForm\" type=\"text\" placeholder=\"Search..\">") ;
-            toursList.append("<a class=\"linkBtn\" href=\"").append("\">Filter by ....</a><br/>");
+//            toursList.append("<a class=\"linkBtn\" href=\"").append("\">Filter by ....</a><br/>");
             toursList.append("</div><table  class='TourList'><tr>");
 
         for (Field  field : fields) {
@@ -47,7 +45,7 @@ public class HtmlComponent implements Serializable {
 
         if(dataList != null && !dataList.isEmpty()) {
             for(Object data : dataList) {
-                toursList.append("<tr>");
+              toursList.append("<tr>");
                 for(Field field : fields) {
                     if (!field.isAnnotationPresent(TableColHeader.class))
                         continue;
@@ -85,7 +83,12 @@ public class HtmlComponent implements Serializable {
                         Object idValue = idField.get(data);
 
                         toursList.append("<td><i class=\"fa-regular fa-pen-to-square\" onclick=\"editUrl(" + idValue + ",'" +htmlTable.editUrl()+ "')\"></i>");
-                        toursList.append("<a href=\"").append(htmlTable.url()).append("\" onclick=\"deleteEntity(").append(idValue).append(", '").append(htmlTable.deleteUrl()).append("')\"><i class=\"fa-solid fa-trash-can\"></i></a>")
+                        toursList.append("<i class=\"fa-solid fa-trash-can delete-icon\" onclick=\"deleteEntity(")
+                                .append(idValue)
+                                .append(", '")
+                                .append(htmlTable.deleteUrl())
+                                .append("')\"></i>")
+
                            .append("</td>");
 
                     }catch (IllegalAccessException e) {
@@ -183,10 +186,6 @@ public class HtmlComponent implements Serializable {
                     throw  new RuntimeException(e);
                 }
 
-//                onclick='viewMoreClicked(\"" + tourId + "\")'
-//                toursList.append("<div class='cardButtons'><button class='BookNowButton'>BookNow</button><button class='ViewMoreButton' onclick='viewMoreClicked(\"" + field.getName() + "\")'>" +
-//                        "<a href='./tour-details'>View More</a>" +
-//                        "</button></div>");
             }
 
             Field idField = findIdField(model.getClass());
@@ -195,7 +194,6 @@ public class HtmlComponent implements Serializable {
                 try {
                     Object idValue = idField.get(model);
                     toursList.append("<div class='cardButtons'>" +
-                            "<button class='BookNowButton'>BookNow</button>" +
                             "<button class='ViewMoreButton' onclick='viewMore(\"" + idValue + "\", \"tour-details\")'>" +
                             "ViewMore" +
                             "</button></div>");
@@ -221,10 +219,10 @@ public class HtmlComponent implements Serializable {
         return statDetails.toString();
     }
 
-    public static String tourStatCard(Long totalTours) {
+    public static String tourStatCard(Long totalTours, Long bookedTours) {
         StringBuilder statDetails = new StringBuilder("<div class='StatCard'>");
         statDetails.append("<div class='TotalStat'> <p>Total Tours </p> <h1>"+ totalTours +"</h1> </div>");
-        statDetails.append("<div class='MembersStat'> <p>Booked Tours</p> <h1>989</h1> </div>");
+        statDetails.append("<div class='MembersStat'> <p>Booked Tours</p> <h1>"+ bookedTours+"</h1> </div>");
         statDetails.append("<div class='ActiveStat'> <p>Pending Tours</p> <h1>189</h1> </div>");
         statDetails.append("</div>");
         return statDetails.toString();

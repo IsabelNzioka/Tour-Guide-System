@@ -4,6 +4,7 @@ import com.systechafrica.action.BaseAction;
 import com.systechafrica.app.bean.UserBeanI;
 import com.systechafrica.app.model.entity.Tour;
 import com.systechafrica.app.model.entity.User;
+import com.systechafrica.app.model.entity.UserRole;
 import com.systechafrica.app.view.helper.HtmlComponent;
 
 import javax.ejb.EJB;
@@ -34,8 +35,12 @@ public class updateUser extends BaseAction {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         User usr = (User) req.getSession().getAttribute("user");
 
+        String roleString = req.getParameter("role");
+        UserRole role = UserRole.valueOf(roleString);
+
+        usr.setRole(role);
+
         usr.setUsername(req.getParameter("username"));
-        usr.setRole(req.getParameter("role"));
         usr.setEmail(req.getParameter("email"));
 
         userBean.addOrUpdateEntity(usr);

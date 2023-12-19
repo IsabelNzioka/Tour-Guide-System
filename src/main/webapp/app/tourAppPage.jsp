@@ -36,6 +36,9 @@
            <a href="http://localhost:8080/Tours-system/tours?filter=popular">Popular</a>
            <a href="http://localhost:8080/Tours-system/tours?filter=latest">Latest</a>
 
+        <%--    <a href="http://localhost:8080/Tours-system/api/v1/tours/most-popular">Popular</a>
+              <a href="http://localhost:8080/Tours-system/api/v1/tours/latest">Latest</a>   --%>
+
            <div class="priceContainer">
                <label for="priceRange">Price Range:</label>
                <input type="text" id="priceRange" name="priceRange"/>

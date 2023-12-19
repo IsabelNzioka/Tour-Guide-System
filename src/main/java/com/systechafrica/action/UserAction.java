@@ -21,7 +21,6 @@ import java.util.Date;
 
 @WebServlet("/account-register")
 public class UserAction extends BaseAction {
-//    UserBeanI userBean = new UserBean();
     @EJB
      UserBeanI userBean;
 
@@ -35,10 +34,7 @@ public class UserAction extends BaseAction {
     }
 
 
-//    check if user exists
 public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-//     UserBeanI userBean = new UserBean();
 
         try {
              User registerUser  = serializeForm(User.class, req.getParameterMap());

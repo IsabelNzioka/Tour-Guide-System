@@ -69,7 +69,7 @@ public class Tour  extends BaseEntity {
     @HtmlCard(name = "Days: ", className = "TourDetails")
     private int durationindays;
 
-    @Transient
+    @Column(name = "tour_category")
     @TableColHeader(headerLabel = "Tour Category")
     @HtmlFormField(label = "Tour Category")
     private TourCategory tourCategories;
@@ -87,7 +87,7 @@ public class Tour  extends BaseEntity {
     private int ratings;
 
 
-    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tour",fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Booking> bookings;
 
@@ -97,31 +97,7 @@ public class Tour  extends BaseEntity {
     }
 
 
-    @ElementCollection
-    @CollectionTable(name = "tour_images", joinColumns = @JoinColumn(name = "tour_id"))
-    @Column(name = "image_url", length = 100000)
-    private List<String> imageUrls;
 
-    @Transient
-    @HtmlFormField(label = "Image URLs", type = HtmlFormFieldType.TEXT)
-    private String imageUrlsAsString;
-
-    // Convert the comma-separated string to a list
-    @PostLoad
-    private void convertImageUrls() {
-        if (imageUrlsAsString != null) {
-            imageUrls = List.of(imageUrlsAsString.split(","));
-        }
-    }
-
-    // Convert the list to a comma-separated string
-    @PrePersist
-    @PreUpdate
-    private void convertImageUrlsAsString() {
-        if (imageUrls != null) {
-            imageUrlsAsString = String.join(",", imageUrls);
-        }
-    }
 
     public  Tour() {
 
@@ -202,21 +178,6 @@ public class Tour  extends BaseEntity {
     }
 
 
-    public List<String> getImageUrls() {
-        return imageUrls;
-    }
-
-    public void setImageUrls(List<String> imageUrls) {
-        this.imageUrls = imageUrls;
-    }
-
-    public String getImageUrlsAsString() {
-        return imageUrlsAsString;
-    }
-
-    public void setImageUrlsAsString(String imageUrlsAsString) {
-        this.imageUrlsAsString = imageUrlsAsString;
-    }
 
     @Override
     public String toString() {

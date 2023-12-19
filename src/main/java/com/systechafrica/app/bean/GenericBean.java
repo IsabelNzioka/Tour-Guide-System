@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.systechafrica.app.dao.GenericDao;
 import com.systechafrica.app.dao.GenericDaoI;
-import com.systechafrica.database.MysqlDatabaseTodelete;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

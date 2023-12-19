@@ -8,5 +8,5 @@ import javax.ejb.Remote;
 
 @Remote
 public interface AuthBeanI {
-    User authenticate(User loginUser) throws SQLException;
+    User authenticate(User loginUser);
 }
