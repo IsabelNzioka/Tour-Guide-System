@@ -45,6 +45,7 @@ public class Booking extends BaseEntity {
     @Column(name = "noOfPeople")
     @TableColHeader(headerLabel = "NumberOfPeople")
     @HtmlFormField(label = "NumberOfPeople", id = "numberOfPeople")
+    @HtmlCard(name = "noOfPeople", className = "No of people")
     private Integer noOfPeople;
 
     @HtmlCard(name = "", className = "TourTitle")
@@ -57,6 +58,7 @@ public class Booking extends BaseEntity {
     private String imageurl;
 
     @Column(name = "totalPrice")
+    @HtmlCard(name = "Total Price", className = "TourPrice")
     private BigDecimal totalPrice;
 
 

@@ -37,7 +37,7 @@
                 <button type="submit" class="ButtonSubmit">Login</button>
             </div>
             <div class="container">
-                <span class="psw">Have you forgotten your <a href="#">password?</a></span>
+
                 <p>Don't have an Account yet ?</p>
                 <a href="./account-register">Create account</a>
             </div>
