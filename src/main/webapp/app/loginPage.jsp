@@ -30,15 +30,18 @@
 
         <form action="./account-login" method="post">
             <div class="container">
+
+
+
                 <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username" required>
+                <input type="text" placeholder="Enter Username" name="username"  id="username" required>
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
+                <input type="password" placeholder="Enter Password" name="password"  id="password" required>
                 <button type="submit" class="ButtonSubmit">Login</button>
             </div>
             <div class="container">
 
-                <p>Don't have an Account yet ?</p>
+                <p id="message">Don't have an Account yet ?</p>
                 <a href="./account-register">Create account</a>
             </div>
         </form>
