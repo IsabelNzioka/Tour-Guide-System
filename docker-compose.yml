@@ -1,12 +1,5 @@
 version: '3.3'
 services:
-  app:
-    image: isabelnzioka/javaeeimage:v16
-    ports:
-      - "8080:8080"
-    restart: always
-    depends_on:
-      - db
 
   db:
     image: mysql:latest
@@ -16,3 +9,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Nzioka15*
       MYSQL_DATABASE: tours
+  
+  app:
+    image: isabelnzioka/toursystem:latest
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - db

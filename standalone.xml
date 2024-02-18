@@ -135,7 +135,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/tours" pool-name="tours" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://db:3306/tours</connection-url>
+                    <!-- <connection-url>jdbc:mysql://db:3306/tours</connection-url>
                     <driver>mysql</driver>
                     <pool>
                         <min-pool-size>5</min-pool-size>
@@ -145,6 +145,17 @@
                     <security>
                         <user-name>root</user-name>
                         <password>Nzioka15*</password>
+                    </security> -->
+                     <connection-url>${env.MYSQL_HOST_URL}</connection-url>
+                    <driver>mysql</driver>
+                    <pool>
+                        <min-pool-size>5</min-pool-size>
+                        <max-pool-size>20</max-pool-size>
+                        <prefill>true</prefill>
+                    </pool>
+                    <security>
+                        <user-name>${env.MYSQL_USER}</user-name>
+                        <password>${env.MYSQL_USER_PASSWORD}</password>
                     </security>
                 </datasource>
                 <drivers>
