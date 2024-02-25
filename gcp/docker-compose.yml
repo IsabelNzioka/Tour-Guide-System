@@ -10,7 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: Nzioka15*
       MYSQL_DATABASE: tours
 
-  
+
   app:
     image: isabelnzioka/toursystem:latest
     ports:
@@ -20,5 +20,5 @@ services:
       - db
     environment:
       MYSQL_HOST_URL: jdbc:mysql://db:3306/tours
-      MYSQL_USER: tours
+      MYSQL_USER: root
       MYSQL_USER_PASSWORD: Nzioka15*

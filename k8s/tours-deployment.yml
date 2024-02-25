@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tours
+  labels:
+    app: tours
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tours
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tours
+    spec:
+      containers:
+        - name: tours
+          image: isabelnzioka/toursystem:latest
+          env:
+            - name: MYSQL_HOST_URL
+              value: jdbc:mysql://mysql:3306/tours       
+            - name: MYSQL_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tours-secret
+                  key: password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: tours-secret
+                  key: username
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              memory: "512Mi"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+      restartPolicy: Always
+

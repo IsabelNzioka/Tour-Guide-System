@@ -22,7 +22,7 @@ public class SeleniumTest {
 
     @Test
     public void testTourBooking() {
-        driver.get("http://localhost:8080/Tours-system/account-login");
+        driver.get("http://34.125.27.159:8080/Tours-system/account-login");
         WebElement usernameInput = driver.findElement(By.id("username"));
 
         // Find password input by ID
@@ -52,7 +52,7 @@ public class SeleniumTest {
 
         // Wait for the redirect and get the current URL
         String currentUrl = driver.getCurrentUrl();
-        String expectedUrl = "http://localhost:8080/Tours-system/my-bookings";
+        String expectedUrl = "http://34.125.27.159:8080/Tours-system/my-bookings";
 
         // Check if the redirect is successful using assertEquals
         Assert.assertEquals("Error: Redirect failed.", expectedUrl, currentUrl);
